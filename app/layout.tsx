@@ -17,9 +17,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        {/* Preload critical preloader asset for blazing fast LCP */}
+        <link rel="preload" as="image" href="/assets/character-poster-v2.png" />
       </head>
       <body className="bg-[#18181B] text-[#F9FAFB] antialiased selection:bg-[#7C3AED]/30 selection:text-[#F9FAFB] min-h-screen">
         {children}
