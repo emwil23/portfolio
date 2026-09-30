@@ -13,6 +13,9 @@ export default function Home() {
   // Enforce scroll position at top on initial load and disable automatic browser scroll restoration
   useEffect(() => {
     if (typeof window !== "undefined") {
+      if (window.location.search.includes("skip=true")) {
+        setIsReady(true);
+      }
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
       }

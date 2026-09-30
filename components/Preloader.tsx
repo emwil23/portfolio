@@ -49,13 +49,21 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
     return () => clearInterval(timer);
   }, []);
 
-  // Sync status messages (HOLD AT 100% FOR INSPECTION)
+  // Sync status messages
   useEffect(() => {
     const nextIdx = Math.min(
       Math.floor((progress / 100) * STATUS_MESSAGES.length),
       STATUS_MESSAGES.length - 1
     );
     setStatusIndex(nextIdx);
+
+    // Auto-proceed smoothly 1.2s after reaching 100% if user hasn't clicked
+    if (progress === 100) {
+      const autoTimer = setTimeout(() => {
+        handleProceed();
+      }, 1200);
+      return () => clearTimeout(autoTimer);
+    }
   }, [progress]);
 
   // Space / Enter keyboard trigger

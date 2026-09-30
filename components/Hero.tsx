@@ -117,7 +117,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
         transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
       >
         <div className="relative w-full max-w-[900px] h-[85vh] flex items-center justify-center -mt-6">
           {/* Studio Floor Shadow */}
@@ -138,23 +138,28 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
       </motion.div>
 
       {/* Foreground Content HUD */}
-      <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-12 z-20 pointer-events-none">
+      <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-12 pointer-events-none">
         <div className="flex flex-col md:flex-row items-end justify-between w-full gap-8">
           
           {/* Bottom Left: Huge Headline */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 max-w-3xl pointer-events-auto"
-          >
-            <h1 className="font-display font-extrabold text-[13vw] sm:text-[10vw] xl:text-[140px] leading-[0.8] tracking-[-0.03em] uppercase text-[var(--text-primary)] transition-colors duration-300">
+          <div className="flex-1 max-w-3xl pointer-events-auto">
+            <motion.h1 
+              initial={{ opacity: 0 }}
+              animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display font-extrabold text-[13vw] sm:text-[10vw] xl:text-[140px] leading-[0.8] tracking-[-0.03em] uppercase text-white mix-blend-difference select-none pointer-events-none"
+            >
               EMMANUEL <br/> WILSON
-            </h1>
-            <div className="mt-6 md:mt-8 font-mono text-xs sm:text-sm uppercase tracking-widest text-[var(--text-muted)] border-l-2 border-[var(--accent)] pl-4 max-w-md leading-relaxed transition-colors duration-300">
+            </motion.h1>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 md:mt-8 font-mono text-xs sm:text-sm uppercase tracking-widest text-[var(--text-muted)] border-l-2 border-[var(--accent)] pl-4 max-w-md leading-relaxed transition-colors duration-300"
+            >
               AI-First Full-Stack & Frontend Systems Engineer.
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Bottom Right: Telemetry HUD */}
           <motion.div 
