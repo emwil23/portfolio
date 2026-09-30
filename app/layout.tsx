@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Emmanuel Wilson | Full-Stack & Systems Engineer (SDE-2)",
+  title: "Emmanuel Wilson | Full-Stack & Systems Engineer",
   description: "Portfolio of Emmanuel Wilson — High-Scale Frontend Systems, Matrix Virtualization & Distributed Architectures.",
 };
 
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -22,8 +22,30 @@ export default function RootLayout({
         />
         {/* Preload critical preloader asset for blazing fast LCP */}
         <link rel="preload" as="image" href="/assets/character-poster-v2.png" />
+        
+        {/* Anti-FOUC Theme Initialization */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const stored = localStorage.getItem('portfolio-theme');
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const isDark = stored !== null ? stored === 'dark' : prefersDark;
+                  if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
-      <body className="bg-[#18181B] text-[#F9FAFB] antialiased selection:bg-[#7C3AED]/30 selection:text-[#F9FAFB] min-h-screen">
+      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased selection:bg-[var(--accent)]/30 selection:text-[var(--text-primary)] min-h-screen transition-colors duration-300">
         {children}
       </body>
     </html>

@@ -18,7 +18,7 @@ const STATUS_MESSAGES = [
   "PORTFOLIO READY // WELCOME"
 ];
 
-export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dark" }) => {
+export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "light" }) => {
   const [progress, setProgress] = useState(0);
   const [statusIndex, setStatusIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
@@ -62,8 +62,13 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dar
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === "Space" || e.code === "Enter") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
         setIsFinished(true);
-        setTimeout(onComplete, 500);
+        setTimeout(() => {
+          window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+          onComplete();
+        }, 500);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -71,8 +76,12 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dar
   }, [onComplete]);
 
   const handleProceed = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     setIsFinished(true);
-    setTimeout(onComplete, 500);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      onComplete();
+    }, 500);
   };
 
   const handleRestartProgress = () => {
@@ -93,7 +102,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dar
               ease: [0.76, 0, 0.24, 1],
             },
           }}
-          className="fixed inset-0 z-50 w-full h-full bg-[var(--background)] select-none overflow-hidden"
+          className={`fixed inset-0 z-50 w-full h-full ${variant === "light" ? "bg-white" : "bg-[var(--background)]"} select-none overflow-hidden`}
         >
           {/* 1. Fullscreen Studio Cyclorama Infinity Cove Environment */}
           <StudioBackground
@@ -109,7 +118,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dar
             <div className="relative w-full h-full flex flex-col items-center justify-center">
               
               {/* Backlight Softbox Glow */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[var(--accent)]/15 blur-[100px] rounded-full pointer-events-none" />
+              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] ${variant === "light" ? "bg-slate-200/50" : "bg-[var(--accent)]/15"} blur-[100px] rounded-full pointer-events-none`} />
 
               {/* Character Video - Sized down & placed far back in the center */}
               <motion.div
@@ -119,9 +128,9 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dar
                 className="relative z-10 w-[85%] sm:w-[68%] md:w-[54%] lg:w-[46%] max-w-2xl aspect-video flex items-center justify-center"
               >
                 {/* Contact ground shadow for desk scene */}
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[85%] h-12 bg-black/15 blur-2xl rounded-full pointer-events-none" />
+                <div className={`absolute -bottom-6 left-1/2 -translate-x-1/2 w-[85%] h-12 ${variant === "light" ? "bg-slate-900/10" : "bg-black/15"} blur-2xl rounded-full pointer-events-none`} />
 
-                {/* Transparent WebM Video generated from green screen */}
+                {/* Character Video: Clean Transparent WebM/MP4 with White-blended fallback */}
                 <div className="relative w-full h-full flex items-center justify-center">
                   <video
                     ref={videoRef}
@@ -135,6 +144,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dar
                   >
                     <source src="/assets/character-working-transparent-v2.webm" type="video/webm" />
                     <source src="/assets/character-working-transparent-v2.mp4" type='video/mp4; codecs="hvc1"' />
+                    <source src="/assets/character-working-white.mp4" type="video/mp4" />
                   </video>
                 </div>
               </motion.div>
@@ -182,7 +192,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dar
                   <path
                     d="M 0 10 Q 8 3, 16 10 T 32 10 T 48 10 T 64 10 T 80 10 T 96 10 T 112 10 T 128 10 T 144 10 T 160 10 T 176 10 T 192 10 T 208 10 T 224 10 T 240 10 T 256 10 T 272 10 T 288 10 T 304 10 T 320 10 T 336 10 T 352 10 T 368 10 T 384 10 T 400 10"
                     fill="none"
-                    stroke="rgba(var(--accent-rgb), 0.2)"
+                    stroke={variant === "light" ? "rgba(100, 116, 139, 0.25)" : "rgba(var(--accent-rgb), 0.2)"}
                     strokeWidth="2"
                     strokeLinecap="round"
                   />
@@ -229,6 +239,12 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "dar
                     style={{ left: `${progress}%` }}
                   />
                 )}
+              </div>
+
+              {/* Status & Skip hint */}
+              <div className={`mt-2.5 font-mono text-[10px] tracking-wider uppercase ${variant === "light" ? "text-slate-500" : "text-[var(--text-muted)]"} flex items-center gap-1.5 opacity-75 group-hover:opacity-100 transition-opacity`}>
+                <span>{progress === 100 ? "CLICK OR PRESS SPACE TO ENTER" : STATUS_MESSAGES[statusIndex]}</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
               </div>
             </motion.div>
           </StudioBackground>

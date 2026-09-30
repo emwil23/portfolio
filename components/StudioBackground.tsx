@@ -41,10 +41,10 @@ export const StudioBackground: React.FC<StudioBackgroundProps> = ({
     <div
       className={`relative w-full overflow-hidden transition-colors duration-500 ${
         isLight
-          ? "bg-[#E6E6E9] text-[#18181B]"
+          ? "bg-[#FFFFFF] text-[#18181B]"
           : isDark
           ? "bg-[#18181B] text-[#F9FAFB]"
-          : "bg-[#E6E6E9] dark:bg-[#18181B] text-[#18181B] dark:text-[#F9FAFB]"
+          : "bg-[#FFFFFF] dark:bg-[#18181B] text-[#18181B] dark:text-[#F9FAFB]"
       } ${className}`}
     >
       {/* 1. Cyclorama Base Curve: Simulates the vertical infinity cove wall-to-floor transition */}
@@ -52,7 +52,7 @@ export const StudioBackground: React.FC<StudioBackgroundProps> = ({
         className="absolute inset-0 pointer-events-none"
         style={{
           background: isLight
-            ? "linear-gradient(180deg, #EBECEE 0%, #E2E3E6 65%, #DADBE0 100%)"
+            ? "linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 60%, #F1F3F6 100%)"
             : isDark
             ? "linear-gradient(180deg, #1C1C20 0%, #18181B 65%, #121215 100%)"
             : undefined,
@@ -64,7 +64,7 @@ export const StudioBackground: React.FC<StudioBackgroundProps> = ({
         className="absolute inset-0 pointer-events-none"
         style={{
           background: isLight
-            ? `radial-gradient(ellipse 70% 60% at ${positionCoords}, #F4F4F6 0%, #E3E4E8 55%, transparent 100%)`
+            ? `radial-gradient(ellipse 70% 60% at ${positionCoords}, #FFFFFF 0%, #F5F7FA 55%, transparent 100%)`
             : isDark
             ? `radial-gradient(ellipse 70% 60% at ${positionCoords}, rgba(39, 39, 42, 0.8) 0%, rgba(24, 24, 27, 0.4) 60%, transparent 100%)`
             : undefined,
@@ -76,7 +76,7 @@ export const StudioBackground: React.FC<StudioBackgroundProps> = ({
         className="absolute bottom-0 inset-x-0 h-1/2 pointer-events-none"
         style={{
           background: isLight
-            ? "linear-gradient(0deg, rgba(215, 216, 222, 0.7) 0%, rgba(230, 231, 236, 0.3) 50%, transparent 100%)"
+            ? "linear-gradient(0deg, rgba(235, 238, 242, 0.5) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%)"
             : isDark
             ? "linear-gradient(0deg, rgba(14, 14, 16, 0.8) 0%, rgba(24, 24, 27, 0.3) 50%, transparent 100%)"
             : undefined,
@@ -89,7 +89,7 @@ export const StudioBackground: React.FC<StudioBackgroundProps> = ({
           className="absolute bottom-[8%] left-1/2 -translate-x-1/2 w-[75%] max-w-2xl h-14 pointer-events-none blur-2xl rounded-full"
           style={{
             background: isLight
-              ? "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(30, 30, 36, 0.14) 0%, rgba(50, 50, 60, 0.04) 60%, transparent 100%)"
+              ? "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(15, 23, 42, 0.12) 0%, rgba(15, 23, 42, 0.03) 60%, transparent 100%)"
               : isDark
               ? "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(0, 0, 0, 0.45) 0%, rgba(124, 58, 237, 0.08) 50%, transparent 100%)"
               : undefined,
@@ -102,8 +102,9 @@ export const StudioBackground: React.FC<StudioBackgroundProps> = ({
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background:
-              "radial-gradient(ellipse 85% 75% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.08) 100%)",
+            background: isLight
+              ? "radial-gradient(ellipse 85% 75% at 50% 50%, transparent 65%, rgba(0, 0, 0, 0.03) 100%)"
+              : "radial-gradient(ellipse 85% 75% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.08) 100%)",
           }}
         />
       )}

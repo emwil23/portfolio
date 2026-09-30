@@ -3,8 +3,63 @@
 @tailwind utilities;
 
 :root {
-  /* CORE */
-  --background: #18181A;
+  /* CORE LIGHT THEME (DAY MODE) */
+  --background: #F8F9FA;
+  --foreground: #09090B;
+
+  /* Surfaces */
+  --surface-1: #FFFFFF;
+  --surface-2: #F1F3F5;
+  --surface-3: #E9ECEF;
+
+  /* Borders */
+  --border: #E2E8F0;
+  --border-subtle: #EEF0F3;
+
+  /* TEXT */
+  --text-primary: #09090B;
+  --text-secondary: #27272A;
+  --text-muted: #64748B;
+  --text-subtle: #94A3B8;
+  --text-disabled: #CBD5E1;
+
+  /* ACCENT — REFINED BLUE-GRAY / SLATE */
+  --accent: #2563EB;
+  --accent-hover: #1D4ED8;
+  --accent-active: #1E40AF;
+  --accent-rgb: 37, 99, 235;
+  --accent-bg: #EFF6FF;
+  --accent-bg-soft: #F8FAFC;
+
+  /* NEUTRALS */
+  --warm: #92400E;
+  --warm-light: #B45309;
+  --warm-dark: #78350F;
+
+  --success: #16A34A;
+  --success-bg: #F0FDF4;
+  --warning: #D97706;
+  --warning-bg: #FFFBEB;
+  --error: #DC2626;
+  --error-bg: #FEF2F2;
+  --info: #2563EB;
+  --info-bg: #EFF6FF;
+
+  /* COMPONENTS */
+  --button-primary-bg: #09090B;
+  --button-primary-text: #FFFFFF;
+  --button-secondary-bg: #FFFFFF;
+  --button-secondary-text: #09090B;
+  --input-bg: #FFFFFF;
+  --input-border: #E2E8F0;
+  --input-focus: #2563EB;
+  --overlay: rgba(0, 0, 0, 0.25);
+  --shadow: rgba(0, 0, 0, 0.05);
+}
+
+html.dark {
+  /* CORE DARK THEME (NIGHT MODE) */
+  --background: #141416;
   --foreground: #F5F5F4;
 
   /* Surfaces */
@@ -47,7 +102,7 @@
 
   /* COMPONENTS */
   --button-primary-bg: #F5F5F4;
-  --button-primary-text: #18181A;
+  --button-primary-text: #141416;
   --button-secondary-bg: #27272A;
   --button-secondary-text: #F5F5F4;
   --input-bg: #202023;
@@ -68,21 +123,45 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Custom engineering grid background */
 .bg-grid-pattern {
   background-size: 40px 40px;
   background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+html.dark .bg-grid-pattern {
+  background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
 .bg-radial-glow {
+  background: radial-gradient(circle at 50% 25%, rgba(var(--accent-rgb), 0.12) 0%, rgba(var(--accent-rgb), 0.02) 45%, transparent 70%);
+}
+
+html.dark .bg-radial-glow {
   background: radial-gradient(circle at 50% 25%, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.03) 45%, transparent 70%);
 }
 
-/* Reusable 3D Studio Cyclorama Infinity Cove (Exact match to character studio lighting) */
+/* Studio Cyclorama Background for Hero */
+.bg-hero-cyclorama {
+  background: 
+    radial-gradient(ellipse 75% 65% at 50% 45%, #FFFFFF 0%, #F5F6F8 55%, #E9ECEF 100%),
+    linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 70%, #F1F3F5 100%);
+}
+
+html.dark .bg-hero-cyclorama {
+  background: 
+    radial-gradient(ellipse 75% 65% at 50% 45%, rgba(39, 39, 42, 0.85) 0%, rgba(24, 24, 27, 0.5) 60%, rgba(18, 18, 21, 0.95) 100%),
+    linear-gradient(180deg, #1E1E22 0%, #141416 65%, #101012 100%);
+}
+
+/* Reusable 3D Studio Cyclorama Infinity Cove */
 .bg-cyclorama-light {
   background: 
     radial-gradient(ellipse 75% 65% at 50% 45%, #F5F5F7 0%, #E5E5E9 55%, #D6D6DC 100%),
@@ -92,20 +171,22 @@ body {
 .bg-cyclorama-dark {
   background: 
     radial-gradient(ellipse 75% 65% at 50% 45%, rgba(39, 39, 42, 0.85) 0%, rgba(24, 24, 27, 0.5) 60%, rgba(18, 18, 21, 0.95) 100%),
-    linear-gradient(180deg, #1E1E22 0%, #18181A 65%, #121215 100%);
+    linear-gradient(180deg, #1E1E22 0%, #141416 65%, #101012 100%);
 }
 
 /* Glassmorphism panel styling */
 .glass-panel {
-  background: rgba(31, 31, 33, 0.65);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
-.light .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+html.dark .glass-panel {
+  background: rgba(31, 31, 33, 0.65);
   border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .glass-panel:hover {
