@@ -128,6 +128,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
             loop
             muted
             playsInline
+            poster="/assets/character-coffee-v3-poster.png"
             className="w-full h-full object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
           >
             <source src="/assets/character-coffee-v3.webm" type="video/webm" />
