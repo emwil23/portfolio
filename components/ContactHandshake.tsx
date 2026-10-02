@@ -56,7 +56,7 @@ export const ContactHandshake: React.FC = () => {
           </span>
           <span className="hidden sm:inline-block text-[var(--border)]">|</span>
           <span className="hidden sm:inline-block font-mono text-[11px] text-[var(--accent-hover)] font-medium">
-            Ready to clear optimization tech debt
+            Available for Senior & Systems Engineering Roles
           </span>
         </div>
 

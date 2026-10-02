@@ -150,9 +150,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
                     poster="/assets/character-poster-v2.png"
                     className="w-full h-full object-contain pointer-events-none"
                   >
-                    <source src="/assets/character-working-transparent-v2.webm" type="video/webm" />
                     <source src="/assets/character-working-transparent-v2.mp4" type='video/mp4; codecs="hvc1"' />
-                    <source src="/assets/character-working-white.mp4" type="video/mp4" />
+                    <source src="/assets/character-working-transparent-v2.webm" type="video/webm" />
                   </video>
                 </div>
               </motion.div>

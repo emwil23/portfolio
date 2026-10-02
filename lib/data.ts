@@ -28,35 +28,44 @@ export interface PortfolioData {
   projects: ProjectItem[];
 }
 
+
 export const portfolioData: PortfolioData = {
   name: "Emmanuel Wilson",
   title: "Full-Stack & Systems Engineer",
   role: "Software Development Engineer",
-  tagline: "Architecting high-scale distributed frontends, real-time matrix virtualizations, and autonomous agentic workflows.",
+  tagline: "Architecting high-scale distributed backends, autonomous AI agent orchestrations, and high-performance frontend systems.",
   status: "Available for high-impact engineering roles",
-  location: "Remote / Global",
+  location: "Bangalore, India · Remote / Global",
   github: "https://github.com/emwil23",
   linkedin: "https://www.linkedin.com/in/ewilly/",
-  email: "contact@emmanuelwilson.dev",
+  email: "emmanuel_work@icloud.com",
   heroMetrics: [
-    { label: "Platform Scale", value: "150K–200K DAU", context: "Kredily" },
-    { label: "Bundle Reduction", value: "-60%", context: "React + Vite" },
-    { label: "Render Speedup", value: "10x", context: "AG-Grid Virtualization" }
+    { label: "Platform Scale", value: "150K–200K DAU", context: "Cloud Workforce Platform" },
+    { label: "Query Optimization", value: "-99.7%", context: "N+1 Batch DB Overhaul" },
+    { label: "Bundle Reduction", value: "-60%", context: "Unified Vite Architecture" }
   ],
   projects: [
     {
-      id: "canvasforge-ai",
-      title: "CanvasForge AI",
-      summary: "Autonomous multi-file agentic React IDE running in-browser with sub-50ms streaming latency.",
-      stack: ["Next.js 15", "TypeScript", "FastAPI (Mocked)", "Sandpack"],
-      github: "https://github.com/emwil23/canvasforge-ai"
+      id: "enterprise-ai-copilot",
+      title: "Autonomous Enterprise AI Copilot",
+      summary: "Deterministic multi-gate workflow orchestrator executing payroll, compliance filing, and policy onboarding with bi-directional UI synchronization.",
+      stack: ["Python", "FastAPI", "React", "Celery", "Distributed State Machines"],
+      github: "https://github.com/emwil23"
     },
     {
-      id: "throughput-matrix",
-      title: "High-Throughput Analytics Matrix",
-      summary: "Client-side stress test displaying massive datasets seamlessly at a locked 60 FPS.",
-      stack: ["React", "Virtualization", "Web Workers"],
-      github: "https://github.com/emwil23/throughput-matrix"
+      id: "distributed-batch-pipeline",
+      title: "High-Throughput Batch Optimization",
+      summary: "Eliminated cascading N+1 database bottlenecks in high-volume payroll calculations, accelerating throughput by 19x.",
+      stack: ["Django", "PostgreSQL", "Read-Replicas", "RabbitMQ", "Redis"],
+      github: "https://github.com/emwil23"
+    },
+    {
+      id: "virtualized-matrix-register",
+      title: "High-Cardinality Virtualized Register",
+      summary: "Client-side virtualized data table rendering 10,000+ employee records at a locked 60 FPS with microsecond frame pacing.",
+      stack: ["React", "TypeScript", "Vite", "AG-Grid", "Tailwind CSS"],
+      github: "https://github.com/emwil23"
     }
   ]
 };
+

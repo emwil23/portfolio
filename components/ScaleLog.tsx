@@ -35,17 +35,17 @@ export const ScaleLog: React.FC = () => {
             </span>
           </div>
           <h2 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-[var(--text-primary)] uppercase tracking-[-0.03em] max-w-4xl">
-            Experience & Engineering Philosophy
+            Experience & Systems Impact
           </h2>
           <p className="mt-5 text-[var(--text-muted)] text-base sm:text-lg max-w-2xl font-sans leading-relaxed">
-            Standard timelines don't capture systems impact. This log details technical ownership, architectural modernizations, and my AI-first acceleration workflow.
+            Technical ownership, architectural modernizations, and scalable system deliveries across high-concurrency cloud platforms and data-intensive workflows.
           </p>
         </div>
 
         {/* Experience Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           
-          {/* 1. Kredily Tenure Card */}
+          {/* 1. Enterprise Cloud Platform Card */}
           <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden flex flex-col justify-between group hover:border-[var(--accent)] transition-all duration-300 shadow-xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -58,16 +58,16 @@ export const ScaleLog: React.FC = () => {
                     <span>Enterprise Scale // 150K–200K DAU</span>
                   </div>
                   <h3 className="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)] uppercase tracking-tight">
-                    Kredily
+                    Enterprise Workforce & Payroll Platform
                   </h3>
-                  <div className="font-mono text-xs text-[var(--accent)] mt-1">
+                  <div className="font-mono text-xs text-[var(--accent)] mt-1 font-semibold">
                     Software Development Engineer
                   </div>
                 </div>
               </div>
 
               <p className="text-[var(--text-secondary)] font-sans text-sm leading-relaxed mb-6">
-                Owned critical frontend architecture for India&apos;s leading enterprise payroll and HRMS platform, migrating fragmented legacy codebases and delivering high-cardinality virtualization.
+                Owned core architecture across multi-tenant payroll engines, autonomous workflow copilot systems, and high-frequency frontend registers serving 150K–200K daily active workforce members.
               </p>
 
               {/* Technical Milestones */}
@@ -79,7 +79,7 @@ export const ScaleLog: React.FC = () => {
                   <div>
                     <strong className="text-[var(--text-primary)] text-sm font-sans font-semibold">Vite Workspace Modernization:</strong>
                     <p className="text-xs text-[var(--text-muted)] font-sans mt-0.5 leading-relaxed">
-                      Consolidated multiple legacy frontends into an optimized Vite and React monorepo, slashing production bundle sizes by <span className="text-[var(--text-primary)] font-bold">60%</span> and improving HMR cycle speeds by 8x.
+                      Consolidated fragmented legacy frontends into an optimized Vite and React monorepo, slashing production bundle sizes by <span className="text-[var(--text-primary)] font-bold">60%</span> and accelerating dev HMR cycle speeds by 8x.
                     </p>
                   </div>
                 </div>
@@ -89,9 +89,9 @@ export const ScaleLog: React.FC = () => {
                     <Workflow className="w-3.5 h-3.5" />
                   </div>
                   <div>
-                    <strong className="text-[var(--text-primary)] text-sm font-sans font-semibold">Modular Design System Architecture:</strong>
+                    <strong className="text-[var(--text-primary)] text-sm font-sans font-semibold">Autonomous Copilot & UI Sync:</strong>
                     <p className="text-xs text-[var(--text-muted)] font-sans mt-0.5 leading-relaxed">
-                      Architected and rolled out reusable enterprise UI components across all modules, cutting new feature delivery lifecycles by <span className="text-[var(--text-primary)] font-bold">~50%</span> across teams.
+                      Architected declarative agent toolchains with strict RBAC authority gates, UI-driving actions, and real-time state synchronization, automating multi-step payroll and statutory filings.
                     </p>
                   </div>
                 </div>
@@ -101,9 +101,21 @@ export const ScaleLog: React.FC = () => {
                     <TrendingUp className="w-3.5 h-3.5" />
                   </div>
                   <div>
+                    <strong className="text-[var(--text-primary)] text-sm font-sans font-semibold">Distributed N+1 Batch Optimization:</strong>
+                    <p className="text-xs text-[var(--text-muted)] font-sans mt-0.5 leading-relaxed">
+                      Eliminated cascading database query bottlenecks across batch pay-registers, reducing queries by <span className="text-[var(--text-primary)] font-bold">99.7%</span> and speeding up execution time from 34.2s to 1.8s.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-1 rounded bg-[var(--accent-bg)] text-[var(--accent-hover)] mt-0.5 shrink-0">
+                    <Cpu className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
                     <strong className="text-[var(--text-primary)] text-sm font-sans font-semibold">High-Scale Payroll Virtualization:</strong>
                     <p className="text-xs text-[var(--text-muted)] font-sans mt-0.5 leading-relaxed">
-                      Implemented AG-Grid with custom windowed row recycling for payroll runs with tens of thousands of employees, achieving locked 60 FPS scrolling and eliminating UI lockups.
+                      Implemented custom windowed row recycling for massive payroll tables with tens of thousands of employees, achieving locked 60 FPS scrolling and zero DOM thrashing.
                     </p>
                   </div>
                 </div>
@@ -112,7 +124,7 @@ export const ScaleLog: React.FC = () => {
 
             {/* Tech Stack Pills */}
             <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-subtle)] font-mono text-[11px] text-[var(--text-muted)]">
-              {["React", "TypeScript", "Vite", "AG-Grid", "Tailwind CSS", "Zustand", "Webpack", "REST APIs"].map((tech) => (
+              {["React", "TypeScript", "Vite", "Python", "FastAPI", "PostgreSQL", "Celery", "AG-Grid", "Tailwind CSS"].map((tech) => (
                 <span key={tech} className="px-2.5 py-1 rounded-md bg-[var(--surface-2)] border border-[var(--border-subtle)]">
                   {tech}
                 </span>
@@ -120,7 +132,7 @@ export const ScaleLog: React.FC = () => {
             </div>
           </div>
 
-          {/* 2. ForeignAdmits Tenure Card */}
+          {/* 2. Global EdTech Platform Card */}
           <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden flex flex-col justify-between group hover:border-[var(--accent)] transition-all duration-300 shadow-xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--warm)]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -130,19 +142,19 @@ export const ScaleLog: React.FC = () => {
                 <div>
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                     <Building2 className="w-3.5 h-3.5" />
-                    <span>EdTech Infrastructure & CRM</span>
+                    <span>Global Scale // Operations CRM</span>
                   </div>
                   <h3 className="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)] uppercase tracking-tight">
-                    ForeignAdmits
+                    Global Admissions & EdTech Infrastructure
                   </h3>
-                  <div className="font-mono text-xs text-[var(--accent)] mt-1">
+                  <div className="font-mono text-xs text-[var(--accent)] mt-1 font-semibold">
                     Frontend Software Engineer
                   </div>
                 </div>
               </div>
 
               <p className="text-[var(--text-secondary)] font-sans text-sm leading-relaxed mb-6">
-                Architected foundational Angular applications, schema-driven form engines, and high-velocity internal CRM tools managing thousands of international university applicants.
+                Architected dynamic JSON schema-driven frontend engines, high-velocity internal CRM tools, and reactive applicant verification workflows handling thousands of international university candidates.
               </p>
 
               {/* Technical Milestones */}
@@ -154,7 +166,7 @@ export const ScaleLog: React.FC = () => {
                   <div>
                     <strong className="text-[var(--text-primary)] text-sm font-sans font-semibold">Dynamic Formly Schema Engine:</strong>
                     <p className="text-xs text-[var(--text-muted)] font-sans mt-0.5 leading-relaxed">
-                      Engineered dynamic JSON schema-driven form systems with Angular and ngx-formly, handling complex multi-step validation logic for visa and admission applications without code changes.
+                      Engineered dynamic JSON schema-driven form systems with Angular and ngx-formly, handling complex multi-step validation logic for visa and admission applications without code redeployments.
                     </p>
                   </div>
                 </div>
@@ -178,7 +190,7 @@ export const ScaleLog: React.FC = () => {
                   <div>
                     <strong className="text-[var(--text-primary)] text-sm font-sans font-semibold">RxJS Reactive State Streams:</strong>
                     <p className="text-xs text-[var(--text-muted)] font-sans mt-0.5 leading-relaxed">
-                      Constructed resilient reactive pipelines with RxJS operators, eliminating memory leaks in single-page form transitions and optimizing live search autocomplete latency.
+                      Constructed resilient reactive pipelines with RxJS operators, eliminating memory leaks across complex application workflows and optimizing live search autocomplete latency.
                     </p>
                   </div>
                 </div>
@@ -198,7 +210,7 @@ export const ScaleLog: React.FC = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* 3. The AI-First Philosophy Manifesto */}
+        {/* 3. The Engineering Philosophy */}
         {/* ========================================================================= */}
         <div className="p-8 sm:p-12 rounded-2xl bg-gradient-to-br from-[var(--surface-1)] via-[var(--surface-2)] to-[var(--surface-1)] border border-[var(--border)] relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-1/4 w-96 h-96 bg-[var(--accent)]/15 rounded-full blur-[140px] pointer-events-none" />
@@ -207,15 +219,15 @@ export const ScaleLog: React.FC = () => {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                 <Sparkles className="w-3.5 h-3.5 text-[var(--warm-light)]" />
-                <span>Modern Engineering Workflow</span>
+                <span>Modern Engineering Methodology</span>
               </div>
               <h3 className="font-display font-black text-3xl sm:text-4xl text-[var(--text-primary)] uppercase tracking-tight">
-                The AI-First Engineering Manifesto
+                AI-Augmented Engineering Philosophy
               </h3>
             </div>
 
             <div className="flex items-baseline gap-2 font-mono bg-[var(--surface-2)] px-4 py-2 rounded-xl border border-[var(--border)]">
-              <span className="text-[var(--text-muted)] text-xs uppercase tracking-wider">Output Velocity:</span>
+              <span className="text-[var(--text-muted)] text-xs uppercase tracking-wider">Velocity Multiplier:</span>
               <span className="text-xl font-extrabold text-[var(--warm-light)]">Up to 5x</span>
             </div>
           </div>
@@ -226,10 +238,10 @@ export const ScaleLog: React.FC = () => {
                 01
               </div>
               <h4 className="font-display font-bold text-base text-[var(--text-primary)] uppercase tracking-tight mb-2">
-                Speculative Prototyping
+                Specification-First Architecture
               </h4>
               <p className="text-xs text-[var(--text-muted)] font-sans leading-relaxed">
-                I don&apos;t waste sprint cycles on guessing. I leverage LLM-driven subagents to simulate alternate state models, stress-test API contracts, and evaluate library trade-offs before writing the first production line.
+                I leverage LLM-driven subagents to simulate alternate state models, stress-test API contracts, and evaluate library trade-offs before committing the first line of production code.
               </p>
             </div>
 
@@ -238,10 +250,10 @@ export const ScaleLog: React.FC = () => {
                 02
               </div>
               <h4 className="font-display font-bold text-base text-[var(--text-primary)] uppercase tracking-tight mb-2">
-                Parallel Sub-Task Delegation
+                Accelerated Verification & Test Harnesses
               </h4>
               <p className="text-xs text-[var(--text-muted)] font-sans leading-relaxed">
-                Boilerplate, schema transformations, and test suite permutations are parallelized through localized AI toolchains. My cognitive bandwidth remains 100% focused on system architecture, invariants, and performance budgets.
+                Boilerplate, schema transformations, and test suite permutations are parallelized through localized AI toolchains. My cognitive bandwidth remains focused on system architecture, invariants, and performance budgets.
               </p>
             </div>
 
@@ -250,10 +262,10 @@ export const ScaleLog: React.FC = () => {
                 03
               </div>
               <h4 className="font-display font-bold text-base text-[var(--text-primary)] uppercase tracking-tight mb-2">
-                Systems Intuition Over Syntax
+                Grounded Systems Depth
               </h4>
               <p className="text-xs text-[var(--text-muted)] font-sans leading-relaxed">
-                AI is an accelerator, not a crutch. Real scale requires mastery over browser rendering lifecycles, memory leaks, and distributed cache invalidation—foundations that AI cannot intuit without expert human orchestration.
+                AI is an accelerator, not a crutch. Real scale requires mastery over database query shapes, connection pooling, memory lifecycles, and frame budgets—foundations that AI cannot intuit without expert human orchestration.
               </p>
             </div>
           </div>

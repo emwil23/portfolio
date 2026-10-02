@@ -131,8 +131,8 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
             poster="/assets/character-coffee-v3-poster.png"
             className="w-full h-full object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
           >
-            <source src="/assets/character-coffee-v3.webm" type="video/webm" />
             <source src="/assets/character-coffee-v3.mp4" type='video/mp4; codecs="hvc1"' />
+            <source src="/assets/character-coffee-v3.webm" type="video/webm" />
           </video>
         </div>
       </motion.div>
@@ -157,7 +157,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
               transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 md:mt-8 font-mono text-xs sm:text-sm uppercase tracking-widest text-[var(--text-muted)] border-l-2 border-[var(--accent)] pl-4 max-w-md leading-relaxed transition-colors duration-300"
             >
-              AI-First Full-Stack & Frontend Systems Engineer.
+              Full-Stack & Systems Engineer · Distributed Systems & High-Performance UI.
             </motion.div>
           </div>
 
@@ -173,25 +173,25 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--accent)]"></span>
               </span>
-              Telemetry HUD // Engineering Impact
+              Telemetry HUD // Systems Impact
             </div>
             
             <div className="flex flex-col gap-3">
               <div className="group bg-[var(--surface-1)]/80 dark:bg-[var(--surface-1)]/40 backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
                 <div className="text-[var(--text-primary)] font-sans text-sm leading-snug">
-                  Scaled enterprise platforms for <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">150K–200K DAU</span>.
+                  Scaled multi-tenant platforms serving <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">150K–200K DAU</span> with zero downtime.
                 </div>
               </div>
               
               <div className="group bg-[var(--surface-1)]/80 dark:bg-[var(--surface-1)]/40 backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
                 <div className="text-[var(--text-primary)] font-sans text-sm leading-snug">
-                  Slashed production bundle footprints by <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">60%</span> via a unified React and Vite migration.
+                  Slashed bundle footprints by <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">60%</span> and accelerated HMR cycles by <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">8x</span> via unified Vite architecture.
                 </div>
               </div>
 
               <div className="group bg-[var(--surface-1)]/80 dark:bg-[var(--surface-1)]/40 backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
                 <div className="text-[var(--text-primary)] font-sans text-sm leading-snug">
-                  Accelerated personal programming velocity by <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">up to 5x</span> using LLMs and AI workflows.
+                  Eliminated <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">99.7% of N+1 database queries</span>, boosting batch processing throughput by <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">19x</span>.
                 </div>
               </div>
             </div>
