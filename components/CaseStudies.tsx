@@ -226,6 +226,9 @@ const DEPARTMENTS = ["Core Platform", "Distributed Infrastructure", "AI Research
 const ROLES = ["Staff Engineer", "Senior SDE", "Systems Architect", "Lead Developer", "Infrastructure Specialist"];
 const STATUSES: ("Verified" | "Dispatched" | "Audited")[] = ["Verified", "Dispatched", "Audited"];
 
+const formatINR = (val: number): string => `₹${val.toLocaleString("en-IN")}`;
+const formatNumber = (val: number): string => val.toLocaleString("en-US");
+
 const generateRecords = (count: number): LedgerRecord[] => {
   const records: LedgerRecord[] = [];
   for (let i = 1; i <= count; i++) {
@@ -237,9 +240,9 @@ const generateRecords = (count: number): LedgerRecord[] => {
       employee: `Engineer #${(1000 + (i % 900))}`,
       role: ROLES[i % ROLES.length],
       department: DEPARTMENTS[i % DEPARTMENTS.length],
-      grossPay: `₹${gross.toLocaleString()}`,
-      netPay: `₹${net.toLocaleString()}`,
-      statutoryDeductions: `₹${deductions.toLocaleString()}`,
+      grossPay: formatINR(gross),
+      netPay: formatINR(net),
+      statutoryDeductions: formatINR(deductions),
       status: STATUSES[i % STATUSES.length],
       perfScore: `${(0.4 + (i % 6) * 0.15).toFixed(2)}ms`
     });
@@ -782,7 +785,7 @@ export const CaseStudies: React.FC = () => {
                   -{benchmarkData.querySavings}<span className="text-sm font-mono text-[var(--accent)]">%</span>
                 </div>
                 <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">
-                  {benchmarkData.unoptQueries.toLocaleString()} down to {benchmarkData.optQueries} batched queries
+                  {formatNumber(benchmarkData.unoptQueries)} down to {benchmarkData.optQueries} batched queries
                 </div>
               </button>
 
@@ -876,7 +879,7 @@ export const CaseStudies: React.FC = () => {
                   <div className="font-mono text-sm bg-[var(--surface-1)] px-4 py-2 rounded-lg border border-[var(--border)] shrink-0 flex items-center gap-2">
                     <span className="text-[var(--text-muted)] text-xs uppercase">Simulated Batch:</span>
                     <strong className="text-[var(--text-primary)] text-base font-extrabold">
-                      {employeeScale.toLocaleString()}
+                      {formatNumber(employeeScale)}
                     </strong>
                     <span className="text-xs text-[var(--text-muted)]">Employees</span>
                   </div>
@@ -958,7 +961,7 @@ export const CaseStudies: React.FC = () => {
                   >
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-xs font-sans text-[var(--text-secondary)]">
-                        Database roundtrips generated for <strong>{employeeScale.toLocaleString()}</strong> employee payroll calculation:
+                        Database roundtrips generated for <strong>{formatNumber(employeeScale)}</strong> employee payroll calculation:
                       </span>
                       <span className="font-mono text-xs text-[var(--success)] font-bold">
                         {benchmarkData.querySavings}% Network Roundtrips Saved
@@ -973,7 +976,7 @@ export const CaseStudies: React.FC = () => {
                           <span>Legacy Sequential Pipeline (N+1 Query Loop)</span>
                         </span>
                         <span className="text-[#EF4444] font-bold">
-                          {benchmarkData.unoptQueries.toLocaleString()} DB Queries (O(N) Explosion)
+                          {formatNumber(benchmarkData.unoptQueries)} DB Queries (O(N) Explosion)
                         </span>
                       </div>
                       <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
@@ -983,7 +986,7 @@ export const CaseStudies: React.FC = () => {
                           animate={{ width: `${Math.min(100, Math.max(15, (benchmarkData.unoptQueries / 20001) * 100))}%` }}
                           transition={{ duration: 0.3 }}
                         >
-                          <span>{benchmarkData.unoptQueries.toLocaleString()} Queries</span>
+                          <span>{formatNumber(benchmarkData.unoptQueries)} Queries</span>
                         </motion.div>
                       </div>
                     </div>
@@ -1021,9 +1024,9 @@ export const CaseStudies: React.FC = () => {
                           <div className="text-[#EF4444] font-bold mb-1">Legacy Iterative Loop:</div>
                           <ul className="text-[11px] text-[var(--text-muted)] space-y-1 list-disc list-inside">
                             <li>1x Batch initialization fetch</li>
-                            <li>{employeeScale.toLocaleString()}x Employee override queries</li>
-                            <li>{employeeScale.toLocaleString()}x Bulk payout status writes</li>
-                            <li className="text-[var(--text-primary)] font-semibold mt-1">Total: {benchmarkData.unoptQueries.toLocaleString()} TCP network roundtrips</li>
+                            <li>{formatNumber(employeeScale)}x Employee override queries</li>
+                            <li>{formatNumber(employeeScale)}x Bulk payout status writes</li>
+                            <li className="text-[var(--text-primary)] font-semibold mt-1">Total: {formatNumber(benchmarkData.unoptQueries)} TCP network roundtrips</li>
                           </ul>
                         </div>
 
@@ -1051,7 +1054,7 @@ export const CaseStudies: React.FC = () => {
                   >
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-xs font-sans text-[var(--text-secondary)]">
-                        Wall-clock execution duration for <strong>{employeeScale.toLocaleString()}</strong> records:
+                        Wall-clock execution duration for <strong>{formatNumber(employeeScale)}</strong> records:
                       </span>
                       <span className="font-mono text-xs text-[var(--success)] font-bold">
                         {benchmarkData.speedupMultiplier}x Latency Reduction
@@ -1125,7 +1128,7 @@ export const CaseStudies: React.FC = () => {
                       <div className="p-3 rounded-lg bg-[var(--surface-1)] border border-[var(--border-subtle)]">
                         <div className="text-[10px] text-[var(--text-muted)] uppercase">Optimized Batch Throughput</div>
                         <div className="text-xl font-display font-extrabold text-[#22C55E] mt-1">
-                          ~{benchmarkData.optThroughput.toLocaleString()} <span className="text-xs font-mono text-[var(--text-muted)]">records/sec</span>
+                          ~{formatNumber(benchmarkData.optThroughput)} <span className="text-xs font-mono text-[var(--text-muted)]">records/sec</span>
                         </div>
                         <div className="text-[11px] text-[var(--text-muted)] mt-1 font-sans">
                           Parallel Celery chunking with zero network I/O block.
@@ -1443,7 +1446,7 @@ export const CaseStudies: React.FC = () => {
                 {/* Table Footer Stats */}
                 <div className="flex items-center justify-between px-4 py-2.5 bg-[var(--surface-2)]/90 border-t border-[var(--border)] font-mono text-[10px] text-[var(--text-muted)]">
                   <div>
-                    SHOWING ROWS {startIndex + 1}–{Math.min(totalCount, endIndex)} OF {totalCount.toLocaleString()}
+                    SHOWING ROWS {startIndex + 1}–{Math.min(totalCount, endIndex)} OF {formatNumber(totalCount)}
                   </div>
                   <div className="flex items-center gap-1.5 text-[var(--success)] font-semibold">
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--success)] animate-ping" />
