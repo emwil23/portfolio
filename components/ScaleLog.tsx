@@ -436,7 +436,7 @@ export const ScaleLog: React.FC = () => {
 
             <div className="flex items-baseline gap-2 font-mono bg-[var(--surface-2)] px-4 py-2 rounded-xl border border-[var(--border)]">
               <span className="text-[var(--text-muted)] text-xs uppercase tracking-wider">Velocity Multiplier:</span>
-              <span className="text-xl font-extrabold text-[var(--warm-light)]">Up to 5x</span>
+              <span className="text-xl font-extrabold text-[var(--warm-light)]">10x</span>
             </div>
           </div>
 
