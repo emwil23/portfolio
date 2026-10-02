@@ -293,18 +293,29 @@ export const CaseStudies: React.FC = () => {
 
   // Benchmark calculations derived from employeeScale
   const benchmarkData = useMemo(() => {
-    // Unoptimized: N+1 queries = 1 initial + N queries for employees
-    const unoptQueries = employeeScale + 4;
+    // Unoptimized: N+1 queries = 1 initial + 2 * N queries (overrides + payout updates)
+    const unoptQueries = (employeeScale * 2) + 1;
     // Optimized: Exactly 3 batched queries regardless of count
     const optQueries = 3;
     
-    // Latency in seconds (approx 34ms per query unoptimized vs batched bulk)
-    const unoptLatency = ((employeeScale * 0.034) + 0.5).toFixed(1);
-    const optLatency = Math.max(0.8, (0.7 + (employeeScale / 10000) * 1.4)).toFixed(1);
+    // Latency in seconds (approx 28ms per query unoptimized vs batched bulk)
+    const unoptLatency = ((employeeScale * 0.028) + 0.4).toFixed(1);
+    const optLatency = Math.max(0.6, (0.5 + (employeeScale / 10000) * 1.2)).toFixed(1);
 
-    // Pool saturation percentage
-    const unoptPool = Math.min(100, Math.round(25 + (employeeScale / 2500) * 70));
-    const optPool = Math.min(100, Math.round(4 + (employeeScale / 10000) * 5));
+    // Pool saturation percentage (out of 50 max pool connections)
+    const unoptPool = Math.min(100, Math.round(38 + (employeeScale / 2500) * 58));
+    const optPool = Math.min(100, Math.round(6 + (employeeScale / 10000) * 4));
+
+    // Active connection count
+    const unoptConns = Math.min(50, Math.round((unoptPool / 100) * 50));
+    const optConns = Math.min(50, Math.round((optPool / 100) * 50));
+
+    // Throughput in employees/sec
+    const unoptThroughput = Math.round(employeeScale / Math.max(1, Number(unoptLatency)));
+    const optThroughput = Math.round(employeeScale / Math.max(0.1, Number(optLatency)));
+
+    const querySavings = ((1 - (optQueries / unoptQueries)) * 100).toFixed(1);
+    const speedupMultiplier = Math.max(2, Math.round(Number(unoptLatency) / Math.max(0.1, Number(optLatency))));
 
     return {
       unoptQueries,
@@ -313,7 +324,12 @@ export const CaseStudies: React.FC = () => {
       optLatency,
       unoptPool,
       optPool,
-      querySavings: ((1 - (optQueries / unoptQueries)) * 100).toFixed(1)
+      unoptConns,
+      optConns,
+      unoptThroughput,
+      optThroughput,
+      querySavings,
+      speedupMultiplier
     };
   }, [employeeScale]);
 
@@ -696,72 +712,150 @@ export const CaseStudies: React.FC = () => {
               </div>
 
               {/* Benchmark Metric View Selector */}
-              <div className="flex items-center gap-1.5 bg-[var(--surface-2)] p-1.5 rounded-xl border border-[var(--border)] shrink-0">
-                <button
-                  onClick={() => setBenchmarkView("queries")}
-                  className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all ${
-                    benchmarkView === "queries"
-                      ? "bg-[var(--surface-1)] text-[var(--text-primary)] shadow-sm font-bold border border-[var(--border)]"
-                      : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  DB Queries
-                </button>
-                <button
-                  onClick={() => setBenchmarkView("latency")}
-                  className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all ${
-                    benchmarkView === "latency"
-                      ? "bg-[var(--surface-1)] text-[var(--text-primary)] shadow-sm font-bold border border-[var(--border)]"
-                      : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  Execution Latency
-                </button>
-                <button
-                  onClick={() => setBenchmarkView("pool")}
-                  className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all ${
-                    benchmarkView === "pool"
-                      ? "bg-[var(--surface-1)] text-[var(--text-primary)] shadow-sm font-bold border border-[var(--border)]"
-                      : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  Connection Pool
-                </button>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 bg-[var(--surface-2)] p-1.5 rounded-xl border border-[var(--border)] shrink-0">
+                <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider pl-2 hidden sm:inline-block">
+                  Active Metric:
+                </span>
+                <div className="flex items-center gap-1.5 bg-[var(--surface-1)] p-1 rounded-lg">
+                  <button
+                    onClick={() => setBenchmarkView("queries")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-mono text-xs transition-all ${
+                      benchmarkView === "queries"
+                        ? "bg-[var(--accent)] text-white shadow-md font-bold"
+                        : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                    }`}
+                  >
+                    <Database className="w-3.5 h-3.5" />
+                    <span>DB Queries</span>
+                  </button>
+
+                  <button
+                    onClick={() => setBenchmarkView("latency")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-mono text-xs transition-all ${
+                      benchmarkView === "latency"
+                        ? "bg-[var(--accent)] text-white shadow-md font-bold"
+                        : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                    }`}
+                  >
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>Execution Latency</span>
+                  </button>
+
+                  <button
+                    onClick={() => setBenchmarkView("pool")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-mono text-xs transition-all ${
+                      benchmarkView === "pool"
+                        ? "bg-[var(--accent)] text-white shadow-md font-bold"
+                        : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                    }`}
+                  >
+                    <Server className="w-3.5 h-3.5" />
+                    <span>Connection Pool</span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Metrics HUD Row (THE DATA) */}
+            {/* Metrics HUD Row (THE DATA) — Directly Clickable and Synchronized */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-8 border-b border-[var(--border-subtle)]">
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
-                <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Database Query Reduction</div>
-                <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
-                  -99.7<span className="text-sm font-mono text-[var(--accent)]">%</span>
+              {/* Card 1: Queries */}
+              <button
+                onClick={() => setBenchmarkView("queries")}
+                className={`text-left p-4 rounded-xl transition-all duration-200 cursor-pointer ${
+                  benchmarkView === "queries"
+                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[var(--accent)]/20"
+                    : "bg-[var(--surface-2)]/50 border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider flex items-center gap-1.5">
+                    <Database className="w-3 h-3 text-[var(--accent)]" />
+                    <span>DB Query Cascade</span>
+                  </div>
+                  {benchmarkView === "queries" && (
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[var(--accent)] text-white">
+                      ACTIVE
+                    </span>
+                  )}
                 </div>
-                <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">1,004 down to 3 batched queries</div>
-              </div>
+                <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1.5 flex items-baseline gap-1">
+                  -{benchmarkData.querySavings}<span className="text-sm font-mono text-[var(--accent)]">%</span>
+                </div>
+                <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">
+                  {benchmarkData.unoptQueries.toLocaleString()} down to {benchmarkData.optQueries} batched queries
+                </div>
+              </button>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
-                <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Batch Runtime Speedup</div>
-                <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
-                  19<span className="text-sm font-mono text-[var(--success)]">x Faster</span>
+              {/* Card 2: Latency */}
+              <button
+                onClick={() => setBenchmarkView("latency")}
+                className={`text-left p-4 rounded-xl transition-all duration-200 cursor-pointer ${
+                  benchmarkView === "latency"
+                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[var(--accent)]/20"
+                    : "bg-[var(--surface-2)]/50 border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider flex items-center gap-1.5">
+                    <Clock className="w-3 h-3 text-[var(--accent)]" />
+                    <span>Batch Runtime Speedup</span>
+                  </div>
+                  {benchmarkView === "latency" && (
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[var(--accent)] text-white">
+                      ACTIVE
+                    </span>
+                  )}
                 </div>
-                <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">34.2s down to 1.8s per 1K batch</div>
-              </div>
+                <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1.5 flex items-baseline gap-1">
+                  {benchmarkData.speedupMultiplier}<span className="text-sm font-mono text-[var(--success)]">x Faster</span>
+                </div>
+                <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">
+                  {benchmarkData.unoptLatency}s down to {benchmarkData.optLatency}s runtime
+                </div>
+              </button>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
-                <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">DB Pool Saturation</div>
-                <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
-                  8<span className="text-sm font-mono text-[var(--accent)]">%</span>
+              {/* Card 3: Connection Pool */}
+              <button
+                onClick={() => setBenchmarkView("pool")}
+                className={`text-left p-4 rounded-xl transition-all duration-200 cursor-pointer ${
+                  benchmarkView === "pool"
+                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[var(--accent)]/20"
+                    : "bg-[var(--surface-2)]/50 border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider flex items-center gap-1.5">
+                    <Server className="w-3 h-3 text-[var(--accent)]" />
+                    <span>DB Pool Saturation</span>
+                  </div>
+                  {benchmarkView === "pool" && (
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[var(--accent)] text-white">
+                      ACTIVE
+                    </span>
+                  )}
                 </div>
-                <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">Relieved 94% pool exhaustion</div>
-              </div>
+                <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1.5 flex items-baseline gap-1">
+                  {benchmarkData.optPool}<span className="text-sm font-mono text-[var(--accent)]">%</span>
+                </div>
+                <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">
+                  Relieved {benchmarkData.unoptPool}% pool exhaustion
+                </div>
+              </button>
 
+              {/* Card 4: Dropped Logs */}
               <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
-                <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Dropped Telemetry Logs</div>
-                <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
-                  0<span className="text-sm font-mono text-[var(--success)]">Rows</span>
+                <div className="flex items-center justify-between">
+                  <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider flex items-center gap-1.5">
+                    <ShieldCheck className="w-3 h-3 text-[var(--success)]" />
+                    <span>Telemetry Reliability</span>
+                  </div>
                 </div>
-                <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">Resilient async queue with retry</div>
+                <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1.5 flex items-baseline gap-1">
+                  0<span className="text-sm font-mono text-[var(--success)]">Dropped Rows</span>
+                </div>
+                <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">
+                  Resilient async queue with instant retry
+                </div>
               </div>
             </div>
 
@@ -806,73 +900,333 @@ export const CaseStudies: React.FC = () => {
                 </div>
               </div>
 
-              {/* Comparative Visual Graph Bars */}
+              {/* DEDICATED DYNAMIC BENCHMARK VISUALIZER CONTAINER */}
               <div className="p-6 sm:p-8 rounded-xl bg-[var(--surface-2)]/30 border border-[var(--border)]">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="font-mono text-xs text-[var(--text-primary)] uppercase tracking-wider font-bold flex items-center gap-2">
+                
+                {/* Secondary In-Graph Tab Controls */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[var(--border-subtle)]">
+                  <div className="flex items-center gap-2 font-mono text-xs text-[var(--text-primary)] font-bold uppercase tracking-wider">
                     <BarChart3 className="w-4 h-4 text-[var(--accent)]" />
                     <span>
-                      {benchmarkView === "queries" && "Total Database Roundtrips Generated"}
-                      {benchmarkView === "latency" && "Batch Computation Latency (Wall-clock Seconds)"}
-                      {benchmarkView === "pool" && "Database Connection Pool Saturation"}
+                      {benchmarkView === "queries" && "Telemetry 01 // Database Query Waterfall & Volume"}
+                      {benchmarkView === "latency" && "Telemetry 02 // Wall-Clock Execution Latency & Gateway Limit"}
+                      {benchmarkView === "pool" && "Telemetry 03 // PostgreSQL Connection Pool & Lease Saturation"}
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-[var(--success)] font-bold">
-                    {benchmarkData.querySavings}% Database Load Reduction
-                  </span>
+
+                  <div className="flex items-center gap-1.5 bg-[var(--surface-1)] p-1 rounded-lg border border-[var(--border)]">
+                    <button
+                      onClick={() => setBenchmarkView("queries")}
+                      className={`px-2.5 py-1 rounded text-[11px] font-mono transition-all ${
+                        benchmarkView === "queries"
+                          ? "bg-[var(--accent)] text-white font-bold"
+                          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                      }`}
+                    >
+                      Queries
+                    </button>
+                    <button
+                      onClick={() => setBenchmarkView("latency")}
+                      className={`px-2.5 py-1 rounded text-[11px] font-mono transition-all ${
+                        benchmarkView === "latency"
+                          ? "bg-[var(--accent)] text-white font-bold"
+                          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                      }`}
+                    >
+                      Latency
+                    </button>
+                    <button
+                      onClick={() => setBenchmarkView("pool")}
+                      className={`px-2.5 py-1 rounded text-[11px] font-mono transition-all ${
+                        benchmarkView === "pool"
+                          ? "bg-[var(--accent)] text-white font-bold"
+                          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                      }`}
+                    >
+                      Pool
+                    </button>
+                  </div>
                 </div>
 
-                {/* Graph Item 1: Legacy Iterative Pipeline (N+1) */}
-                <div className="mb-6">
-                  <div className="flex items-center justify-between font-mono text-xs mb-2">
-                    <span className="text-[var(--text-muted)]">
-                      Legacy Architecture (Iterative Per-Employee Query Loop):
-                    </span>
-                    <span className="text-[#EF4444] font-bold">
-                      {benchmarkView === "queries" && `${benchmarkData.unoptQueries.toLocaleString()} Queries`}
-                      {benchmarkView === "latency" && `${benchmarkData.unoptLatency}s (High Latency)`}
-                      {benchmarkView === "pool" && `${benchmarkData.unoptPool}% Saturation (Critical)`}
-                    </span>
-                  </div>
-                  <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-red-500/70 to-red-600 rounded-lg flex items-center justify-end pr-3 font-mono text-xs text-white font-bold"
-                      initial={{ width: "20%" }}
-                      animate={{ 
-                        width: `${benchmarkView === "queries" ? Math.min(100, (benchmarkData.unoptQueries / 10004) * 100) : benchmarkView === "latency" ? Math.min(100, (Number(benchmarkData.unoptLatency) / 342) * 100) : benchmarkData.unoptPool}%` 
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span className="drop-shadow-sm">O(N) Complexity</span>
-                    </motion.div>
-                  </div>
-                </div>
+                {/* VIEW 1: DB QUERIES WATERFALL */}
+                {benchmarkView === "queries" && (
+                  <motion.div
+                    key="view-queries"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xs font-sans text-[var(--text-secondary)]">
+                        Database roundtrips generated for <strong>{employeeScale.toLocaleString()}</strong> employee payroll calculation:
+                      </span>
+                      <span className="font-mono text-xs text-[var(--success)] font-bold">
+                        {benchmarkData.querySavings}% Network Roundtrips Saved
+                      </span>
+                    </div>
 
-                {/* Graph Item 2: Optimized Batch Read-Replica Pipeline */}
-                <div>
-                  <div className="flex items-center justify-between font-mono text-xs mb-2">
-                    <span className="text-[var(--text-muted)]">
-                      Optimized Architecture (Bulk Read-Replica Join + In-Memory Preload):
-                    </span>
-                    <span className="text-[#22C55E] font-bold">
-                      {benchmarkView === "queries" && `${benchmarkData.optQueries} Batched Queries`}
-                      {benchmarkView === "latency" && `${benchmarkData.optLatency}s (Sub-second)`}
-                      {benchmarkView === "pool" && `${benchmarkData.optPool}% Healthy Capacity`}
-                    </span>
-                  </div>
-                  <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-emerald-500/80 to-emerald-600 rounded-lg flex items-center justify-end pr-3 font-mono text-xs text-white font-bold"
-                      initial={{ width: "3%" }}
-                      animate={{ 
-                        width: `${benchmarkView === "queries" ? 4 : benchmarkView === "latency" ? Math.max(3, (Number(benchmarkData.optLatency) / 342) * 100) : benchmarkData.optPool}%` 
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span className="drop-shadow-sm">O(1) Flat</span>
-                    </motion.div>
-                  </div>
-                </div>
+                    {/* Bar 1: Legacy Iterative Cascade */}
+                    <div className="mb-5">
+                      <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                        <span className="text-[var(--text-muted)] flex items-center gap-1.5">
+                          <AlertTriangle className="w-3.5 h-3.5 text-[#EF4444]" />
+                          <span>Legacy Sequential Pipeline (N+1 Query Loop)</span>
+                        </span>
+                        <span className="text-[#EF4444] font-bold">
+                          {benchmarkData.unoptQueries.toLocaleString()} DB Queries (O(N) Explosion)
+                        </span>
+                      </div>
+                      <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-red-500/80 to-red-600 rounded-lg flex items-center justify-end pr-3 font-mono text-xs text-white font-bold"
+                          initial={{ width: "20%" }}
+                          animate={{ width: `${Math.min(100, Math.max(15, (benchmarkData.unoptQueries / 20001) * 100))}%` }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <span>{benchmarkData.unoptQueries.toLocaleString()} Queries</span>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Bar 2: Optimized Batch Read-Replica */}
+                    <div className="mb-6">
+                      <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                        <span className="text-[var(--text-muted)] flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#22C55E]" />
+                          <span>Optimized Architecture (Bulk Read-Replica Join + In-Memory Preload)</span>
+                        </span>
+                        <span className="text-[#22C55E] font-bold">
+                          {benchmarkData.optQueries} Batched Queries (O(1) Flat)
+                        </span>
+                      </div>
+                      <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-emerald-500/80 to-emerald-600 rounded-lg flex items-center justify-end pr-3 font-mono text-xs text-white font-bold"
+                          initial={{ width: "3%" }}
+                          animate={{ width: "4%" }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <span>3</span>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Query Decomposition Breakdown */}
+                    <div className="p-4 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)] font-mono text-xs space-y-2">
+                      <div className="text-[10px] text-[var(--accent)] uppercase tracking-wider font-bold">
+                        Detailed Query Execution Breakdown:
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="p-3 rounded-lg bg-[var(--surface-1)] border border-[var(--border-subtle)]">
+                          <div className="text-[#EF4444] font-bold mb-1">Legacy Iterative Loop:</div>
+                          <ul className="text-[11px] text-[var(--text-muted)] space-y-1 list-disc list-inside">
+                            <li>1x Batch initialization fetch</li>
+                            <li>{employeeScale.toLocaleString()}x Employee override queries</li>
+                            <li>{employeeScale.toLocaleString()}x Bulk payout status writes</li>
+                            <li className="text-[var(--text-primary)] font-semibold mt-1">Total: {benchmarkData.unoptQueries.toLocaleString()} TCP network roundtrips</li>
+                          </ul>
+                        </div>
+
+                        <div className="p-3 rounded-lg bg-[var(--surface-1)] border border-[var(--border-subtle)]">
+                          <div className="text-[#22C55E] font-bold mb-1">Optimized Read-Replica Batch:</div>
+                          <ul className="text-[11px] text-[var(--text-muted)] space-y-1 list-disc list-inside">
+                            <li>1x Bulk pay register fetch from read-replica</li>
+                            <li>1x Bulk copy-override in-memory hash join</li>
+                            <li>1x Chunked payout status batch update</li>
+                            <li className="text-[var(--text-primary)] font-semibold mt-1">Total: Exactly 3 batched queries (O(1) invariant)</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* VIEW 2: EXECUTION LATENCY & GATEWAY TIMEOUT */}
+                {benchmarkView === "latency" && (
+                  <motion.div
+                    key="view-latency"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xs font-sans text-[var(--text-secondary)]">
+                        Wall-clock execution duration for <strong>{employeeScale.toLocaleString()}</strong> records:
+                      </span>
+                      <span className="font-mono text-xs text-[var(--success)] font-bold">
+                        {benchmarkData.speedupMultiplier}x Latency Reduction
+                      </span>
+                    </div>
+
+                    {/* Bar 1: Legacy Latency */}
+                    <div className="mb-5">
+                      <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                        <span className="text-[var(--text-muted)] flex items-center gap-1.5">
+                          <AlertTriangle className="w-3.5 h-3.5 text-[#EF4444]" />
+                          <span>Legacy Sequential Pipeline</span>
+                        </span>
+                        <span className="text-[#EF4444] font-bold">
+                          {benchmarkData.unoptLatency}s Wall-Clock Time
+                        </span>
+                      </div>
+                      <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-red-500/80 to-red-600 rounded-lg flex items-center justify-end pr-3 font-mono text-xs text-white font-bold"
+                          initial={{ width: "25%" }}
+                          animate={{ width: `${Math.min(100, Math.max(12, (Number(benchmarkData.unoptLatency) / 280) * 100))}%` }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <span>{benchmarkData.unoptLatency}s</span>
+                        </motion.div>
+                      </div>
+                      {Number(benchmarkData.unoptLatency) >= 60 && (
+                        <div className="mt-1.5 text-[10px] font-mono text-[#EF4444] flex items-center gap-1">
+                          <AlertTriangle className="w-3 h-3" />
+                          <span>GATEWAY TIMEOUT VIOLATION: Exceeds 60s load balancer ceiling, triggering 504 Gateway errors & retry storms.</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Bar 2: Optimized Latency */}
+                    <div className="mb-6">
+                      <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                        <span className="text-[var(--text-muted)] flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#22C55E]" />
+                          <span>Optimized Batch Architecture</span>
+                        </span>
+                        <span className="text-[#22C55E] font-bold">
+                          {benchmarkData.optLatency}s (Sub-Second Ingestion & Compute)
+                        </span>
+                      </div>
+                      <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-emerald-500/80 to-emerald-600 rounded-lg flex items-center justify-end pr-3 font-mono text-xs text-white font-bold"
+                          initial={{ width: "4%" }}
+                          animate={{ width: "4%" }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <span>{benchmarkData.optLatency}s</span>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Throughput Metric Comparison */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)] font-mono text-xs">
+                      <div className="p-3 rounded-lg bg-[var(--surface-1)] border border-[var(--border-subtle)]">
+                        <div className="text-[10px] text-[var(--text-muted)] uppercase">Legacy Processing Throughput</div>
+                        <div className="text-xl font-display font-extrabold text-[#EF4444] mt-1">
+                          ~{benchmarkData.unoptThroughput} <span className="text-xs font-mono text-[var(--text-muted)]">records/sec</span>
+                        </div>
+                        <div className="text-[11px] text-[var(--text-muted)] mt-1 font-sans">
+                          Throttled by synchronous database network roundtrips.
+                        </div>
+                      </div>
+
+                      <div className="p-3 rounded-lg bg-[var(--surface-1)] border border-[var(--border-subtle)]">
+                        <div className="text-[10px] text-[var(--text-muted)] uppercase">Optimized Batch Throughput</div>
+                        <div className="text-xl font-display font-extrabold text-[#22C55E] mt-1">
+                          ~{benchmarkData.optThroughput.toLocaleString()} <span className="text-xs font-mono text-[var(--text-muted)]">records/sec</span>
+                        </div>
+                        <div className="text-[11px] text-[var(--text-muted)] mt-1 font-sans">
+                          Parallel Celery chunking with zero network I/O block.
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* VIEW 3: CONNECTION POOL SATURATION */}
+                {benchmarkView === "pool" && (
+                  <motion.div
+                    key="view-pool"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xs font-sans text-[var(--text-secondary)]">
+                        PostgreSQL database connection pool utilization (50 Max Pool Size):
+                      </span>
+                      <span className="font-mono text-xs text-[var(--success)] font-bold">
+                        92% Headroom Available
+                      </span>
+                    </div>
+
+                    {/* Bar 1: Legacy Pool */}
+                    <div className="mb-5">
+                      <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                        <span className="text-[var(--text-muted)] flex items-center gap-1.5">
+                          <AlertTriangle className="w-3.5 h-3.5 text-[#EF4444]" />
+                          <span>Legacy Architecture Connection Saturation</span>
+                        </span>
+                        <span className="text-[#EF4444] font-bold">
+                          {benchmarkData.unoptConns} / 50 Leases Locked ({benchmarkData.unoptPool}% Capacity)
+                        </span>
+                      </div>
+                      <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-amber-500/80 to-red-600 rounded-lg flex items-center justify-end pr-3 font-mono text-xs text-white font-bold"
+                          initial={{ width: "40%" }}
+                          animate={{ width: `${benchmarkData.unoptPool}%` }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <span>{benchmarkData.unoptPool}% Saturation</span>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Bar 2: Optimized Pool */}
+                    <div className="mb-6">
+                      <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                        <span className="text-[var(--text-muted)] flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#22C55E]" />
+                          <span>Optimized Read-Replica Batch Pipeline</span>
+                        </span>
+                        <span className="text-[#22C55E] font-bold">
+                          {benchmarkData.optConns} / 50 Leases Active ({benchmarkData.optPool}% Capacity)
+                        </span>
+                      </div>
+                      <div className="w-full h-8 bg-[var(--surface-2)] rounded-lg overflow-hidden border border-[var(--border-subtle)] relative">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-emerald-500/80 to-emerald-600 rounded-lg flex items-center justify-end pr-3 font-mono text-xs text-white font-bold"
+                          initial={{ width: "8%" }}
+                          animate={{ width: `${Math.max(6, benchmarkData.optPool)}%` }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <span>{benchmarkData.optPool}%</span>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Connection Slots Visualizer Grid */}
+                    <div className="p-4 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)] font-mono text-xs">
+                      <div className="flex items-center justify-between mb-3 text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
+                        <span>Database Pool Connection Slot Health (50 Leases)</span>
+                        <span className="text-[var(--success)] font-bold">Green = Available · Red = Blocked in Wait</span>
+                      </div>
+                      <div className="grid grid-cols-10 sm:grid-cols-25 gap-1.5">
+                        {Array.from({ length: 50 }).map((_, idx) => {
+                          const isLegacyLocked = idx < benchmarkData.unoptConns;
+                          return (
+                            <div
+                              key={idx}
+                              title={`Connection Lease #${idx + 1}`}
+                              className={`h-4 rounded-sm transition-all duration-300 ${
+                                isLegacyLocked
+                                  ? "bg-red-500/80 shadow-[0_0_4px_rgba(239,68,68,0.5)]"
+                                  : "bg-emerald-500/70"
+                              }`}
+                            />
+                          );
+                        })}
+                      </div>
+                      <div className="mt-3 flex items-center justify-between text-[11px] text-[var(--text-muted)] font-sans">
+                        <span>In optimized architecture, bulk fetch completes in <strong>42ms</strong>, immediately releasing connections back to pool.</span>
+                        <span className="font-mono text-[#22C55E] font-bold">Zero starvation of external tenants</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
 
                 {/* Architectural Explanations Row */}
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-[var(--border-subtle)] text-xs font-sans">
