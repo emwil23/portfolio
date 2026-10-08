@@ -148,7 +148,7 @@ export const ScaleLog: React.FC = () => {
         {/* Experience Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
           
-          {/* 1. Enterprise Cloud Platform Card */}
+          {/* 1. Kredily Card */}
           <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden flex flex-col justify-between group hover:border-[var(--accent)] transition-all duration-300 shadow-xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -161,11 +161,16 @@ export const ScaleLog: React.FC = () => {
                     <span>Enterprise Scale // 150K–200K DAU</span>
                   </div>
                   <h3 className="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)] uppercase tracking-tight">
-                    Enterprise Workforce & Payroll Platform
+                    Kredily
                   </h3>
-                  <div className="font-mono text-xs text-[var(--accent)] mt-1 font-semibold">
-                    Software Development Engineer
+                  <div className="font-mono text-xs text-[var(--accent)] mt-1 font-semibold flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <span>Software Development Engineer</span>
+                    <span className="text-[var(--text-subtle)]">•</span>
+                    <span className="text-[var(--text-muted)] font-normal">Jan 2023 – Sept 2026</span>
                   </div>
+                  <p className="font-mono text-[11px] text-[var(--text-muted)] mt-1 uppercase tracking-wider">
+                    Enterprise Workforce &amp; Payroll Platform
+                  </p>
                 </div>
               </div>
 
@@ -235,7 +240,7 @@ export const ScaleLog: React.FC = () => {
             </div>
           </div>
 
-          {/* 2. Global EdTech Platform Card */}
+          {/* 2. ForeignAdmits Card */}
           <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden flex flex-col justify-between group hover:border-[var(--accent)] transition-all duration-300 shadow-xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--warm)]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -248,11 +253,16 @@ export const ScaleLog: React.FC = () => {
                     <span>Global Scale // Operations CRM</span>
                   </div>
                   <h3 className="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)] uppercase tracking-tight">
-                    Global Admissions & EdTech Infrastructure
+                    ForeignAdmits
                   </h3>
-                  <div className="font-mono text-xs text-[var(--accent)] mt-1 font-semibold">
-                    Frontend Software Engineer
+                  <div className="font-mono text-xs text-[var(--accent)] mt-1 font-semibold flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <span>Frontend Software Engineer</span>
+                    <span className="text-[var(--text-subtle)]">•</span>
+                    <span className="text-[var(--text-muted)] font-normal">Dec 2021 – Oct 2022</span>
                   </div>
+                  <p className="font-mono text-[11px] text-[var(--text-muted)] mt-1 uppercase tracking-wider">
+                    Global Admissions &amp; EdTech Infrastructure
+                  </p>
                 </div>
               </div>
 
