@@ -5,6 +5,7 @@ import { Preloader } from "@/components/Preloader";
 import { Hero } from "@/components/Hero";
 import { CaseStudies } from "@/components/CaseStudies";
 import { ScaleLog } from "@/components/ScaleLog";
+import { PlayerOne } from "@/components/PlayerOne";
 import { ContactHandshake } from "@/components/ContactHandshake";
 
 export default function Home() {
@@ -60,7 +61,10 @@ export default function Home() {
       {/* 3. The Scale Log: Experience & Engineering Philosophy */}
       <ScaleLog />
 
-      {/* 4. The Handshake: Action & Contact */}
+      {/* 4. Player 1: The Sanctuary (Gaming, Soft Heart & Romantic Soul) */}
+      <PlayerOne />
+
+      {/* 5. The Handshake: Action & Contact */}
       <ContactHandshake />
     </main>
   );

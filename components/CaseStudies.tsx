@@ -366,15 +366,18 @@ export const CaseStudies: React.FC = () => {
           <div className="flex items-center gap-3 mb-4">
             <span className="w-8 h-[1px] bg-[var(--accent)]" />
             <span className="font-mono text-xs text-[var(--accent)] uppercase tracking-widest font-semibold">
-              02 // THE PROOF
+              02 // THE CHRONICLES · ARCHITECTURAL PROOF
             </span>
           </div>
           <h2 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-[var(--text-primary)] uppercase tracking-[-0.03em] max-w-4xl">
-            Engineered Systems & Case Studies
+            Built With Intention.
           </h2>
           <p className="mt-5 text-[var(--text-muted)] text-base sm:text-lg max-w-3xl font-sans leading-relaxed">
-            Detailed dissections of production systems I architected and delivered: deterministic AI agent copilot orchestrations, distributed batch optimizations eliminating 99.7% of database bottlenecks, and high-frequency frontend virtualizations.
+            Three engineered chronicles. Detailed dissections of production systems architected and delivered for 200,000 daily users: deterministic AI copilots, distributed batch optimizations eliminating 99.7% of database bottlenecks, and 60 FPS matrix virtualization.
           </p>
+          <div className="mt-4 font-mono text-xs text-[var(--text-subtle)] border-l-2 border-[var(--border)] pl-3 italic">
+            &ldquo;Underneath every thousand concurrent transactions, there is a human heartbeat. Underneath every optimized query, a quiet yearning for elegance.&rdquo;
+          </div>
         </div>
 
         {/* ========================================================================= */}
@@ -389,12 +392,15 @@ export const CaseStudies: React.FC = () => {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                   <Cpu className="w-3.5 h-3.5" />
-                  <span>Autonomous AI Orchestrator & UI Sync</span>
+                  <span>Chronicle I // Autonomous AI Orchestrator &amp; UI Sync</span>
                 </div>
                 <h3 className="font-display font-black text-3xl sm:text-4xl text-[var(--text-primary)] uppercase tracking-tight">
-                  Autonomous Enterprise Workflow Copilot
+                  The Clockwork Sentinel // Autonomous Enterprise Copilot
                 </h3>
-                <p className="text-[var(--text-secondary)] font-sans text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
+                <div className="mt-1 font-mono text-xs text-purple-400 font-medium">
+                  &ldquo;Teaching algorithms to listen with patience and act with integrity.&rdquo;
+                </div>
+                <p className="text-[var(--text-secondary)] font-sans text-sm sm:text-base mt-2.5 max-w-3xl leading-relaxed">
                   Deterministic multi-gate workflow engine capable of autonomously orchestrating high-concurrency payroll runs, biometric attendance reconciliation, and statutory filings. Features strict RBAC validation, honesty guards against masked errors, and real-time bidirectional UI viewport synchronization.
                 </p>
               </div>
@@ -704,12 +710,15 @@ export const CaseStudies: React.FC = () => {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                   <Database className="w-3.5 h-3.5" />
-                  <span>Distributed Database Optimization & Telemetry</span>
+                  <span>Chronicle II // Distributed Database Optimization &amp; Telemetry</span>
                 </div>
                 <h3 className="font-display font-black text-3xl sm:text-4xl text-[var(--text-primary)] uppercase tracking-tight">
-                  High-Throughput Batch Optimization & Telemetry
+                  Rivers in the Machine // High-Throughput Batch Optimization
                 </h3>
-                <p className="text-[var(--text-secondary)] font-sans text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
+                <div className="mt-1 font-mono text-xs text-purple-400 font-medium">
+                  &ldquo;When twenty thousand records flow without friction, code becomes quiet water.&rdquo;
+                </div>
+                <p className="text-[var(--text-secondary)] font-sans text-sm sm:text-base mt-2.5 max-w-3xl leading-relaxed">
                   Engineered distributed performance overhaul for core batch calculations servicing 150K–200K active employee records across multi-tenant environments. Eliminated cascading N+1 database queries via bulk replica joins and built resilient asynchronous request logging queues with automatic reconnect retry.
                 </p>
               </div>
@@ -1271,12 +1280,15 @@ export const CaseStudies: React.FC = () => {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                   <Gauge className="w-3.5 h-3.5" />
-                  <span>High-Scale Frontend Virtualization</span>
+                  <span>Chronicle III // High-Scale Frontend Virtualization</span>
                 </div>
                 <h3 className="font-display font-black text-3xl sm:text-4xl text-[var(--text-primary)] uppercase tracking-tight">
-                  High-Throughput Virtualized Pay Register
+                  The Infinite Loom // High-Throughput Virtualized Pay Register
                 </h3>
-                <p className="text-[var(--text-secondary)] font-sans text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
+                <div className="mt-1 font-mono text-xs text-purple-400 font-medium">
+                  &ldquo;Rendering only what the human eye can touch, leaving the rest to imagination.&rdquo;
+                </div>
+                <p className="text-[var(--text-secondary)] font-sans text-sm sm:text-base mt-2.5 max-w-2xl leading-relaxed">
                   Real-time payroll register stress-test demonstrating row windowing over massive 10,000+ data sets. Decouples DOM complexity from dataset volume for a locked 60 FPS experience with microsecond frame budgets.
                 </p>
               </div>

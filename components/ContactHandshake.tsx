@@ -65,7 +65,7 @@ export const ContactHandshake: React.FC = () => {
           <div className="flex items-center gap-3 mb-4">
             <span className="w-8 h-[1px] bg-[var(--accent)]" />
             <span className="font-mono text-xs text-[var(--accent)] uppercase tracking-widest font-semibold">
-              04 // THE HANDSHAKE
+              05 // THE RESONANT HANDSHAKE
             </span>
           </div>
           <h2 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-[var(--text-primary)] uppercase tracking-[-0.03em] max-w-4xl leading-[0.9]">

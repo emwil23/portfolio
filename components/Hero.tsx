@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Code2, Sun, Moon } from "lucide-react";
+import { ArrowUpRight, Code2, Sun, Moon, Gamepad2 } from "lucide-react";
 
 interface HeroProps {
   isLoaded: boolean;
@@ -66,10 +66,14 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
           {time}
         </div>
 
-        <div className="hidden md:flex items-center gap-8 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
+        <div className="hidden md:flex items-center gap-7 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
           <a href="#top" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors">Home</a>
           <a href="#proof" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors">Case Studies</a>
           <a href="#scale" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors">Experience</a>
+          <a href="#sanctuary" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors flex items-center gap-1.5 text-purple-400">
+            <Gamepad2 className="w-3 h-3" />
+            <span>Player 1</span>
+          </a>
           <a href="#contact" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors">Contact</a>
         </div>
 
@@ -155,9 +159,9 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-6 md:mt-8 font-mono text-xs sm:text-sm uppercase tracking-widest text-[var(--text-muted)] border-l-2 border-[var(--accent)] pl-4 max-w-md leading-relaxed transition-colors duration-300"
+              className="mt-6 md:mt-8 font-mono text-xs sm:text-sm uppercase tracking-widest text-[var(--text-muted)] border-l-2 border-[var(--accent)] pl-4 max-w-lg leading-relaxed transition-colors duration-300"
             >
-              Full-Stack & Systems Engineer · Distributed Systems & High-Performance UI.
+              Full-Stack &amp; Systems Engineer · Distributed Systems &amp; High-Performance UI · Gamer &amp; Romantic by Nature.
             </motion.div>
           </div>
 
