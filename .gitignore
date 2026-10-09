@@ -18,6 +18,12 @@
 .DS_Store
 *.pem
 
+# agents & skills
+.agents/
+.claude/
+agent/
+skills-lock.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*
