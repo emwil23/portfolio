@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 /** A keyed, transparent character clip from public/assets/character (built by scripts/key-assets.sh). */
-export type CharacterAction = "wave" | "present" | "thumbsup" | "handshake";
+export type CharacterAction = "wave" | "present" | "thumbsup" | "handshake" | "game" | "admire" | "type";
 
 /** HEVC-with-alpha for Safari, VP9-with-alpha for everything else. */
 const sources = (name: string) => (
@@ -14,16 +14,17 @@ const sources = (name: string) => (
   </>
 );
 
-export const CharacterClip: React.FC<{ name: "idle" | CharacterAction; className?: string }> = ({ name, className = "" }) => (
+export const CharacterClip: React.FC<{ name: "idle" | "arrive" | CharacterAction; className?: string }> = ({ name, className = "" }) => (
   <video autoPlay loop muted playsInline aria-hidden="true" className={`pointer-events-none ${className}`}>
     {sources(name)}
   </video>
 );
 
-// Clips keyed with a wider frame than the shared one (see FRAME_A_WIDE in scripts/key-assets.sh).
+// Clips keyed with a wider frame than the shared one (see FRAME_WIDE in scripts/key-assets.sh).
 // This box puts him back in the same place as every other clip.
 const CLIP_BOX: Partial<Record<CharacterAction, React.CSSProperties>> = {
-  present: { left: "-22.05%", width: "121.84%" },
+  present: { left: "-74.71%", width: "174.71%" },
+  game: { left: "-4.02%", width: "108.05%" },
 };
 
 // look.webp is an 8x7 sprite of the head-circle clip (see scripts/key-assets.sh):
@@ -33,8 +34,8 @@ const CLIP_BOX: Partial<Record<CharacterAction, React.CSSProperties>> = {
 // Mirroring the spoke gives the turn from the camera out to screen-right.
 const COLS = 8;
 const ROWS = 7;
-const SPOKE = 13; // spoke steps from the camera (0) to where it joins the ring (13)
-const RING = 42;
+export const SPOKE = 13; // spoke steps from the camera (0) to where it joins the ring (13)
+export const RING = 42;
 const LEFT = 0; // ring positions where the two spokes join
 const RIGHT = 19; // the real frame that best matches the mirrored end of the spoke
 const SPEED = 0.034; // cells per millisecond, about three times the clip's own pace
@@ -42,10 +43,10 @@ const REST_MS = 1600;
 const FADE_MS = 260;
 
 /** Signed shortest distance from a to b around the ring. */
-const around = (a: number, b: number) => ((b - a + RING * 1.5) % RING) - RING / 2;
+export const around = (a: number, b: number) => ((b - a + RING * 1.5) % RING) - RING / 2;
 
 /** Cursor angle -> position on the ring. The clip doesn't turn at a constant speed, so each quadrant has its own span. */
-const ringAt = (dx: number, dy: number) => {
+export const ringAt = (dx: number, dy: number) => {
   // Degrees clockwise on screen from "left": left 0, up 90, right 180, down 270
   const a = (180 - (Math.atan2(-dy, dx) * 180) / Math.PI + 360) % 360;
   const q = Math.min(3, Math.floor(a / 90));

@@ -77,7 +77,7 @@ export const PlayerOne: React.FC = () => {
   return (
     <section 
       id="sanctuary" 
-      className="relative w-full py-28 px-6 sm:px-12 bg-[var(--background)] border-t border-[var(--border)] overflow-hidden transition-colors duration-300"
+      className="relative w-full py-28 px-6 sm:px-12 overflow-hidden"
     >
       {/* Ambient Starlight / Atmosphere Glow */}
       <div className="absolute top-1/3 right-10 w-[600px] h-[600px] bg-purple-500/5 blur-[160px] pointer-events-none rounded-full" />

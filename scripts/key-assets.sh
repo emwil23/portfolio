@@ -24,10 +24,11 @@ SIZE="scale=348:930"
 # A new clip that matches neither needs measuring the same way.
 FRAME_A="$MASK,pad=720:1334:0:24:color=0x109757,crop=499:1333:110:0,scale=464:1240" # 7% larger, 10px right
 FRAME_B="$MASK,pad=720:1320:0:16:color=0x109757,crop=493:1318:103:1,scale=464:1240" # 6% larger
-# FRAME_A, widened left to the edge of the source for the presenting gesture, whose arm reaches out of the shared frame.
-# The extra width is undone in components/Character.tsx (CLIP_BOX), so he still lines up with the others.
-FRAME_A_WIDE="$MASK,pad=720:1334:0:24:color=0x109757,crop=609:1333:0:0,scale=566:1240"
-SIZE_WIDE="scale=424:930"
+# The presenting gesture was shot 16:9 so his whole arm fits. Its wall is a slightly different green and its
+# watermark sits elsewhere, so it masks and keys for itself; the crop keeps him the same size as the others and
+# the extra width is undone in components/Character.tsx (CLIP_BOX), so he still lines up with them.
+FRAME_WIDE="drawbox=x=1080:y=540:w=200:h=180:color=0x229B52:t=fill,crop=470:720:299:0,colorkey=0x229B52:0.12:0.06"
+SIZE_WIDE="scale=608:930"
 
 # 1. Head circle -> an 8x7 sprite of every 2nd source frame from 0 to 108, so cell k is frame 2k.
 # Cell 0 looks at the camera, cells 1-12 turn from the camera to screen-left, and cells 13-54 are
@@ -36,6 +37,17 @@ ffmpeg -v error -y -i "$IN/04-look-circle.mp4" \
   -vf "select='between(n,0,109)*not(mod(n,2))',$FRAME,$KEY,$SIZE,format=rgba,tile=8x7" \
   -frames:v 1 "$TMP/look.png"
 cwebp -quiet -q 80 -alpha_q 90 "$TMP/look.png" -o "$OUT/look.webp"
+# For the WebGL stage (components/Stage.tsx): the sprite at half size, so it fits a 4096px phone
+# texture limit, and one frame still on its green wall, which the stage keys live in a shader.
+cwebp -quiet -q 80 -alpha_q 90 -resize 1392 3255 "$TMP/look.png" -o "$OUT/look-small.webp"
+ffmpeg -v error -y -i "$IN/04-look-circle.mp4" -vf "$MASK,scale=432:768" -frames:v 1 "$TMP/green.png"
+cwebp -quiet -q 90 "$TMP/green.png" -o "$OUT/green.webp"
+
+# One full turn on the spot -> an 8x6 sprite of every 3rd frame, scrubbed by the scroll in components/Turnaround.tsx.
+ffmpeg -v error -y -i "$IN/10-turnaround.mp4" \
+  -vf "select='not(mod(n,3))',$MASK,crop=464:1240:128:20,$KEY,scale=261:698,format=rgba,tile=8x6" \
+  -frames:v 1 "$TMP/turn.png"
+cwebp -quiet -q 80 -alpha_q 90 "$TMP/turn.png" -o "$OUT/turn.webp"
 
 # 2. Clips -> VP9 with alpha (Chromium, Firefox) and HEVC with alpha (Safari).
 encode() {
@@ -47,8 +59,18 @@ encode() {
 }
 encode 05-idle-nocup idle "$FRAME_A"
 encode 06-wave wave "$FRAME_B"
-encode 07-present present "$FRAME_A_WIDE" "$SIZE_WIDE"
+encode 11-present-wide present "$FRAME_WIDE" "$SIZE_WIDE"
 encode 08-thumbsup thumbsup "$FRAME_B"
+# Later clips each have their own wall green and framing, so they mask, frame and key for themselves
+# (measured from the bounding box of frame 0, as above). Wider than the shared frame where he leans out of it.
+encode 12-gaming game "drawbox=x=0:y=1080:w=175:h=200:color=0x1F9B54:t=fill,drawbox=x=545:y=1080:w=175:h=200:color=0x1F9B54:t=fill,pad=720:1304:0:2:color=0x1F9B54,crop=528:1304:86:0,colorkey=0x1F9B54:0.12:0.06" "scale=376:930"
+encode 13-lookup admire "drawbox=x=0:y=1080:w=175:h=200:color=0x1B9A54:t=fill,drawbox=x=545:y=1080:w=175:h=200:color=0x1B9A54:t=fill,pad=720:1288:0:0:color=0x1B9A54,crop=480:1284:113:3,colorkey=0x1B9A54:0.12:0.06"
+encode 14-typing type "drawbox=x=0:y=1080:w=175:h=200:color=0x229B54:t=fill,drawbox=x=545:y=1080:w=175:h=200:color=0x229B54:t=fill,pad=720:1326:0:15:color=0x229B54,crop=496:1325:100:0,colorkey=0x229B54:0.12:0.06"
+
+# The preloader's entrance keeps the whole 9:16 frame (he walks in from its right edge) and drops the
+# first two frames, which are a still of the reference pose.
+ARRIVE="trim=start_frame=2,setpts=PTS-STARTPTS,drawbox=x=0:y=1080:w=175:h=200:color=0x16A555:t=fill,drawbox=x=545:y=1080:w=175:h=200:color=0x16A555:t=fill,colorkey=0x16A555:0.12:0.06"
+encode 15-arrive arrive "$ARRIVE" "scale=522:928"
 encode 09-handshake handshake "$FRAME_A"
 
 ls -lh "$OUT"

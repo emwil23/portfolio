@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Terminal, Check, Sparkles, Zap, ArrowRight, Eye, RotateCcw } from "lucide-react";
 import { StudioBackground } from "@/components/StudioBackground";
+import { CharacterClip } from "@/components/Character";
 
 interface PreloaderProps {
   onComplete: () => void;
@@ -22,15 +23,6 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
   const [progress, setProgress] = useState(0);
   const [statusIndex, setStatusIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Auto-play video
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 1.0;
-      videoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   // Smooth progress progression
   useEffect(() => {
@@ -133,27 +125,13 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
                 initial={{ opacity: 0, scale: 0.88 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="relative z-10 w-[85%] sm:w-[68%] md:w-[54%] lg:w-[46%] max-w-2xl aspect-video flex items-center justify-center"
+                className="relative z-10 flex h-[68vh] items-center justify-center"
               >
-                {/* Contact ground shadow for desk scene */}
-                <div className={`absolute -bottom-6 left-1/2 -translate-x-1/2 w-[85%] h-12 ${variant === "light" ? "bg-slate-900/10" : "bg-black/15"} blur-2xl rounded-full pointer-events-none`} />
+                {/* Contact ground shadow */}
+                <div className={`absolute bottom-[3%] left-1/2 -translate-x-1/2 w-[70%] h-8 ${variant === "light" ? "bg-slate-900/15" : "bg-black/30"} blur-2xl rounded-full pointer-events-none`} />
 
-                {/* Character Video: Clean Transparent WebM/MP4 with White-blended fallback */}
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <video
-                    ref={videoRef}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                    poster="/assets/character-poster-v2.png"
-                    className="w-full h-full object-contain pointer-events-none"
-                  >
-                    <source src="/assets/character-working-transparent-v2.mp4" type='video/mp4; codecs="hvc1"' />
-                    <source src="/assets/character-working-transparent-v2.webm" type="video/webm" />
-                  </video>
-                </div>
+                {/* He walks in while the page loads */}
+                <CharacterClip name="arrive" className="relative h-full" />
               </motion.div>
 
 

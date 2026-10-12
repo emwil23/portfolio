@@ -122,9 +122,8 @@ export const ScaleLog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   return (
-    <section id="scale" className="relative w-full py-28 px-6 sm:px-12 bg-[var(--background)] border-t border-[var(--border)] overflow-hidden transition-colors duration-300">
+    <section id="scale" className="relative w-full py-28 px-6 sm:px-12 overflow-hidden">
       {/* Background Ambience */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
       <div className="absolute top-1/2 right-0 w-[600px] h-[500px] bg-[var(--accent)]/5 blur-[180px] pointer-events-none rounded-full" />
 
       <div className="relative max-w-7xl mx-auto">

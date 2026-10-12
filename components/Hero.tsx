@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Code2, Sun, Moon, Gamepad2 } from "lucide-react";
+import { ArrowUpRight, Loader2 } from "lucide-react";
 import { Character } from "@/components/Character";
 
 interface HeroProps {
@@ -10,112 +11,13 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
-  const [time, setTime] = useState("");
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const updateTime = () => setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
-    updateTime();
-    const timer = setInterval(updateTime, 60000);
-
-    // Sync theme with document class
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-    localStorage.setItem("portfolio-theme", nextTheme);
-    if (nextTheme === "dark") {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.classList.add("light");
-    }
-  };
+  // The glimpse card spins once clicked, until the case studies page takes over
+  const [opening, setOpening] = useState(false);
 
   return (
-    <main 
-      className="relative min-h-screen bg-[var(--background)] overflow-hidden transition-colors duration-300"
-    >
-      {/* Studio Cyclorama Background */}
-      <div className="absolute inset-0 bg-hero-cyclorama pointer-events-none transition-opacity duration-500" />
-
+    <header data-chapter="hero" className="relative min-h-screen overflow-hidden">
       {/* Subtle Studio Glow */}
       <div className="absolute inset-0 bg-radial-glow pointer-events-none" />
-
-      {/* Fixed Top Navigation Bar */}
-      <motion.nav 
-        initial={{ opacity: 0, y: -20 }}
-        animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 inset-x-0 z-40 w-full px-6 py-4 sm:px-12 flex items-center justify-between backdrop-blur-md bg-[var(--background)]/80 border-b border-[var(--border-subtle)] transition-colors duration-300 shadow-sm"
-      >
-        <div className="flex items-center gap-3">
-          <span className="font-display font-extrabold text-sm tracking-tighter uppercase text-[var(--text-primary)]">
-            EW Studio
-          </span>
-        </div>
-        
-        <div className="hidden md:block font-mono text-[10px] text-[var(--text-muted)] tracking-widest uppercase">
-          {time}
-        </div>
-
-        <div className="hidden md:flex items-center gap-7 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
-          <a href="#top" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors">Home</a>
-          <a href="#proof" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors">Case Studies</a>
-          <a href="#scale" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors">Experience</a>
-          <a href="#sanctuary" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors flex items-center gap-1.5 text-purple-400">
-            <Gamepad2 className="w-3 h-3" />
-            <span>Player 1</span>
-          </a>
-          <a href="#contact" className="hover:text-[var(--text-primary)] cursor-pointer transition-colors">Contact</a>
-        </div>
-
-        <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* Day / Night Mode Toggle */}
-          <button
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === "dark" ? "Day" : "Night"} mode`}
-            title={`Switch to ${theme === "dark" ? "Day" : "Night"} mode`}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--surface-2)] text-[var(--text-primary)] hover:bg-[var(--surface-3)] font-mono text-[10px] uppercase tracking-wider transition-all font-bold border border-[var(--border)] group cursor-pointer shadow-sm active:scale-95"
-          >
-            <div className="relative w-3.5 h-3.5 flex items-center justify-center">
-              {mounted && theme === "dark" ? (
-                <Moon className="w-3.5 h-3.5 text-amber-300 transition-transform duration-300 group-hover:-rotate-12" />
-              ) : (
-                <Sun className="w-3.5 h-3.5 text-amber-500 transition-transform duration-300 group-hover:rotate-45" />
-              )}
-            </div>
-            <span className="hidden sm:inline">
-              {mounted ? (theme === "dark" ? "Night" : "Day") : "Theme"}
-            </span>
-          </button>
-
-          <a
-            href="https://github.com/emwil23"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] hover:opacity-90 font-mono text-[10px] uppercase tracking-widest transition-all font-bold shadow-sm"
-          >
-            <span>GitHub</span>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/ewilly/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--surface-2)] text-[var(--text-primary)] hover:bg-[var(--surface-3)] font-mono text-[10px] uppercase tracking-widest transition-all font-bold border border-[var(--border)] shadow-sm"
-          >
-            <span>LinkedIn</span>
-          </a>
-        </div>
-      </motion.nav>
 
       {/* Center Character Canvas */}
       <motion.div 
@@ -163,7 +65,30 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
             transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col gap-5 pointer-events-auto max-w-[340px] shrink-0 mb-2 md:mb-6"
           >
-            <div className="font-mono text-[10px] text-[var(--accent)] uppercase tracking-widest flex items-center gap-2">
+            {/* A glimpse of the case studies */}
+            <Link
+              href="/case-studies/"
+              onClick={() => setOpening(true)}
+              className="group flex items-center gap-4 rounded-xl border border-[var(--key)]/50 bg-[var(--surface-1)]/80 p-3 pr-4 shadow-md backdrop-blur-md transition-all hover:border-[var(--key)] dark:bg-[var(--surface-1)]/40 dark:shadow-lg"
+            >
+              <span
+                aria-hidden="true"
+                className="h-16 w-16 shrink-0 rounded-lg bg-[url('/assets/character/green.webp')] bg-[length:230%] bg-[position:50%_9%]"
+              />
+              <span className="flex-1">
+                <span className="block font-mono text-[10px] uppercase tracking-widest text-[var(--key)]">Case studies · 05</span>
+                <span className="mt-1 block font-sans text-sm leading-snug text-[var(--text-primary)]">
+                  This site, a wedding invitation and three production systems, taken apart.
+                </span>
+              </span>
+              {opening ? (
+                <Loader2 aria-label="Opening" className="h-4 w-4 shrink-0 animate-spin text-[var(--key)]" />
+              ) : (
+                <ArrowUpRight className="h-4 w-4 shrink-0 text-[var(--key)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              )}
+            </Link>
+
+            <div className="hidden md:flex font-mono text-[10px] text-[var(--accent)] uppercase tracking-widest items-center gap-2">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--accent)]"></span>
@@ -171,7 +96,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
               Telemetry HUD // Systems Impact
             </div>
             
-            <div className="flex flex-col gap-3">
+            <div className="hidden md:flex flex-col gap-3">
               <div className="group bg-[var(--surface-1)]/80 dark:bg-[var(--surface-1)]/40 backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
                 <div className="text-[var(--text-primary)] font-sans text-sm leading-snug">
                   Scaled multi-tenant platforms serving <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">150K–200K DAU</span> with zero downtime.
@@ -194,6 +119,6 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
 
         </div>
       </div>
-    </main>
+    </header>
   );
 };

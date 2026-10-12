@@ -31,6 +31,9 @@
   --accent-bg: #EFF6FF;
   --accent-bg-soft: #F8FAFC;
 
+  /* The green-screen green the character was shot on */
+  --key: #109757;
+
   /* NEUTRALS */
   --warm: #92400E;
   --warm-light: #B45309;
@@ -85,6 +88,8 @@ html.dark {
   --accent-rgb: 100, 116, 139;
   --accent-bg: #1E293B;
   --accent-bg-soft: #20262D;
+
+  --key: #2BD98B;
 
   /* NEUTRALS */
   --warm: #8B735F;

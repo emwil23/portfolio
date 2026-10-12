@@ -354,9 +354,8 @@ export const CaseStudies: React.FC = () => {
   }, [isPlayingScript]);
 
   return (
-    <section id="proof" className="relative w-full py-28 px-6 sm:px-12 bg-[var(--background)] border-t border-[var(--border)] overflow-hidden transition-colors duration-300">
+    <section id="proof" className="relative w-full py-28 px-6 sm:px-12 overflow-hidden">
       {/* Background Subtle Tech Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[var(--accent)]/5 blur-[160px] pointer-events-none rounded-full" />
 
       <div className="relative max-w-7xl mx-auto">

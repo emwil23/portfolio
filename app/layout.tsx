@@ -21,7 +21,6 @@ export default function RootLayout({
           rel="stylesheet"
         />
         {/* Preload critical preloader & sanctuary assets for blazing fast LCP */}
-        <link rel="preload" as="image" href="/assets/character-poster-v2.png" />
         <link rel="preload" as="image" href="/assets/player1-setup.webp" />
         <link rel="preload" as="image" href="/assets/romantic-polaroid.webp" />
         

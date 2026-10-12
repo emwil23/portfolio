@@ -33,7 +33,7 @@ export const ContactHandshake: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="relative w-full pt-28 pb-16 px-6 sm:px-12 bg-[var(--background)] border-t border-[var(--border)] overflow-hidden transition-colors duration-300">
+    <section id="contact" className="relative w-full pt-28 pb-16 px-6 sm:px-12 overflow-hidden">
       {/* Subtle Background Glow */}
       <div className="absolute inset-0 bg-radial-glow opacity-30 pointer-events-none" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[var(--accent)]/10 blur-[150px] rounded-full pointer-events-none" />
