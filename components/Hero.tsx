@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Code2, Sun, Moon, Gamepad2 } from "lucide-react";
+import { Character } from "@/components/Character";
 
 interface HeroProps {
   isLoaded: boolean;
@@ -127,17 +128,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
           {/* Studio Floor Shadow */}
           <div className="absolute bottom-[5%] left-1/2 -translate-x-1/2 w-[42%] h-[22px] bg-slate-900/15 dark:bg-black/50 blur-2xl rounded-full transition-colors duration-500" />
           
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="/assets/character-coffee-v3-poster.png"
-            className="w-full h-full object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
-          >
-            <source src="/assets/character-coffee-v3.mp4" type='video/mp4; codecs="hvc1"' />
-            <source src="/assets/character-coffee-v3.webm" type="video/webm" />
-          </video>
+          <Character track className="h-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)]" />
         </div>
       </motion.div>
 
