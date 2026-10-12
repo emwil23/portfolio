@@ -35,6 +35,8 @@ The following skills are installed and natively discoverable in `.agents/skills/
 ### Animation, Motion Systems & 3D
 - **`framer-motion-animator`** (`.agents/skills/framer-motion-animator/`):
   Framer Motion orchestrations: variants, staggering, layout animations, scroll-driven triggers, gesture handling, and exit transitions.
+- **`motion-foundations`**, **`motion-patterns`**, **`motion-advanced`** (`.agents/skills/motion-*/`, from `affaan-m/ECC`):
+  Motion tokens and spring presets, reduced-motion and SSR-safe initial states, UI patterns (stagger, `AnimatePresence`, scroll, layout), and advanced work (drag, gestures, SVG, text, `useAnimate`). **Project override:** this repo uses `framer-motion` v11, so keep importing from `framer-motion` — ignore the skills' "`motion/react` only" rule, and treat `lib/motion-tokens.ts` as a suggestion, not an existing file.
 - **`ui-animation`** (`.agents/skills/ui-animation/`):
   GPU-accelerated UI animation rules: strict `transform`/`opacity` isolation, 200–300ms timing windows, spring physics, and CSS-first implementations.
 - **`threejs-animation`** (`.agents/skills/threejs-animation/`):
