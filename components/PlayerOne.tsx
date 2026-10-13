@@ -128,7 +128,8 @@ const Photograph: React.FC = () => {
         </motion.button>
       </div>
 
-      <div id="care" className={`transition-[opacity,transform] delay-150 duration-700 ease-out ${open ? "" : "md:pointer-events-none md:translate-x-10 md:opacity-0"}`}>
+      {/* On a pane of its own, so the stage's gems drifting behind never cross the words */}
+      <div id="care" className={`rounded-2xl bg-[color:color-mix(in_srgb,var(--background)_80%,transparent)] p-6 backdrop-blur-md sm:p-8 transition-[opacity,transform] delay-150 duration-700 ease-out ${open ? "" : "md:pointer-events-none md:translate-x-10 md:opacity-0"}`}>
         <p className="font-mono text-[10px] uppercase tracking-widest text-amber-600 dark:text-amber-400">Off the clock</p>
         <h3 className="mt-3 font-display text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-[var(--text-primary)] sm:text-5xl">
           Software is an act of care.

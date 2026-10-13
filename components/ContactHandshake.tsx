@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUp, ArrowUpRight, Check, Copy, FileDown, MapPin } from "lucide-react";
-import { CharacterClip } from "@/components/Character";
 
 const EMAIL = "emmanuel_work@icloud.com";
 
@@ -28,6 +27,9 @@ const row =
 /** The last chapter: the ways to reach me, with him busy building beside them. */
 export const ContactHandshake: React.FC = () => {
   const [copied, setCopied] = useState(false);
+  // shortcut: WebKit plays this VP9 clip without its transparency, so Apple browsers keep the still. Add an HEVC-alpha encode (scripts/key-assets.sh, on a Mac) to give them the motion too.
+  const [moving, setMoving] = useState(false);
+  useEffect(() => setMoving(!navigator.vendor.includes("Apple")), []);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(EMAIL);
@@ -38,11 +40,18 @@ export const ContactHandshake: React.FC = () => {
   return (
     <section id="contact" aria-label="Contact" className="relative px-4 sm:px-12">
       <div data-chapter="shake" className="mx-auto grid max-w-7xl gap-x-12 pt-24 md:min-h-screen md:grid-cols-2 md:pt-0">
-        {/* He does not perform for the visitor here: one looping clip of him at work, with a faint glow where he stands */}
-        <div className="pointer-events-none relative mx-auto aspect-[348/930] h-[38vh] md:col-start-2 md:row-start-1 md:h-[86vh] md:self-end">
-          <div aria-hidden="true" className="absolute left-1/2 top-[42%] aspect-square h-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--key)_16%,transparent),transparent_65%)]" />
-          <div className="relative h-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
-            <CharacterClip name="type" className="h-full w-full" />
+        {/* He does not perform for the visitor here: he is at his desk, building, and the clip just loops */}
+        <div className="pointer-events-none relative mx-auto w-full max-w-[640px] md:col-start-2 md:row-start-1 md:self-center">
+          <div aria-hidden="true" className="absolute left-1/2 top-[45%] aspect-square w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--key)_16%,transparent),transparent_65%)]" />
+          {/* The desk's legs run off the bottom of the frame, so it fades out instead of ending in a cut */}
+          <div className="relative aspect-[800/630] drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)] [mask-image:linear-gradient(to_bottom,black_82%,transparent)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
+            {/* eslint-disable-next-line @next/next/no-img-element -- images are unoptimized in this static export */}
+            <img src="/assets/character/desk.webp" alt="Emmanuel's character at his desk, coding across two monitors" width={800} height={630} loading="lazy" className="h-full w-full" />
+            {moving && (
+              <video autoPlay loop muted playsInline aria-hidden="true" className="absolute inset-0 h-full w-full motion-reduce:hidden">
+                <source src="/assets/character/desk.webm" type="video/webm" />
+              </video>
+            )}
           </div>
         </div>
 
