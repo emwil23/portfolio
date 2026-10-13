@@ -61,7 +61,7 @@ const rise = {
   transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
 };
 
-/** A print with broad edges that leans towards the pointer. Hover, focus or tap it and it steps aside for the words. */
+/** A puffy holographic sticker of a print: it leans towards the pointer and its foil catches the light as it turns. Hover, focus or tap it and it steps aside for the words. */
 const Photograph: React.FC = () => {
   const [open, setOpen] = useState(false);
   const tiltX = useSpring(useMotionValue(0), { stiffness: 150, damping: 15 });
@@ -70,12 +70,19 @@ const Photograph: React.FC = () => {
   const lean = (e: React.PointerEvent<HTMLButtonElement>) => {
     if (e.pointerType !== "mouse") return;
     const box = e.currentTarget.getBoundingClientRect();
-    tiltY.set(((e.clientX - box.left) / box.width - 0.5) * 16);
-    tiltX.set((0.5 - (e.clientY - box.top) / box.height) * 16);
+    const x = (e.clientX - box.left) / box.width;
+    const y = (e.clientY - box.top) / box.height;
+    tiltY.set((x - 0.5) * 24);
+    tiltX.set((0.5 - y) * 24);
+    // The foil and the glare (.sticker-foil, .sticker-glare in globals.css) slide with the pointer
+    e.currentTarget.style.setProperty("--mx", `${x * 100}%`);
+    e.currentTarget.style.setProperty("--my", `${y * 100}%`);
+    e.currentTarget.style.setProperty("--shine", "1");
   };
-  const settle = () => {
+  const settle = (e: React.PointerEvent<HTMLButtonElement>) => {
     tiltX.set(0);
     tiltY.set(0);
+    e.currentTarget.style.setProperty("--shine", "0.35");
   };
 
   return (
@@ -94,9 +101,9 @@ const Photograph: React.FC = () => {
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
           style={{ rotateX: tiltX, rotateY: tiltY, rotate: -3 }}
-          className="relative w-full max-w-[380px] rounded-md bg-white p-4 pb-5 text-left shadow-2xl dark:bg-[#F4EEE4] sm:p-5"
+          className="sticker relative w-full max-w-[380px] rounded-[28px] bg-white p-4 pb-5 text-left sm:p-5"
         >
-          <span className="relative block aspect-square overflow-hidden bg-neutral-200">
+          <span className="relative block aspect-square overflow-hidden rounded-2xl bg-neutral-200">
             {/* eslint-disable-next-line @next/next/no-img-element -- images are unoptimized in this static export */}
             <img
               src="/assets/romantic-polaroid.webp"
@@ -113,6 +120,8 @@ const Photograph: React.FC = () => {
           </span>
           <span className="block pt-4 text-center font-mono text-xs font-semibold tracking-wider text-neutral-800">bengaluru_sunset_cafe.raw</span>
           <span className="mt-1 block text-center font-mono text-[10px] text-neutral-500">18:24 IST · Warm coffee, calm water &amp; peaceful thoughts</span>
+          <span aria-hidden="true" className="sticker-foil" />
+          <span aria-hidden="true" className="sticker-glare" />
           <span aria-hidden="true" className={`absolute -bottom-9 left-0 right-0 hidden text-center font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] transition-opacity duration-500 md:block ${open ? "opacity-0" : ""}`}>
             Hover the photograph
           </span>
