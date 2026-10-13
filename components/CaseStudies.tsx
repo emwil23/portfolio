@@ -250,6 +250,210 @@ const generateRecords = (count: number): LedgerRecord[] => {
   return records;
 };
 
+// Benchmark calculations derived from employeeScale
+const benchmark = (employeeScale: number) => {
+  // Unoptimized: N+1 queries = 1 initial + 2 * N queries (overrides + payout updates)
+  const unoptQueries = (employeeScale * 2) + 1;
+  // Optimized: Exactly 3 batched queries regardless of count
+  const optQueries = 3;
+
+  // Latency in seconds (approx 28ms per query unoptimized vs batched bulk)
+  const unoptLatency = ((employeeScale * 0.028) + 0.4).toFixed(1);
+  const optLatency = Math.max(0.6, (0.5 + (employeeScale / 10000) * 1.2)).toFixed(1);
+
+  // Pool saturation percentage (out of 50 max pool connections)
+  const unoptPool = Math.min(100, Math.round(38 + (employeeScale / 2500) * 58));
+  const optPool = Math.min(100, Math.round(6 + (employeeScale / 10000) * 4));
+
+  // Active connection count
+  const unoptConns = Math.min(50, Math.round((unoptPool / 100) * 50));
+  const optConns = Math.min(50, Math.round((optPool / 100) * 50));
+
+  // Throughput in employees/sec
+  const unoptThroughput = Math.round(employeeScale / Math.max(1, Number(unoptLatency)));
+  const optThroughput = Math.round(employeeScale / Math.max(0.1, Number(optLatency)));
+
+  const querySavings = ((1 - (optQueries / unoptQueries)) * 100).toFixed(1);
+  const speedupMultiplier = Math.max(2, Math.round(Number(unoptLatency) / Math.max(0.1, Number(optLatency))));
+
+  return {
+    unoptQueries,
+    optQueries,
+    unoptLatency,
+    optLatency,
+    unoptPool,
+    optPool,
+    unoptConns,
+    optConns,
+    unoptThroughput,
+    optThroughput,
+    querySavings,
+    speedupMultiplier
+  };
+};
+
+// ============================================================================
+// 2. THE SHORT VERSION OF EACH CASE STUDY: ISSUE, WHAT WE DID, RESULT
+// ============================================================================
+
+interface StoryBar {
+  label: string;
+  display: string;
+  value: number;
+  /** The value a full-width bar stands for */
+  of: number;
+  tone: "bad" | "good" | "neutral";
+}
+
+interface CaseStory {
+  issue: { stat: string; unit: string; caption: string; body: string };
+  steps: { title: string; body: string }[];
+  resultTitle: string;
+  bars: StoryBar[];
+  note?: string;
+}
+
+const TONE_COLOR: Record<StoryBar["tone"], string> = { bad: "#EF4444", good: "#22C55E", neutral: "var(--accent)" };
+
+// The batch story is told at the simulator's starting size, so both show the same figures
+const STORY_SCALE = 2500;
+const STORY_BENCH = benchmark(STORY_SCALE);
+
+const COPILOT_STORY: CaseStory = {
+  issue: {
+    stat: `${WORKFLOW_GATES.length}`,
+    unit: "stages",
+    caption: "between “run payroll” and money leaving the bank",
+    body: "A payroll cycle crosses attendance sync, calculation, audit, sign-off and statutory filing. An agent that runs them for you is only safe if a step that fails quietly cannot pass as done."
+  },
+  steps: [
+    { title: "One gate per stage", body: "Each stage is a gate with its own authority check, and the run cannot skip ahead." },
+    { title: "Fail closed", body: "Four gates stop the run on any failure. The first halts and waits for a person to approve." },
+    { title: "Honesty guard", body: "An interceptor reports a silent 201 as a failure instead of letting it count as success." }
+  ],
+  resultTitle: "Where a 1,420-employee run spends its time",
+  bars: WORKFLOW_GATES.map((gate) => ({
+    label: `${gate.gateNumber.replace("GATE ", "")} · ${gate.category}`,
+    display: gate.latency,
+    // "320ms" -> 0.32, "42s" -> 42, "Instant" -> 0
+    value: (parseFloat(gate.latency) || 0) * (gate.latency.endsWith("ms") ? 0.001 : 1),
+    of: 42,
+    tone: "neutral"
+  }))
+};
+
+const BATCH_STORY: CaseStory = {
+  issue: {
+    stat: formatNumber(STORY_BENCH.unoptQueries),
+    unit: "queries",
+    caption: `for one ${formatNumber(STORY_SCALE)}-employee batch`,
+    body: `Every employee triggered its own override read and payout write: 2N+1 queries. At this size the run takes about ${STORY_BENCH.unoptLatency}s, past the 60s load balancer ceiling, so it ends in 504s and retry storms while holding ${STORY_BENCH.unoptPool}% of the connection pool.`
+  },
+  steps: [
+    { title: "Bulk replica preloads", body: "One read-replica call loads the tenant's register, joined in memory by hash index." },
+    { title: "Resilient telemetry queue", body: "Audit writes moved off the response cycle onto an async queue with an immediate single retry." },
+    { title: "Hardened tenant scoping", body: "Directory export lookups carry a tenant predicate, so nothing crosses tenants." }
+  ],
+  resultTitle: "Before and after, same batch",
+  bars: [
+    { label: "DB queries · before", display: formatNumber(STORY_BENCH.unoptQueries), value: STORY_BENCH.unoptQueries, of: STORY_BENCH.unoptQueries, tone: "bad" },
+    { label: "DB queries · after", display: `${STORY_BENCH.optQueries}`, value: STORY_BENCH.optQueries, of: STORY_BENCH.unoptQueries, tone: "good" },
+    { label: "Run time · before", display: `${STORY_BENCH.unoptLatency}s`, value: Number(STORY_BENCH.unoptLatency), of: Number(STORY_BENCH.unoptLatency), tone: "bad" },
+    { label: "Run time · after", display: `${STORY_BENCH.optLatency}s`, value: Number(STORY_BENCH.optLatency), of: Number(STORY_BENCH.unoptLatency), tone: "good" },
+    { label: "Connection pool · before", display: `${STORY_BENCH.unoptPool}%`, value: STORY_BENCH.unoptPool, of: 100, tone: "bad" },
+    { label: "Connection pool · after", display: `${STORY_BENCH.optPool}%`, value: STORY_BENCH.optPool, of: 100, tone: "good" }
+  ],
+  note: "Modelled figures. Drag the simulator below to change the batch size."
+};
+
+const REGISTER_STORY: CaseStory = {
+  issue: {
+    stat: "42.8",
+    unit: "ms / frame",
+    caption: "against a 16.6ms budget",
+    body: "The pay register mounted every row it was given. With 1,120+ DOM nodes live, scrolling fell to about 18 FPS and memory sat at 186MB."
+  },
+  steps: [
+    { title: "Window the rows", body: "Only the rows inside the viewport are mounted, plus three either side as overscan." },
+    { title: "Fixed row height", body: "Every row is 44px, so the first visible row is one division with nothing to measure." },
+    { title: "One offset", body: "A spacer keeps the full scroll height and the mounted rows are translated into place." }
+  ],
+  resultTitle: "Before and after, 10,000 rows",
+  bars: [
+    { label: "Frame time · before", display: "42.8ms", value: 42.8, of: 42.8, tone: "bad" },
+    { label: "Frame time · after", display: "< 1.5ms", value: 1.5, of: 42.8, tone: "good" },
+    { label: "DOM nodes · before", display: "1,120+", value: 1120, of: 1120, tone: "bad" },
+    { label: "DOM nodes · after", display: "28", value: 28, of: 1120, tone: "good" },
+    { label: "Memory · before", display: "186MB", value: 186, of: 186, tone: "bad" },
+    { label: "Memory · after", display: "14.2MB", value: 14.2, of: 186, tone: "good" }
+  ],
+  note: "Switch Engine Mode below to scroll both versions."
+};
+
+const storyPanel = "p-5 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]";
+const storyLabel = "font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider";
+
+const CaseStoryStrip: React.FC<{ story: CaseStory }> = ({ story }) => (
+  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 py-8 border-b border-[var(--border-subtle)]">
+    <div className={storyPanel}>
+      <div className={storyLabel}>01 · The issue</div>
+      <div className="font-display font-extrabold text-4xl sm:text-5xl text-[#EF4444] mt-3 flex items-baseline gap-2">
+        {story.issue.stat}
+        <span className="text-sm font-mono text-[var(--text-muted)]">{story.issue.unit}</span>
+      </div>
+      <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">{story.issue.caption}</div>
+      <p className="text-sm text-[var(--text-secondary)] font-sans leading-relaxed mt-4">{story.issue.body}</p>
+    </div>
+
+    <div className={storyPanel}>
+      <div className={storyLabel}>02 · What we did</div>
+      <ol className="mt-3 space-y-3">
+        {story.steps.map((step, index) => (
+          <li key={step.title} className="flex gap-3">
+            <span className="font-mono text-xs text-[var(--accent)] font-bold mt-0.5">{index + 1}</span>
+            <div>
+              <strong className="block text-sm font-semibold text-[var(--text-primary)]">{step.title}</strong>
+              <p className="text-xs text-[var(--text-muted)] font-sans leading-relaxed mt-0.5">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div className={storyPanel}>
+      <div className={storyLabel}>03 · The result</div>
+      <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">{story.resultTitle}</div>
+      <ul className="mt-3 space-y-2.5">
+        {story.bars.map((bar, index) => (
+          <li key={bar.label}>
+            <div className="flex items-baseline justify-between gap-3 font-mono text-[11px]">
+              <span className="text-[var(--text-muted)]">{bar.label}</span>
+              <span className="font-bold text-[var(--text-primary)]">{bar.display}</span>
+            </div>
+            {/* The track is what gets observed: a bar scaled to zero has no area to come into view */}
+            <motion.div
+              aria-hidden="true"
+              initial="hidden"
+              whileInView="shown"
+              viewport={{ once: true, amount: 0.6 }}
+              className="mt-1 h-2 rounded-full bg-[var(--surface-3)] overflow-hidden"
+            >
+              <motion.div
+                variants={{ hidden: { scaleX: 0 }, shown: { scaleX: 1 } }}
+                transition={{ duration: 0.8, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                // A bar never shrinks below 2%, so the "after" values stay visible
+                style={{ width: `${Math.max(2, Math.min(100, (bar.value / bar.of) * 100))}%`, background: TONE_COLOR[bar.tone] }}
+                className="h-full origin-left rounded-full"
+              />
+            </motion.div>
+          </li>
+        ))}
+      </ul>
+      {story.note && <p className="text-[11px] text-[var(--text-subtle)] font-mono mt-4">{story.note}</p>}
+    </div>
+  </div>
+);
+
 export const CaseStudies: React.FC = () => {
   // Case Study 1 State
   const [activeCopilotTab, setActiveCopilotTab] = useState<"chat" | "gates">("chat");
@@ -294,47 +498,7 @@ export const CaseStudies: React.FC = () => {
     setScrollTop(e.currentTarget.scrollTop);
   };
 
-  // Benchmark calculations derived from employeeScale
-  const benchmarkData = useMemo(() => {
-    // Unoptimized: N+1 queries = 1 initial + 2 * N queries (overrides + payout updates)
-    const unoptQueries = (employeeScale * 2) + 1;
-    // Optimized: Exactly 3 batched queries regardless of count
-    const optQueries = 3;
-    
-    // Latency in seconds (approx 28ms per query unoptimized vs batched bulk)
-    const unoptLatency = ((employeeScale * 0.028) + 0.4).toFixed(1);
-    const optLatency = Math.max(0.6, (0.5 + (employeeScale / 10000) * 1.2)).toFixed(1);
-
-    // Pool saturation percentage (out of 50 max pool connections)
-    const unoptPool = Math.min(100, Math.round(38 + (employeeScale / 2500) * 58));
-    const optPool = Math.min(100, Math.round(6 + (employeeScale / 10000) * 4));
-
-    // Active connection count
-    const unoptConns = Math.min(50, Math.round((unoptPool / 100) * 50));
-    const optConns = Math.min(50, Math.round((optPool / 100) * 50));
-
-    // Throughput in employees/sec
-    const unoptThroughput = Math.round(employeeScale / Math.max(1, Number(unoptLatency)));
-    const optThroughput = Math.round(employeeScale / Math.max(0.1, Number(optLatency)));
-
-    const querySavings = ((1 - (optQueries / unoptQueries)) * 100).toFixed(1);
-    const speedupMultiplier = Math.max(2, Math.round(Number(unoptLatency) / Math.max(0.1, Number(optLatency))));
-
-    return {
-      unoptQueries,
-      optQueries,
-      unoptLatency,
-      optLatency,
-      unoptPool,
-      optPool,
-      unoptConns,
-      optConns,
-      unoptThroughput,
-      optThroughput,
-      querySavings,
-      speedupMultiplier
-    };
-  }, [employeeScale]);
+  const benchmarkData = useMemo(() => benchmark(employeeScale), [employeeScale]);
 
   // Copilot dialogue auto-stepper
   useEffect(() => {
@@ -430,6 +594,8 @@ export const CaseStudies: React.FC = () => {
                 </button>
               </div>
             </div>
+
+            <CaseStoryStrip story={COPILOT_STORY} />
 
             {/* Metrics HUD Row (THE DATA) */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-8 border-b border-[var(--border-subtle)]">
@@ -766,6 +932,8 @@ export const CaseStudies: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            <CaseStoryStrip story={BATCH_STORY} />
 
             {/* Metrics HUD Row (THE DATA) — Directly Clickable and Synchronized */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-8 border-b border-[var(--border-subtle)]">
@@ -1321,6 +1489,8 @@ export const CaseStudies: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            <CaseStoryStrip story={REGISTER_STORY} />
 
             {/* Performance Telemetry Comparative HUD */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-8 border-b border-[var(--border-subtle)]">
