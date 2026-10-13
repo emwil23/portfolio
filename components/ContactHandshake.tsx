@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUp, ArrowUpRight, Check, Copy, FileDown, MapPin } from "lucide-react";
-import { Character, type CharacterAction } from "@/components/Character";
+import { CharacterClip } from "@/components/Character";
 
 const EMAIL = "emmanuel_work@icloud.com";
 
@@ -13,27 +13,21 @@ interface Channel {
   href: string;
   /** Saves the file under this name instead of opening a new tab */
   download?: string;
-  /** What he does, and says, when the pointer or focus reaches this channel */
-  gesture: CharacterAction;
-  say: string;
 }
 
 const CHANNELS: Channel[] = [
-  { kicker: "01 · Email", title: EMAIL, href: `mailto:${EMAIL}`, gesture: "handshake", say: "Write to me" },
-  { kicker: "02 · Resume · One page, PDF", title: "Download the resume", href: "/assets/Emmanuel_Wilson_Resume.pdf", download: "Emmanuel_Wilson_Resume.pdf", gesture: "present", say: "Take the one-pager" },
-  { kicker: "03 · LinkedIn", title: "linkedin.com/in/ewilly", href: "https://www.linkedin.com/in/ewilly/", gesture: "wave", say: "Come say hello" },
-  { kicker: "04 · GitHub", title: "github.com/emwil23", href: "https://github.com/emwil23", gesture: "thumbsup", say: "Read the code" },
+  { kicker: "01 · Email", title: EMAIL, href: `mailto:${EMAIL}` },
+  { kicker: "02 · Resume · One page, PDF", title: "Download the resume", href: "/assets/Emmanuel_Wilson_Resume.pdf", download: "Emmanuel_Wilson_Resume.pdf" },
+  { kicker: "03 · LinkedIn", title: "linkedin.com/in/ewilly", href: "https://www.linkedin.com/in/ewilly/" },
+  { kicker: "04 · GitHub", title: "github.com/emwil23", href: "https://github.com/emwil23" },
 ];
 
 const row =
   "group flex min-w-0 flex-1 items-center justify-between gap-4 rounded-xl border border-[var(--border)] bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] px-4 py-3 shadow-md backdrop-blur-md transition-colors hover:border-[var(--key)]";
 
-/** The last chapter: he offers his hand, and the ways to take it are laid out beside him. */
+/** The last chapter: the ways to reach me, with him busy building beside them. */
 export const ContactHandshake: React.FC = () => {
   const [copied, setCopied] = useState(false);
-  // The channel last reached for: he answers each with its own gesture and line
-  const [reach, setReach] = useState<{ channel: Channel; id: number } | null>(null);
-  const reachFor = (channel: Channel) => setReach((was) => ({ channel, id: (was?.id ?? 0) + 1 }));
 
   const copyEmail = () => {
     navigator.clipboard.writeText(EMAIL);
@@ -44,22 +38,12 @@ export const ContactHandshake: React.FC = () => {
   return (
     <section id="contact" aria-label="Contact" className="relative px-4 sm:px-12">
       <div data-chapter="shake" className="mx-auto grid max-w-7xl gap-x-12 pt-24 md:min-h-screen md:grid-cols-2 md:pt-0">
-        <div className="pointer-events-none relative mx-auto h-[38vh] md:col-start-2 md:row-start-1 md:h-[86vh] md:self-end">
-          {/* His spot on the stage: a glow, and two rings turning slowly against each other */}
-          <div aria-hidden="true" className="absolute left-1/2 top-[42%] aspect-square h-[78%] -translate-x-1/2 -translate-y-1/2">
-            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--key)_22%,transparent),transparent_65%)]" />
-            <div className="absolute inset-0 animate-[spin_50s_linear_infinite] rounded-full border border-dashed border-[color:color-mix(in_srgb,var(--key)_55%,transparent)] motion-reduce:animate-none" />
-            <div className="absolute inset-[9%] animate-[spin_35s_linear_infinite_reverse] rounded-full border border-[color:color-mix(in_srgb,var(--key)_25%,transparent)] border-t-[var(--key)] motion-reduce:animate-none" />
+        {/* He does not perform for the visitor here: one looping clip of him at work, with a faint glow where he stands */}
+        <div className="pointer-events-none relative mx-auto aspect-[348/930] h-[38vh] md:col-start-2 md:row-start-1 md:h-[86vh] md:self-end">
+          <div aria-hidden="true" className="absolute left-1/2 top-[42%] aspect-square h-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--key)_16%,transparent),transparent_65%)]" />
+          <div className="relative h-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
+            <CharacterClip name="type" className="h-full w-full" />
           </div>
-          <Character
-            track
-            onView="handshake"
-            play={reach ? { action: reach.channel.gesture, id: reach.id } : undefined}
-            className="h-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]"
-          />
-          <p aria-hidden="true" className="absolute left-0 top-[14%] -translate-x-[70%] whitespace-nowrap rounded-full border border-[var(--key)] bg-[color:color-mix(in_srgb,var(--surface-1)_80%,transparent)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-[var(--text-primary)] backdrop-blur-md">
-            {reach ? reach.channel.say : "Your move"}
-          </p>
         </div>
 
         <motion.div
@@ -96,8 +80,6 @@ export const ContactHandshake: React.FC = () => {
                 <a
                   href={channel.href}
                   download={channel.download}
-                  onMouseEnter={() => reachFor(channel)}
-                  onFocus={() => reachFor(channel)}
                   {...(channel.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className={row}
                 >
