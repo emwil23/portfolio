@@ -16,8 +16,10 @@ interface Chapter {
   links?: { label: string; href: string }[];
 }
 
-// Add the repository here once it is public: { label: "View the code", href: "…" }
-const LINKS = [{ label: "Visit the invitation", href: "https://tinaandemmanuel.me" }];
+const LINKS = [
+  { label: "Visit the invitation", href: "https://tinaandemmanuel.me" },
+  { label: "View the code", href: "https://github.com/emwil23/weddingvibes" },
+];
 
 // The wedding invitation at tinaandemmanuel.me. Each chapter names its camera stop in components/Stage.tsx.
 const CHAPTERS: Chapter[] = [
