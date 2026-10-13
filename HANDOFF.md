@@ -49,7 +49,7 @@ A briefing for another agent picking up this project. It replaces the earlier ha
 
 1. **Push.** Nothing from this session is live. Run `npm run build` first.
 2. **HEVC encode of `desk.webm`** on the Mac, so Safari and iPhones get the motion instead of the still. Then add the `.mp4` source and drop the `navigator.vendor` check in `ContactHandshake.tsx`.
-3. **Custom domain** (carried over): the Pages site at `https://emwil23.github.io/portfolio/` 404s every `/assets/...` path because there is no `basePath`. The user chose a custom domain over a base path and has not supplied it yet. When it arrives: `public/CNAME`, the repo's Pages setting, `metadataBase` and `openGraph.images` (`/assets/og.jpg`) in `app/layout.tsx`.
+3. **Custom domain**: set to `emmanuelwilson.tech` on the Mac after this handoff (`public/CNAME`, the Pages setting, `metadataBase` and the share image in `app/layout.tsx`). The site serves from the root there, so the `/assets/...` paths work. It needs the domain's DNS pointed at GitHub Pages.
 4. **Not checked this session**: Safari, a real phone, and light mode for most of the new sections. Player 1 measures about 2.5 screens tall on a phone.
 5. Copy written by the agent that the user has not confirmed: the Assassin's Creed card ("Leap of faith"), the wedding infographic's "Native scroll" and "One encode for everyone" labels.
 6. `lib/data.ts` is still unused. (The favicon was added on the Mac after this handoff: `app/icon.png`, `apple-icon.png`, `favicon.ico`.)

@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const title = "Emmanuel Wilson | Full-Stack & Systems Engineer";
+const description = "Portfolio of Emmanuel Wilson — High-Scale Frontend Systems, Matrix Virtualization & Distributed Architectures.";
+
 export const metadata: Metadata = {
-  title: "Emmanuel Wilson | Full-Stack & Systems Engineer",
-  description: "Portfolio of Emmanuel Wilson — High-Scale Frontend Systems, Matrix Virtualization & Distributed Architectures.",
+  // The live address (public/CNAME): link previews need absolute URLs for their image
+  metadataBase: new URL("https://emmanuelwilson.tech"),
+  title,
+  description,
+  openGraph: { title, description, url: "/", type: "website", images: [{ url: "/assets/og.jpg", width: 1200, height: 630 }] },
+  twitter: { card: "summary_large_image", title, description, images: ["/assets/og.jpg"] },
 };
 
 export default function RootLayout({

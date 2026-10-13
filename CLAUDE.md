@@ -17,7 +17,7 @@ npx tsc --noEmit  # Type-check only
 
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci` + `next build` on Node 20 and publishes `./out` to GitHub Pages. Every push to `main` is a production deploy.
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci` + `next build` on Node 20 and publishes `./out` to GitHub Pages. Every push to `main` is a production deploy. The site is served at `https://emmanuelwilson.tech` (`public/CNAME`), from the root.
 
 Constraints that follow from static export:
 
