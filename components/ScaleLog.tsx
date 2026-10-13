@@ -124,7 +124,7 @@ export const ScaleLog: React.FC = () => {
   return (
     <section id="scale" className="relative w-full py-28 px-6 sm:px-12 overflow-hidden">
       {/* Background Ambience */}
-      <div className="absolute top-1/2 right-0 w-[600px] h-[500px] bg-[var(--accent)]/5 blur-[180px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 right-0 w-[600px] h-[500px] bg-[color:color-mix(in_srgb,var(--accent)_5%,transparent)] blur-[180px] pointer-events-none rounded-full" />
 
       <div className="relative max-w-7xl mx-auto">
         
@@ -148,14 +148,14 @@ export const ScaleLog: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
           
           {/* 1. Kredily Card */}
-          <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden flex flex-col justify-between group hover:border-[var(--accent)] transition-all duration-300 shadow-xl">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="p-8 sm:p-10 rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border border-[var(--border)] backdrop-blur-xl relative overflow-hidden flex flex-col justify-between group hover:border-[var(--accent)] transition-all duration-300 shadow-xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[color:color-mix(in_srgb,var(--accent)_10%,transparent)] rounded-full blur-3xl pointer-events-none" />
 
             <div>
               {/* Header */}
               <div className="flex items-start justify-between gap-4 mb-6">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                     <Building2 className="w-3.5 h-3.5" />
                     <span>Enterprise Scale // 150K–200K DAU</span>
                   </div>
@@ -240,14 +240,14 @@ export const ScaleLog: React.FC = () => {
           </div>
 
           {/* 2. ForeignAdmits Card */}
-          <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden flex flex-col justify-between group hover:border-[var(--accent)] transition-all duration-300 shadow-xl">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--warm)]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="p-8 sm:p-10 rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border border-[var(--border)] backdrop-blur-xl relative overflow-hidden flex flex-col justify-between group hover:border-[var(--accent)] transition-all duration-300 shadow-xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[color:color-mix(in_srgb,var(--warm)_10%,transparent)] rounded-full blur-3xl pointer-events-none" />
 
             <div>
               {/* Header */}
               <div className="flex items-start justify-between gap-4 mb-6">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                     <Building2 className="w-3.5 h-3.5" />
                     <span>Global Scale // Operations CRM</span>
                   </div>
@@ -327,7 +327,7 @@ export const ScaleLog: React.FC = () => {
         <div className="mb-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-[var(--border-subtle)]">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>SDE 2 Core Competencies // Systems Depth</span>
               </div>
@@ -373,14 +373,14 @@ export const ScaleLog: React.FC = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="p-6 rounded-2xl bg-[var(--surface-1)]/80 border border-[var(--border)] hover:border-[var(--accent)] transition-all flex flex-col justify-between shadow-lg group relative overflow-hidden"
+                  className="p-6 rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_80%,transparent)] border border-[var(--border)] hover:border-[var(--accent)] transition-all flex flex-col justify-between shadow-lg group relative overflow-hidden"
                 >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--accent)]/5 rounded-full blur-2xl pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[color:color-mix(in_srgb,var(--accent)_5%,transparent)] rounded-full blur-2xl pointer-events-none" />
 
                   <div>
                     {/* Badge & Icon */}
                     <div className="flex items-center justify-between gap-2 mb-4">
-                      <span className="font-mono text-[10px] text-[var(--accent-hover)] uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-[var(--accent-bg)] border border-[var(--accent)]/20 truncate">
+                      <span className="font-mono text-[10px] text-[var(--accent-hover)] uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_20%,transparent)] truncate">
                         {inv.badge}
                       </span>
                       <div className="p-1.5 rounded-lg bg-[var(--surface-2)] text-[var(--accent)] shrink-0">
@@ -393,7 +393,7 @@ export const ScaleLog: React.FC = () => {
                     </h4>
 
                     {/* Invariant Statement */}
-                    <div className="p-3 rounded-lg bg-[var(--surface-2)]/60 border border-[var(--border-subtle)] font-mono text-[11px] text-[var(--text-primary)] mb-4">
+                    <div className="p-3 rounded-lg bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)] font-mono text-[11px] text-[var(--text-primary)] mb-4">
                       <strong className="text-[var(--accent)] block text-[10px] uppercase tracking-wider mb-0.5">Core Invariant:</strong>
                       {inv.invariant}
                     </div>
@@ -430,11 +430,11 @@ export const ScaleLog: React.FC = () => {
         {/* 3. The Engineering Philosophy */}
         {/* ========================================================================= */}
         <div className="p-8 sm:p-12 rounded-2xl bg-gradient-to-br from-[var(--surface-1)] via-[var(--surface-2)] to-[var(--surface-1)] border border-[var(--border)] relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-[var(--accent)]/15 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-[color:color-mix(in_srgb,var(--accent)_15%,transparent)] rounded-full blur-[140px] pointer-events-none" />
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-[var(--border-subtle)]">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                 <Sparkles className="w-3.5 h-3.5 text-[var(--warm-light)]" />
                 <span>Modern Engineering Methodology</span>
               </div>
@@ -450,7 +450,7 @@ export const ScaleLog: React.FC = () => {
           </div>
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-xl bg-[var(--surface-2)]/40 border border-[var(--border-subtle)]">
+            <div className="p-6 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_40%,transparent)] border border-[var(--border-subtle)]">
               <div className="w-8 h-8 rounded-lg bg-[var(--surface-1)] border border-[var(--border)] flex items-center justify-center font-mono text-sm text-[var(--accent)] font-bold mb-4">
                 01
               </div>
@@ -462,7 +462,7 @@ export const ScaleLog: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-[var(--surface-2)]/40 border border-[var(--border-subtle)]">
+            <div className="p-6 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_40%,transparent)] border border-[var(--border-subtle)]">
               <div className="w-8 h-8 rounded-lg bg-[var(--surface-1)] border border-[var(--border)] flex items-center justify-center font-mono text-sm text-[var(--accent)] font-bold mb-4">
                 02
               </div>
@@ -474,7 +474,7 @@ export const ScaleLog: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-[var(--surface-2)]/40 border border-[var(--border-subtle)]">
+            <div className="p-6 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_40%,transparent)] border border-[var(--border-subtle)]">
               <div className="w-8 h-8 rounded-lg bg-[var(--surface-1)] border border-[var(--border)] flex items-center justify-center font-mono text-sm text-[var(--accent)] font-bold mb-4">
                 03
               </div>

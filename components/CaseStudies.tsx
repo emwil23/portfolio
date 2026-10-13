@@ -390,7 +390,7 @@ const REGISTER_STORY: CaseStory = {
   note: "Switch Engine Mode below to scroll both versions."
 };
 
-const storyPanel = "p-5 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]";
+const storyPanel = "p-5 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]";
 const storyLabel = "font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider";
 
 const CaseStoryStrip: React.FC<{ story: CaseStory }> = ({ story }) => (
@@ -520,7 +520,7 @@ export const CaseStudies: React.FC = () => {
   return (
     <section id="proof" className="relative w-full py-28 px-6 sm:px-12 overflow-hidden">
       {/* Background Subtle Tech Grid */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[var(--accent)]/5 blur-[160px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[color:color-mix(in_srgb,var(--accent)_5%,transparent)] blur-[160px] pointer-events-none rounded-full" />
 
       <div className="relative max-w-7xl mx-auto">
         
@@ -547,13 +547,13 @@ export const CaseStudies: React.FC = () => {
         {/* CASE STUDY 1: AUTONOMOUS ENTERPRISE WORKFLOW COPILOT */}
         {/* ========================================================================= */}
         <div className="mb-32">
-          <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="p-8 sm:p-10 rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border border-[var(--border)] backdrop-blur-xl relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[color:color-mix(in_srgb,var(--accent)_10%,transparent)] rounded-full blur-3xl pointer-events-none" />
 
             {/* Header Bar */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-[var(--border-subtle)]">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                   <Cpu className="w-3.5 h-3.5" />
                   <span>Chronicle I // Autonomous AI Orchestrator &amp; UI Sync</span>
                 </div>
@@ -599,7 +599,7 @@ export const CaseStudies: React.FC = () => {
 
             {/* Metrics HUD Row (THE DATA) */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-8 border-b border-[var(--border-subtle)]">
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Audit Traceability</div>
                 <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
                   100<span className="text-sm font-mono text-[var(--accent)]">%</span>
@@ -607,7 +607,7 @@ export const CaseStudies: React.FC = () => {
                 <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">Cryptographic action hash log</div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Silent API Failures</div>
                 <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
                   0<span className="text-sm font-mono text-[var(--success)]">Δ</span>
@@ -615,7 +615,7 @@ export const CaseStudies: React.FC = () => {
                 <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">Honesty Guard interceptor layer</div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Batch Run Orchestration</div>
                 <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
                   42<span className="text-sm font-mono text-[var(--accent)]">s</span>
@@ -623,7 +623,7 @@ export const CaseStudies: React.FC = () => {
                 <div className="text-[11px] text-[var(--text-subtle)] mt-1 font-mono">Automated 1,420 employee cycle</div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Admin Policy Setup</div>
                 <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
                   8<span className="text-sm font-mono text-[var(--warm-light)]">x Faster</span>
@@ -676,7 +676,7 @@ export const CaseStudies: React.FC = () => {
                 </div>
 
                 {/* Chat / Terminal Window */}
-                <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)]/40 p-5 sm:p-6 font-mono text-xs overflow-hidden shadow-inner flex flex-col gap-4 max-h-[500px] overflow-y-auto">
+                <div className="rounded-xl border border-[var(--border)] bg-[color:color-mix(in_srgb,var(--surface-2)_40%,transparent)] p-5 sm:p-6 font-mono text-xs overflow-hidden shadow-inner flex flex-col gap-4 max-h-[500px] overflow-y-auto">
                   {COPILOT_SCRIPT.slice(0, chatTurnIndex).map((turn) => {
                     if (turn.sender === "user") {
                       return (
@@ -696,7 +696,7 @@ export const CaseStudies: React.FC = () => {
                     if (turn.sender === "system") {
                       return (
                         <div key={turn.id} className="flex justify-center my-1">
-                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--warning-bg)] border border-[var(--warning)]/40 text-[var(--warning)] text-[11px] font-mono font-medium max-w-xl text-center">
+                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--warning-bg)] border border-[color:color-mix(in_srgb,var(--warning)_40%,transparent)] text-[var(--warning)] text-[11px] font-mono font-medium max-w-xl text-center">
                             <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                             <span>{turn.content}</span>
                           </div>
@@ -720,7 +720,7 @@ export const CaseStudies: React.FC = () => {
 
                           {/* Render Tool Call Telemetry if present */}
                           {turn.toolCall && (
-                            <div className="p-3 rounded-lg bg-[var(--surface-2)]/80 border border-[var(--border-subtle)] font-mono text-[11px] space-y-1.5">
+                            <div className="p-3 rounded-lg bg-[color:color-mix(in_srgb,var(--surface-2)_80%,transparent)] border border-[var(--border-subtle)] font-mono text-[11px] space-y-1.5">
                               <div className="flex items-center justify-between text-[10px] text-[var(--text-muted)]">
                                 <span className="flex items-center gap-1.5 text-[var(--accent)] font-semibold">
                                   <Terminal className="w-3 h-3" />
@@ -742,7 +742,7 @@ export const CaseStudies: React.FC = () => {
 
                           {/* Render UI Navigation Action Telemetry if present */}
                           {turn.uiAction && (
-                            <div className="p-2.5 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[11px] font-mono flex items-center justify-between">
+                            <div className="p-2.5 rounded-lg bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] text-[11px] font-mono flex items-center justify-between">
                               <div className="flex items-center gap-2 text-[var(--accent-hover)] font-semibold">
                                 <Activity className="w-3.5 h-3.5 animate-pulse" />
                                 <span>UI Viewport Synchronization</span>
@@ -800,7 +800,7 @@ export const CaseStudies: React.FC = () => {
                         className={`relative text-left p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
                           isSelected 
                             ? "bg-[var(--surface-3)] border-[var(--accent)] shadow-[0_0_20px_rgba(var(--accent-rgb),0.2)]" 
-                            : "bg-[var(--surface-2)]/60 border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
+                            : "bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
                         }`}
                       >
                         <div className="flex items-center justify-between mb-2">
@@ -830,7 +830,7 @@ export const CaseStudies: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.2 }}
-                    className="mt-6 p-6 rounded-xl bg-[var(--surface-2)]/80 border border-[var(--border)] flex flex-col md:flex-row md:items-center justify-between gap-6"
+                    className="mt-6 p-6 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_80%,transparent)] border border-[var(--border)] flex flex-col md:flex-row md:items-center justify-between gap-6"
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
@@ -867,13 +867,13 @@ export const CaseStudies: React.FC = () => {
         {/* CASE STUDY 2: DISTRIBUTED BATCH ENGINE & ZERO-LOSS TELEMETRY */}
         {/* ========================================================================= */}
         <div className="mb-32">
-          <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="p-8 sm:p-10 rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border border-[var(--border)] backdrop-blur-xl relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[color:color-mix(in_srgb,var(--accent)_10%,transparent)] rounded-full blur-3xl pointer-events-none" />
 
             {/* Header Bar */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-[var(--border-subtle)]">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                   <Database className="w-3.5 h-3.5" />
                   <span>Chronicle II // Distributed Database Optimization &amp; Telemetry</span>
                 </div>
@@ -942,8 +942,8 @@ export const CaseStudies: React.FC = () => {
                 onClick={() => setBenchmarkView("queries")}
                 className={`text-left p-4 rounded-xl transition-all duration-200 cursor-pointer ${
                   benchmarkView === "queries"
-                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[var(--accent)]/20"
-                    : "bg-[var(--surface-2)]/50 border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
+                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[color:color-mix(in_srgb,var(--accent)_20%,transparent)]"
+                    : "bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -970,8 +970,8 @@ export const CaseStudies: React.FC = () => {
                 onClick={() => setBenchmarkView("latency")}
                 className={`text-left p-4 rounded-xl transition-all duration-200 cursor-pointer ${
                   benchmarkView === "latency"
-                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[var(--accent)]/20"
-                    : "bg-[var(--surface-2)]/50 border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
+                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[color:color-mix(in_srgb,var(--accent)_20%,transparent)]"
+                    : "bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -998,8 +998,8 @@ export const CaseStudies: React.FC = () => {
                 onClick={() => setBenchmarkView("pool")}
                 className={`text-left p-4 rounded-xl transition-all duration-200 cursor-pointer ${
                   benchmarkView === "pool"
-                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[var(--accent)]/20"
-                    : "bg-[var(--surface-2)]/50 border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
+                    ? "bg-[var(--surface-3)] border-2 border-[var(--accent)] shadow-lg scale-[1.02] ring-2 ring-[color:color-mix(in_srgb,var(--accent)_20%,transparent)]"
+                    : "bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)] hover:border-[var(--border)] hover:bg-[var(--surface-2)]"
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -1022,7 +1022,7 @@ export const CaseStudies: React.FC = () => {
               </button>
 
               {/* Card 4: Dropped Logs */}
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="flex items-center justify-between">
                   <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider flex items-center gap-1.5">
                     <ShieldCheck className="w-3 h-3 text-[var(--success)]" />
@@ -1041,7 +1041,7 @@ export const CaseStudies: React.FC = () => {
             {/* INTERACTIVE BENCHMARK & QUERY VISUALIZER (GRAPHS & SLIDER) */}
             <div className="pt-8">
               {/* Interactive Scale Slider Control */}
-              <div className="p-6 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border)] mb-8">
+              <div className="p-6 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border)] mb-8">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                   <div>
                     <span className="font-mono text-xs uppercase tracking-widest text-[var(--accent-hover)] font-bold flex items-center gap-2">
@@ -1080,7 +1080,7 @@ export const CaseStudies: React.FC = () => {
               </div>
 
               {/* DEDICATED DYNAMIC BENCHMARK VISUALIZER CONTAINER */}
-              <div className="p-6 sm:p-8 rounded-xl bg-[var(--surface-2)]/30 border border-[var(--border)]">
+              <div className="p-6 sm:p-8 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_30%,transparent)] border border-[var(--border)]">
                 
                 {/* Secondary In-Graph Tab Controls */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[var(--border-subtle)]">
@@ -1191,7 +1191,7 @@ export const CaseStudies: React.FC = () => {
                     </div>
 
                     {/* Query Decomposition Breakdown */}
-                    <div className="p-4 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)] font-mono text-xs space-y-2">
+                    <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)] font-mono text-xs space-y-2">
                       <div className="text-[10px] text-[var(--accent)] uppercase tracking-wider font-bold">
                         Detailed Query Execution Breakdown:
                       </div>
@@ -1290,7 +1290,7 @@ export const CaseStudies: React.FC = () => {
                     </div>
 
                     {/* Throughput Metric Comparison */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)] font-mono text-xs">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)] font-mono text-xs">
                       <div className="p-3 rounded-lg bg-[var(--surface-1)] border border-[var(--border-subtle)]">
                         <div className="text-[10px] text-[var(--text-muted)] uppercase">Legacy Processing Throughput</div>
                         <div className="text-xl font-display font-extrabold text-[#EF4444] mt-1">
@@ -1378,7 +1378,7 @@ export const CaseStudies: React.FC = () => {
                     </div>
 
                     {/* Connection Slots Visualizer Grid */}
-                    <div className="p-4 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)] font-mono text-xs">
+                    <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)] font-mono text-xs">
                       <div className="flex items-center justify-between mb-3 text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
                         <span>Database Pool Connection Slot Health (50 Leases)</span>
                         <span className="text-[var(--success)] font-bold">Green = Available · Red = Blocked in Wait</span>
@@ -1409,21 +1409,21 @@ export const CaseStudies: React.FC = () => {
 
                 {/* Architectural Explanations Row */}
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-[var(--border-subtle)] text-xs font-sans">
-                  <div className="p-4 rounded-lg bg-[var(--surface-2)]/60 border border-[var(--border-subtle)]">
+                  <div className="p-4 rounded-lg bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)]">
                     <strong className="text-[var(--text-primary)] block mb-1 font-semibold">1. Bulk Replica Preloads:</strong>
                     <p className="text-[var(--text-muted)] leading-relaxed">
                       Eliminated the per-employee query cascade by materializing tenant company registers in one read-replica call and performing in-memory hash index joining.
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-[var(--surface-2)]/60 border border-[var(--border-subtle)]">
+                  <div className="p-4 rounded-lg bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)]">
                     <strong className="text-[var(--text-primary)] block mb-1 font-semibold">2. Resilient Telemetry Queue:</strong>
                     <p className="text-[var(--text-muted)] leading-relaxed">
                       Decoupled API response cycles from DB audit writes using an asynchronous request_queue with immediate single retry to survive broker disconnects.
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-[var(--surface-2)]/60 border border-[var(--border-subtle)]">
+                  <div className="p-4 rounded-lg bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)]">
                     <strong className="text-[var(--text-primary)] block mb-1 font-semibold">3. Hardened Tenant Scoping:</strong>
                     <p className="text-[var(--text-muted)] leading-relaxed">
                       Enforced tenant predicate scoping on directory export UUID lookups to structurally guarantee zero cross-tenant entity leakage.
@@ -1440,12 +1440,12 @@ export const CaseStudies: React.FC = () => {
         {/* CASE STUDY 3: HIGH-CARDINALITY VIRTUALIZED REGISTER & MATRIX */}
         {/* ========================================================================= */}
         <div>
-          <div className="p-8 sm:p-10 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[var(--warm)]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="p-8 sm:p-10 rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border border-[var(--border)] backdrop-blur-xl relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[color:color-mix(in_srgb,var(--warm)_10%,transparent)] rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-[var(--border-subtle)]">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[var(--accent)]/30 text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-bg)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] text-[var(--accent-hover)] font-mono text-[10px] uppercase tracking-widest mb-3">
                   <Gauge className="w-3.5 h-3.5" />
                   <span>Chronicle III // High-Scale Frontend Virtualization</span>
                 </div>
@@ -1494,7 +1494,7 @@ export const CaseStudies: React.FC = () => {
 
             {/* Performance Telemetry Comparative HUD */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-8 border-b border-[var(--border-subtle)]">
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Scroll Refresh Rate</div>
                 <div className={`font-display font-extrabold text-2xl sm:text-3xl mt-1 flex items-baseline gap-1 ${
                   isOptimized ? "text-[#22C55E]" : "text-[#EF4444]"
@@ -1506,7 +1506,7 @@ export const CaseStudies: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Mounted DOM Nodes</div>
                 <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
                   {isOptimized ? "28" : "1,120+"}<span className="text-sm font-mono text-[var(--accent)]">Nodes</span>
@@ -1516,7 +1516,7 @@ export const CaseStudies: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Memory Footprint</div>
                 <div className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] mt-1 flex items-baseline gap-1">
                   {isOptimized ? "14.2" : "186.0"}<span className="text-sm font-mono text-[var(--warm-light)]">MB</span>
@@ -1526,7 +1526,7 @@ export const CaseStudies: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[var(--surface-2)]/50 border border-[var(--border-subtle)]">
+              <div className="p-4 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] border border-[var(--border-subtle)]">
                 <div className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Frame Render Budget</div>
                 <div className={`font-display font-extrabold text-2xl sm:text-3xl mt-1 flex items-baseline gap-1 ${
                   isOptimized ? "text-[var(--text-primary)]" : "text-[#EF4444]"
@@ -1552,7 +1552,7 @@ export const CaseStudies: React.FC = () => {
               </div>
 
               {/* Table Container */}
-              <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)]/40 overflow-hidden shadow-inner">
+              <div className="rounded-xl border border-[var(--border)] bg-[color:color-mix(in_srgb,var(--surface-2)_40%,transparent)] overflow-hidden shadow-inner">
                 {/* Table Header */}
                 <div className="grid grid-cols-7 px-4 py-3 bg-[var(--surface-2)] border-b border-[var(--border)] font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider font-semibold">
                   <div>Record ID</div>
@@ -1589,7 +1589,7 @@ export const CaseStudies: React.FC = () => {
                       {visibleRecords.map((item) => (
                         <div
                           key={item.id}
-                          className="grid grid-cols-7 px-4 items-center border-b border-[var(--border-subtle)]/60 font-mono text-xs hover:bg-[var(--surface-3)]/60 transition-colors"
+                          className="grid grid-cols-7 px-4 items-center border-b border-[color:color-mix(in_srgb,var(--border-subtle)_60%,transparent)] font-mono text-xs hover:bg-[color:color-mix(in_srgb,var(--surface-3)_60%,transparent)] transition-colors"
                           style={{ height: `${rowHeight}px` }}
                         >
                           <div className="text-[var(--accent-hover)] font-medium truncate">
@@ -1625,7 +1625,7 @@ export const CaseStudies: React.FC = () => {
                 </div>
 
                 {/* Table Footer Stats */}
-                <div className="flex items-center justify-between px-4 py-2.5 bg-[var(--surface-2)]/90 border-t border-[var(--border)] font-mono text-[10px] text-[var(--text-muted)]">
+                <div className="flex items-center justify-between px-4 py-2.5 bg-[color:color-mix(in_srgb,var(--surface-2)_90%,transparent)] border-t border-[var(--border)] font-mono text-[10px] text-[var(--text-muted)]">
                   <div>
                     SHOWING ROWS {startIndex + 1}–{Math.min(totalCount, endIndex)} OF {formatNumber(totalCount)}
                   </div>

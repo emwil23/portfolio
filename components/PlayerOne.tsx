@@ -81,7 +81,7 @@ export const PlayerOne: React.FC = () => {
     >
       {/* Ambient Starlight / Atmosphere Glow */}
       <div className="absolute top-1/3 right-10 w-[600px] h-[600px] bg-purple-500/5 blur-[160px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-[var(--warm)]/5 blur-[160px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-[color:color-mix(in_srgb,var(--warm)_5%,transparent)] blur-[160px] pointer-events-none rounded-full" />
 
       <div className="relative max-w-7xl mx-auto">
         
@@ -119,7 +119,7 @@ export const PlayerOne: React.FC = () => {
         {/* ========================================================================= */}
         {/* 1. THE COMMAND CENTER: THE GAMER'S DESK */}
         {/* ========================================================================= */}
-        <div className="mb-24 p-6 sm:p-10 rounded-3xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl relative overflow-hidden shadow-2xl">
+        <div className="mb-24 p-6 sm:p-10 rounded-3xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border border-[var(--border)] backdrop-blur-xl relative overflow-hidden shadow-2xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
             
             {/* The Setup Visual */}
@@ -160,7 +160,7 @@ export const PlayerOne: React.FC = () => {
 
                 {/* Station Telemetry Badges */}
                 <div className="grid grid-cols-2 gap-3 mt-6">
-                  <div className="p-3.5 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)]">
+                  <div className="p-3.5 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)]">
                     <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--text-muted)] uppercase">
                       <Zap className="w-3.5 h-3.5 text-amber-400" />
                       <span>Input Latency</span>
@@ -173,7 +173,7 @@ export const PlayerOne: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)]">
+                  <div className="p-3.5 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)]">
                     <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--text-muted)] uppercase">
                       <Cpu className="w-3.5 h-3.5 text-purple-400" />
                       <span>Frame Budget</span>
@@ -186,7 +186,7 @@ export const PlayerOne: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)]">
+                  <div className="p-3.5 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)]">
                     <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--text-muted)] uppercase">
                       <Headphones className="w-3.5 h-3.5 text-blue-400" />
                       <span>Audio Vibe</span>
@@ -199,7 +199,7 @@ export const PlayerOne: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)]">
+                  <div className="p-3.5 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] border border-[var(--border-subtle)]">
                     <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--text-muted)] uppercase">
                       <Coffee className="w-3.5 h-3.5 text-[var(--warm)]" />
                       <span>Core Fuel</span>
@@ -247,9 +247,9 @@ export const PlayerOne: React.FC = () => {
                 <div
                   key={realm.id}
                   onClick={() => setSelectedRealm(realm.id)}
-                  className={`group cursor-pointer rounded-2xl bg-[var(--surface-1)]/70 border transition-all duration-300 overflow-hidden flex flex-col ${
+                  className={`group cursor-pointer rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border transition-all duration-300 overflow-hidden flex flex-col ${
                     isActive 
-                      ? "border-[var(--accent)] ring-1 ring-[var(--accent)]/50 shadow-xl" 
+                      ? "border-[var(--accent)] ring-1 ring-[color:color-mix(in_srgb,var(--accent)_50%,transparent)] shadow-xl" 
                       : "border-[var(--border)] hover:border-[var(--border-subtle)] hover:bg-[var(--surface-1)]"
                   }`}
                 >
@@ -306,7 +306,7 @@ export const PlayerOne: React.FC = () => {
         {/* ========================================================================= */}
         {/* 3. THE ROMANTIC SOUL: THE POLAROID & SOFT HEART */}
         {/* ========================================================================= */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[var(--surface-1)] via-[var(--surface-2)]/60 to-[var(--surface-1)] border border-[var(--border)] relative overflow-hidden shadow-2xl">
+        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[var(--surface-1)] via-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] to-[var(--surface-1)] border border-[var(--border)] relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">

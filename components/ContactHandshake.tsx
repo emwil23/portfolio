@@ -36,7 +36,7 @@ export const ContactHandshake: React.FC = () => {
     <section id="contact" className="relative w-full pt-28 pb-16 px-6 sm:px-12 overflow-hidden">
       {/* Subtle Background Glow */}
       <div className="absolute inset-0 bg-radial-glow opacity-30 pointer-events-none" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[var(--accent)]/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[color:color-mix(in_srgb,var(--accent)_10%,transparent)] blur-[150px] rounded-full pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
         
@@ -82,14 +82,14 @@ export const ContactHandshake: React.FC = () => {
           
           {/* 1. Resume Download Card (Prominent CTA) */}
           <div className="p-8 rounded-2xl bg-gradient-to-br from-[var(--surface-1)] to-[var(--surface-2)] border border-[var(--border)] flex flex-col justify-between relative overflow-hidden shadow-2xl group hover:border-[var(--accent)] transition-all">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[var(--accent)]/15 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[color:color-mix(in_srgb,var(--accent)_15%,transparent)] rounded-full blur-2xl pointer-events-none" />
 
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="font-mono text-[10px] text-[var(--accent-hover)] uppercase tracking-widest font-semibold">
                   Official Asset // PDF
                 </span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--accent-bg)] text-[var(--accent-hover)] border border-[var(--accent)]/30">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--accent-bg)] text-[var(--accent-hover)] border border-[color:color-mix(in_srgb,var(--accent)_30%,transparent)]">
                   1-Page Verified
                 </span>
               </div>
@@ -114,7 +114,7 @@ export const ContactHandshake: React.FC = () => {
           </div>
 
           {/* 2. Direct Email Card */}
-          <div className="p-8 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl flex flex-col justify-between group hover:border-[var(--accent)] transition-all">
+          <div className="p-8 rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border border-[var(--border)] backdrop-blur-xl flex flex-col justify-between group hover:border-[var(--accent)] transition-all">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-semibold">
@@ -141,7 +141,7 @@ export const ContactHandshake: React.FC = () => {
 
               <button
                 onClick={handleCopyEmail}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[var(--surface-2)]/60 hover:bg-[var(--surface-2)] border border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-secondary)] transition-all cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[color:color-mix(in_srgb,var(--surface-2)_60%,transparent)] hover:bg-[var(--surface-2)] border border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-secondary)] transition-all cursor-pointer"
               >
                 {copied ? (
                   <>
@@ -159,7 +159,7 @@ export const ContactHandshake: React.FC = () => {
           </div>
 
           {/* 3. Professional Social Handles */}
-          <div className="p-8 rounded-2xl bg-[var(--surface-1)]/70 border border-[var(--border)] backdrop-blur-xl flex flex-col justify-between group hover:border-[var(--accent)] transition-all">
+          <div className="p-8 rounded-2xl bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] border border-[var(--border)] backdrop-blur-xl flex flex-col justify-between group hover:border-[var(--accent)] transition-all">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-semibold">

@@ -46,7 +46,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased selection:bg-[var(--accent)]/30 selection:text-[var(--text-primary)] min-h-screen transition-colors duration-300">
+      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased selection:bg-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] selection:text-[var(--text-primary)] min-h-screen transition-colors duration-300">
         {children}
       </body>
     </html>

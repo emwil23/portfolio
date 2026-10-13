@@ -50,7 +50,7 @@ export const Interlude: React.FC<{
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.6 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full max-w-md rounded-2xl bg-[var(--background)]/75 p-5 backdrop-blur-md md:bg-transparent md:p-0 md:backdrop-blur-none"
+        className="relative w-full max-w-md rounded-2xl bg-[color:color-mix(in_srgb,var(--background)_75%,transparent)] p-5 backdrop-blur-md md:bg-transparent md:p-0 md:backdrop-blur-none"
       >
         <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--key)]">{step}</p>
         <h2 className="mt-3 font-display text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-[var(--text-primary)] sm:text-5xl">
@@ -58,7 +58,7 @@ export const Interlude: React.FC<{
         </h2>
         <p className="mt-4 font-sans text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">{body}</p>
         {spec && (
-          <p className="mt-5 inline-block max-w-full break-words rounded-md border border-[var(--border)] bg-[var(--surface-1)]/60 px-3 py-1.5 font-mono text-[10px] text-[var(--text-muted)] sm:text-[11px]">
+          <p className="mt-5 inline-block max-w-full break-words rounded-md border border-[var(--border)] bg-[color:color-mix(in_srgb,var(--surface-1)_60%,transparent)] px-3 py-1.5 font-mono text-[10px] text-[var(--text-muted)] sm:text-[11px]">
             {spec}
           </p>
         )}

@@ -118,7 +118,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
             <div className="relative w-full h-full flex flex-col items-center justify-center">
               
               {/* Backlight Softbox Glow */}
-              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] ${variant === "light" ? "bg-slate-200/50" : "bg-[var(--accent)]/15"} blur-[100px] rounded-full pointer-events-none`} />
+              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] ${variant === "light" ? "bg-slate-200/50" : "bg-[color:color-mix(in_srgb,var(--accent)_15%,transparent)]"} blur-[100px] rounded-full pointer-events-none`} />
 
               {/* Character Video - Sized down & placed far back in the center */}
               <motion.div

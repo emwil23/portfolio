@@ -69,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
             <Link
               href="/case-studies/"
               onClick={() => setOpening(true)}
-              className="group flex items-center gap-4 rounded-xl border border-[var(--key)]/50 bg-[var(--surface-1)]/80 p-3 pr-4 shadow-md backdrop-blur-md transition-all hover:border-[var(--key)] dark:bg-[var(--surface-1)]/40 dark:shadow-lg"
+              className="group flex items-center gap-4 rounded-xl border border-[color:color-mix(in_srgb,var(--key)_50%,transparent)] bg-[color:color-mix(in_srgb,var(--surface-1)_80%,transparent)] p-3 pr-4 shadow-md backdrop-blur-md transition-all hover:border-[var(--key)] dark:bg-[color:color-mix(in_srgb,var(--surface-1)_40%,transparent)] dark:shadow-lg"
             >
               <span
                 aria-hidden="true"
@@ -97,19 +97,19 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
             </div>
             
             <div className="hidden md:flex flex-col gap-3">
-              <div className="group bg-[var(--surface-1)]/80 dark:bg-[var(--surface-1)]/40 backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
+              <div className="group bg-[color:color-mix(in_srgb,var(--surface-1)_80%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--surface-1)_40%,transparent)] backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
                 <div className="text-[var(--text-primary)] font-sans text-sm leading-snug">
                   Scaled multi-tenant platforms serving <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">150K–200K DAU</span> with zero downtime.
                 </div>
               </div>
               
-              <div className="group bg-[var(--surface-1)]/80 dark:bg-[var(--surface-1)]/40 backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
+              <div className="group bg-[color:color-mix(in_srgb,var(--surface-1)_80%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--surface-1)_40%,transparent)] backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
                 <div className="text-[var(--text-primary)] font-sans text-sm leading-snug">
                   Slashed bundle footprints by <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">60%</span> and accelerated HMR cycles by <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">8x</span> via unified Vite architecture.
                 </div>
               </div>
 
-              <div className="group bg-[var(--surface-1)]/80 dark:bg-[var(--surface-1)]/40 backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
+              <div className="group bg-[color:color-mix(in_srgb,var(--surface-1)_80%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--surface-1)_40%,transparent)] backdrop-blur-md border border-[var(--border)] p-4 rounded-xl hover:border-[var(--accent)] transition-all shadow-md dark:shadow-lg">
                 <div className="text-[var(--text-primary)] font-sans text-sm leading-snug">
                   Eliminated <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">99.7% of N+1 database queries</span>, boosting batch processing throughput by <span className="text-[var(--accent)] dark:text-[var(--accent-hover)] font-bold">19x</span>.
                 </div>

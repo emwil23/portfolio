@@ -16,7 +16,7 @@ const Stage = dynamic(() => import("@/components/Stage").then((m) => m.Stage), {
 export default function CaseStudiesPage() {
   return (
     <MotionConfig reducedMotion="user">
-      <main className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--accent)]/30 selection:text-[var(--text-primary)] transition-colors duration-300">
+      <main className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] selection:text-[var(--text-primary)] transition-colors duration-300">
         <Stage />
         <Nav />
 

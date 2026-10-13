@@ -98,7 +98,7 @@ export default function Home() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <main id="top" className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--accent)]/30 selection:text-[var(--text-primary)] transition-colors duration-300">
+      <main id="top" className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[color:color-mix(in_srgb,var(--accent)_30%,transparent)] selection:text-[var(--text-primary)] transition-colors duration-300">
         {/* Preloading Screen */}
         {!isReady && <Preloader onComplete={handleComplete} variant="light" />}
 
@@ -134,7 +134,7 @@ export default function Home() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-x-0 top-1/2 h-auto w-full rounded-2xl border border-[var(--key)]/60 shadow-2xl"
+                  className="absolute inset-x-0 top-1/2 h-auto w-full rounded-2xl border border-[color:color-mix(in_srgb,var(--key)_60%,transparent)] shadow-2xl"
                 />
               )}
             </AnimatePresence>
@@ -150,7 +150,7 @@ export default function Home() {
                   onMouseLeave={() => setGlimpse(null)}
                   onFocus={() => setGlimpse(study.glimpse)}
                   onBlur={() => setGlimpse(null)}
-                  className="group flex items-center justify-between gap-4 rounded-xl border border-[var(--border)] bg-[var(--surface-1)]/70 px-4 py-3 shadow-md backdrop-blur-md transition-colors hover:border-[var(--key)]"
+                  className="group flex items-center justify-between gap-4 rounded-xl border border-[var(--border)] bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] px-4 py-3 shadow-md backdrop-blur-md transition-colors hover:border-[var(--key)]"
                 >
                   <span>
                     <span className="block font-mono text-[10px] uppercase tracking-widest text-[var(--key)]">{study.kicker}</span>
