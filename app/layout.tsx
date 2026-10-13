@@ -2,15 +2,38 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const title = "Emmanuel Wilson | Full-Stack & Systems Engineer";
-const description = "Portfolio of Emmanuel Wilson — High-Scale Frontend Systems, Matrix Virtualization & Distributed Architectures.";
+const description =
+  "Full-stack and systems engineer in Bangalore. I build high-scale platforms used by 150K–200K people a day. See the case studies and get in touch.";
 
 export const metadata: Metadata = {
-  // The live address (public/CNAME): link previews need absolute URLs for their image
+  // The live address (public/CNAME): link previews and canonical links need absolute URLs
   metadataBase: new URL("https://emmanuelwilson.tech"),
   title,
   description,
-  openGraph: { title, description, url: "/", type: "website", images: [{ url: "/assets/og.jpg", width: 1200, height: 630 }] },
+  authors: [{ name: "Emmanuel Wilson", url: "https://emmanuelwilson.tech" }],
+  alternates: { canonical: "/" },
+  openGraph: {
+    title,
+    description,
+    url: "/",
+    siteName: "Emmanuel Wilson",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: "/assets/og.jpg", width: 1200, height: 630, alt: "Emmanuel Wilson, full-stack and systems engineer" }],
+  },
   twitter: { card: "summary_large_image", title, description, images: ["/assets/og.jpg"] },
+};
+
+// Tells search engines who the site is about, so a search for the name can show a proper result
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Emmanuel Wilson",
+  url: "https://emmanuelwilson.tech",
+  image: "https://emmanuelwilson.tech/assets/og.jpg",
+  jobTitle: "Full-Stack & Systems Engineer",
+  address: { "@type": "PostalAddress", addressLocality: "Bangalore", addressCountry: "IN" },
+  sameAs: ["https://github.com/emwil23", "https://www.linkedin.com/in/ewilly/"],
 };
 
 export default function RootLayout({
@@ -27,6 +50,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }} />
+
         {/* Anti-FOUC Theme Initialization */}
         <script
           dangerouslySetInnerHTML={{
