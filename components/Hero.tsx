@@ -54,7 +54,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
               transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 md:mt-8 font-mono text-xs sm:text-sm uppercase tracking-widest text-[var(--text-muted)] border-l-2 border-[var(--accent)] pl-4 max-w-lg leading-relaxed transition-colors duration-300"
             >
-              Full-Stack &amp; Systems Engineer · Distributed Systems &amp; High-Performance UI · Gamer &amp; Romantic by Nature.
+              Full-Stack &amp; Systems Engineer · Distributed Systems &amp; High-Performance UI · Gamer by Nature.
             </motion.div>
           </div>
 
