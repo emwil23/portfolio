@@ -181,13 +181,6 @@ export default function Home() {
         <PlayerOne />
 
         {/* 5. The Handshake: Action & Contact */}
-        <Interlude
-          scene="shake"
-          step="Chapter 04 · The handshake"
-          title="Your move."
-          body="That is the story so far. The next chapter could be yours."
-          character="handshake"
-        />
         <ContactHandshake />
         <div data-chapter="close" />
       </main>
