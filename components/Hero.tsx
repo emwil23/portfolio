@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ isLoaded }) => {
               initial={{ opacity: 0 }}
               animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display font-extrabold text-[13vw] sm:text-[10vw] xl:text-[140px] leading-[0.8] tracking-[-0.03em] uppercase text-white mix-blend-difference select-none pointer-events-none"
+              className="font-display font-extrabold text-[13vw] sm:text-[10vw] xl:text-[140px] leading-[0.8] tracking-[-0.03em] uppercase hero-name select-none pointer-events-none"
             >
               EMMANUEL <br/> WILSON
             </motion.h1>

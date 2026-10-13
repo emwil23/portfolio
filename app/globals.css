@@ -247,6 +247,24 @@ html.dark .glass-panel {
   opacity: calc(0.4 + var(--shine) * 0.6);
 }
 
+/* The hero's name inverts against whatever is behind it: the page, or the character it crosses. */
+.hero-name {
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+/* Safari (the only engine that knows this font keyword) does not blend against the WebGL stage, which left
+   the name white on the light theme. There it takes the theme's text colour, with a halo of the page colour
+   so it still reads where it crosses his black clothes. */
+@supports (font: -apple-system-body) {
+  .hero-name {
+    color: var(--text-primary);
+    mix-blend-mode: normal;
+    text-shadow: 0 0 2px var(--background), 0 0 10px var(--background);
+    transition: color 0.3s ease;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

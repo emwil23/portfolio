@@ -50,12 +50,15 @@ ffmpeg -v error -y -i "$IN/10-turnaround.mp4" \
 cwebp -quiet -q 80 -alpha_q 90 "$TMP/turn.png" -o "$OUT/turn.webp"
 
 # 2. Clips -> VP9 with alpha (Chromium, Firefox) and HEVC with alpha (Safari).
+CLEAR="format=gbrap,geq=r='r(X,Y)*gt(alpha(X,Y),0)':g='g(X,Y)*gt(alpha(X,Y),0)':b='b(X,Y)*gt(alpha(X,Y),0)':a='alpha(X,Y)'"
 encode() {
   local src=$1 name=$2 frame=$3 size=${4:-$SIZE}
   ffmpeg -v error -y -i "$IN/$src.mp4" -vf "$frame,$KEY,$size,format=yuva420p" -an \
     -c:v libvpx-vp9 -b:v 0 -crf 34 -row-mt 1 "$OUT/$name.webm"
-  ffmpeg -v error -y -i "$IN/$src.mp4" -vf "$frame,$KEY,$size,format=bgra" -an \
-    -c:v hevc_videotoolbox -alpha_quality 0.75 -q:v 55 -tag:v hvc1 "$OUT/$name.mp4"
+  # Safari's copy also paints the keyed-out pixels black. Under the key they are the despilled wall, a dark blue,
+  # and HEVC's lossy alpha lets a ring of it show round him as a blue halo.
+  ffmpeg -v error -y -i "$IN/$src.mp4" -vf "$frame,$KEY,$size,$CLEAR,format=bgra" -an \
+    -c:v hevc_videotoolbox -alpha_quality 0.9 -q:v 55 -tag:v hvc1 "$OUT/$name.mp4"
 }
 encode 05-idle-nocup idle "$FRAME_A"
 encode 06-wave wave "$FRAME_B"
