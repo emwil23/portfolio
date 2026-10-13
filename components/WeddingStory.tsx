@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { Interlude } from "@/components/Interlude";
 import type { CharacterAction } from "@/components/Character";
 
@@ -63,6 +64,59 @@ const CHAPTERS: Chapter[] = [
   },
 ];
 
+// What the performance chapter says, as before and after. No figures here that the chapter does not state.
+const SWAPS = [
+  { what: "Keying", before: "CPU loop over every pixel", after: "WebGL fragment shader" },
+  { what: "3D", before: "three.js + react-three-fiber", after: "OGL" },
+  { what: "Scroll", before: "Smooth-scroll library", after: "Native scroll" },
+  { what: "Phones", before: "One encode for everyone", after: "Their own smaller encodes" },
+];
+
+const tick = { hidden: { scaleY: 0 }, shown: { scaleY: 1 } };
+const line = { hidden: { opacity: 0, x: 16 }, shown: { opacity: 1, x: 0 } };
+
+/** A second of frames as ticks: the 24 the CPU loop was throttled to, then one for every frame the screen draws. */
+const Frames: React.FC<{ count: number; label: string; tone: string }> = ({ count, label, tone }) => (
+  <div>
+    <div className="flex h-7 items-end justify-between">
+      {Array.from({ length: count }, (_, i) => (
+        <motion.span key={i} variants={tick} transition={{ duration: 0.3, delay: 0.3 + (i / count) * 0.8 }} className={`h-full w-px origin-bottom sm:w-0.5 ${tone}`} />
+      ))}
+    </div>
+    <p className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">{label}</p>
+  </div>
+);
+
+const Lighter: React.FC = () => (
+  <motion.div
+    role="img"
+    aria-label="Before and after: the keying moved from a CPU pixel loop at 24 frames a second to a WebGL shader on every frame, three.js gave way to OGL, the smooth-scroll library came out, and phones got smaller encodes."
+    initial="hidden"
+    whileInView="shown"
+    viewport={{ amount: 0.5 }}
+    transition={{ staggerChildren: 0.12 }}
+    className="rounded-2xl border border-[var(--border)] bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] p-5 shadow-2xl backdrop-blur-md sm:p-7"
+  >
+    <motion.p variants={line} className="font-mono text-[10px] uppercase tracking-widest text-[var(--key)]">One second of keyed video</motion.p>
+    <div className="mt-4 space-y-4">
+      <Frames count={24} label="Before · CPU loop, throttled to 24 frames" tone="bg-[var(--text-subtle)]" />
+      <Frames count={60} label="After · GPU shader, every frame the screen draws" tone="bg-[var(--key)]" />
+    </div>
+    <ul className="mt-6 divide-y divide-[var(--border-subtle)] border-t border-[var(--border-subtle)]">
+      {SWAPS.map((swap) => (
+        <motion.li key={swap.what} variants={line} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} className="grid grid-cols-[4.5rem_1fr] items-baseline gap-x-3 py-3">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">{swap.what}</span>
+          <span className="font-sans text-xs sm:text-sm">
+            <span className="text-[var(--text-subtle)] line-through">{swap.before}</span>
+            <span className="mx-2 text-[var(--key)]">→</span>
+            <span className="font-semibold text-[var(--text-primary)]">{swap.after}</span>
+          </span>
+        </motion.li>
+      ))}
+    </ul>
+  </motion.div>
+);
+
 export const WeddingStory: React.FC = () => (
   <section id="wedding" aria-label="Case study: a wedding invitation" className="relative">
     {CHAPTERS.map(({ image, ...chapter }) => (
@@ -70,7 +124,9 @@ export const WeddingStory: React.FC = () => (
         key={chapter.scene}
         {...chapter}
         figure={
-          image && (
+          chapter.scene === "blend" ? (
+            <Lighter />
+          ) : image && (
             // eslint-disable-next-line @next/next/no-img-element -- images are unoptimized in this static export
             <img
               src={image.src}
