@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUp, ArrowUpRight, Check, Copy, FileDown, MapPin } from "lucide-react";
-import { Character } from "@/components/Character";
+import { Character, type CharacterAction } from "@/components/Character";
 
 const EMAIL = "emmanuel_work@icloud.com";
 
@@ -13,13 +13,16 @@ interface Channel {
   href: string;
   /** Saves the file under this name instead of opening a new tab */
   download?: string;
+  /** What he does, and says, when the pointer or focus reaches this channel */
+  gesture: CharacterAction;
+  say: string;
 }
 
 const CHANNELS: Channel[] = [
-  { kicker: "01 · Email", title: EMAIL, href: `mailto:${EMAIL}` },
-  { kicker: "02 · Resume · One page, PDF", title: "Download the resume", href: "/assets/Emmanuel_Wilson_Resume.pdf", download: "Emmanuel_Wilson_Resume.pdf" },
-  { kicker: "03 · LinkedIn", title: "linkedin.com/in/ewilly", href: "https://www.linkedin.com/in/ewilly/" },
-  { kicker: "04 · GitHub", title: "github.com/emwil23", href: "https://github.com/emwil23" },
+  { kicker: "01 · Email", title: EMAIL, href: `mailto:${EMAIL}`, gesture: "handshake", say: "Write to me" },
+  { kicker: "02 · Resume · One page, PDF", title: "Download the resume", href: "/assets/Emmanuel_Wilson_Resume.pdf", download: "Emmanuel_Wilson_Resume.pdf", gesture: "present", say: "Take the one-pager" },
+  { kicker: "03 · LinkedIn", title: "linkedin.com/in/ewilly", href: "https://www.linkedin.com/in/ewilly/", gesture: "wave", say: "Come say hello" },
+  { kicker: "04 · GitHub", title: "github.com/emwil23", href: "https://github.com/emwil23", gesture: "thumbsup", say: "Read the code" },
 ];
 
 const row =
@@ -28,8 +31,9 @@ const row =
 /** The last chapter: he offers his hand, and the ways to take it are laid out beside him. */
 export const ContactHandshake: React.FC = () => {
   const [copied, setCopied] = useState(false);
-  // Reaching for the channels makes him offer his hand again
-  const [offer, setOffer] = useState(0);
+  // The channel last reached for: he answers each with its own gesture and line
+  const [reach, setReach] = useState<{ channel: Channel; id: number } | null>(null);
+  const reachFor = (channel: Channel) => setReach((was) => ({ channel, id: (was?.id ?? 0) + 1 }));
 
   const copyEmail = () => {
     navigator.clipboard.writeText(EMAIL);
@@ -40,12 +44,22 @@ export const ContactHandshake: React.FC = () => {
   return (
     <section id="contact" aria-label="Contact" className="relative px-4 sm:px-12">
       <div data-chapter="shake" className="mx-auto grid max-w-7xl gap-x-12 pt-24 md:min-h-screen md:grid-cols-2 md:pt-0">
-        <div className="pointer-events-none mx-auto h-[38vh] md:col-start-2 md:row-start-1 md:h-[86vh] md:self-end">
+        <div className="pointer-events-none relative mx-auto h-[38vh] md:col-start-2 md:row-start-1 md:h-[86vh] md:self-end">
+          {/* His spot on the stage: a glow, and two rings turning slowly against each other */}
+          <div aria-hidden="true" className="absolute left-1/2 top-[42%] aspect-square h-[78%] -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--key)_22%,transparent),transparent_65%)]" />
+            <div className="absolute inset-0 animate-[spin_50s_linear_infinite] rounded-full border border-dashed border-[color:color-mix(in_srgb,var(--key)_55%,transparent)] motion-reduce:animate-none" />
+            <div className="absolute inset-[9%] animate-[spin_35s_linear_infinite_reverse] rounded-full border border-[color:color-mix(in_srgb,var(--key)_25%,transparent)] border-t-[var(--key)] motion-reduce:animate-none" />
+          </div>
           <Character
+            track
             onView="handshake"
-            play={offer ? { action: "handshake", id: offer } : undefined}
+            play={reach ? { action: reach.channel.gesture, id: reach.id } : undefined}
             className="h-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]"
           />
+          <p aria-hidden="true" className="absolute left-0 top-[14%] -translate-x-[70%] whitespace-nowrap rounded-full border border-[var(--key)] bg-[color:color-mix(in_srgb,var(--surface-1)_80%,transparent)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-[var(--text-primary)] backdrop-blur-md">
+            {reach ? reach.channel.say : "Your move"}
+          </p>
         </div>
 
         <motion.div
@@ -76,19 +90,14 @@ export const ContactHandshake: React.FC = () => {
             </span>
           </p>
 
-          <ul
-            onMouseEnter={() => setOffer((n) => n + 1)}
-            onFocus={(e) => {
-              // Only on the way in, not while tabbing from one channel to the next
-              if (!e.currentTarget.contains(e.relatedTarget)) setOffer((n) => n + 1);
-            }}
-            className="mt-8 flex max-w-xl flex-col gap-3"
-          >
+          <ul className="mt-8 flex max-w-xl flex-col gap-3">
             {CHANNELS.map((channel) => (
               <li key={channel.href} className="flex gap-2">
                 <a
                   href={channel.href}
                   download={channel.download}
+                  onMouseEnter={() => reachFor(channel)}
+                  onFocus={() => reachFor(channel)}
                   {...(channel.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className={row}
                 >
@@ -107,7 +116,7 @@ export const ContactHandshake: React.FC = () => {
                     type="button"
                     onClick={copyEmail}
                     aria-label={copied ? "Email copied" : "Copy email address"}
-                    className={`${row} max-w-[52px] justify-center px-0`}
+                    className="flex w-[52px] shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[color:color-mix(in_srgb,var(--surface-1)_70%,transparent)] shadow-md backdrop-blur-md transition-colors hover:border-[var(--key)]"
                   >
                     {copied ? <Check className="h-4 w-4 text-[var(--key)]" /> : <Copy className="h-4 w-4 text-[var(--text-muted)]" />}
                   </button>
