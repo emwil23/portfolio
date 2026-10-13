@@ -199,6 +199,14 @@ html.dark .glass-panel {
   box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.12);
 }
 
+/* Translucent pill surface for the floating nav (no hover state, unlike glass-panel) */
+.glass {
+  background: color-mix(in srgb, var(--surface-1) 72%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid var(--border);
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
