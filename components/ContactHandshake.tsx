@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUp, ArrowUpRight, Check, Copy, FileDown, MapPin } from "lucide-react";
 
 const EMAIL = "emmanuel_work@icloud.com";
@@ -29,7 +29,9 @@ export const ContactHandshake: React.FC = () => {
   const [copied, setCopied] = useState(false);
   // shortcut: WebKit plays this VP9 clip without its transparency, so Apple browsers keep the still. Add an HEVC-alpha encode (scripts/key-assets.sh, on a Mac) to give them the motion too.
   const [moving, setMoving] = useState(false);
-  useEffect(() => setMoving(!navigator.vendor.includes("Apple")), []);
+  const [playing, setPlaying] = useState(false);
+  const still = useReducedMotion();
+  useEffect(() => setMoving(!still && !navigator.vendor.includes("Apple")), [still]);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(EMAIL);
@@ -42,13 +44,20 @@ export const ContactHandshake: React.FC = () => {
       <div data-chapter="shake" className="mx-auto grid max-w-7xl gap-x-12 pt-24 md:min-h-screen md:grid-cols-2 md:pt-0">
         {/* He does not perform for the visitor here: he is at his desk, building, and the clip just loops */}
         <div className="pointer-events-none relative mx-auto w-full max-w-[640px] md:col-start-2 md:row-start-1 md:self-center">
-          <div aria-hidden="true" className="absolute left-1/2 top-[45%] aspect-square w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--key)_16%,transparent),transparent_65%)]" />
           {/* The desk's legs run off the bottom of the frame, so it fades out instead of ending in a cut */}
-          <div className="relative aspect-[800/630] drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)] [mask-image:linear-gradient(to_bottom,black_82%,transparent)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
+          <div className="relative aspect-[800/630] [mask-image:linear-gradient(to_bottom,black_82%,transparent)]">
+            {/* The still stands in until the clip is playing, then leaves: both at once would show as a ghost behind him */}
             {/* eslint-disable-next-line @next/next/no-img-element -- images are unoptimized in this static export */}
-            <img src="/assets/character/desk.webp" alt="Emmanuel's character at his desk, coding across two monitors" width={800} height={630} loading="lazy" className="h-full w-full" />
+            <img
+              src="/assets/character/desk.webp"
+              alt="Emmanuel's character at his desk, coding across two monitors"
+              width={800}
+              height={630}
+              loading="lazy"
+              className={`h-full w-full ${playing ? "invisible" : ""}`}
+            />
             {moving && (
-              <video autoPlay loop muted playsInline aria-hidden="true" className="absolute inset-0 h-full w-full motion-reduce:hidden">
+              <video autoPlay loop muted playsInline aria-hidden="true" onPlaying={() => setPlaying(true)} className="absolute inset-0 h-full w-full">
                 <source src="/assets/character/desk.webm" type="video/webm" />
               </video>
             )}

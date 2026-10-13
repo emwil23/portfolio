@@ -90,10 +90,12 @@ done
 # The contact section's desk clip. Its wall is unevenly lit, so it is keyed on how green each pixel is
 # (g - max(r, b)) rather than on distance from one colour, then cut to a 5.5s loop that dissolves into itself.
 # No HEVC encode yet: Apple browsers show desk.webp, its first frame (see components/ContactHandshake.tsx).
-DESK="drawbox=x=1090:y=530:w=190:h=190:color=0x55A066:t=fill,format=gbrap,geq=r='r(X,Y)':g='min(g(X,Y),max(r(X,Y),b(X,Y)))':b='b(X,Y)':a='255*clip((30-(g(X,Y)-max(r(X,Y),b(X,Y))))/18,0,1)',crop=800:630:120:90"
+# Keyed-out pixels are also painted black, so the codec's alpha noise cannot show as a pale haze.
+GN="(g(X,Y)-max(r(X,Y),b(X,Y)))"
+DESK="drawbox=x=1090:y=530:w=190:h=190:color=0x55A066:t=fill,format=gbrap,geq=r='r(X,Y)*lt($GN,30)':g='min(g(X,Y),max(r(X,Y),b(X,Y)))*lt($GN,30)':b='b(X,Y)*lt($GN,30)':a='255*clip((30-$GN)/18,0,1)',crop=800:630:120:90"
 ffmpeg -v error -y -i "$IN/27-desk.mp4" -an -filter_complex \
   "[0:v]$DESK,split[a][b];[a]trim=0.5:6,setpts=PTS-STARTPTS[main];[b]trim=0:0.5,setpts=PTS-STARTPTS[head];[main][head]xfade=transition=fade:duration=0.5:offset=5,format=yuva420p" \
-  -c:v libvpx-vp9 -b:v 0 -crf 36 -row-mt 1 "$OUT/desk.webm"
+  -c:v libvpx-vp9 -b:v 0 -crf 32 -row-mt 1 "$OUT/desk.webm"
 ffmpeg -v error -y -i "$IN/27-desk.mp4" -vf "$DESK" -frames:v 1 -c:v libwebp -quality 82 "$OUT/desk.webp"
 
 ls -lh "$OUT"
