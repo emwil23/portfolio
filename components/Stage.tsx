@@ -360,7 +360,9 @@ export function Stage() {
 
       const greenDistance = camera.position.z - GREEN_Z;
       greenMaterial.uniforms.uKey.value = smooth(-0.65, 0.3, c - chapterOf("key"));
-      greenMaterial.uniforms.uOpacity.value = smooth(1, 3, greenDistance) * (1 - smooth(14, 22, greenDistance));
+      // On a tall screen the frame is parked dead ahead, behind whatever the chapter before shows, so it waits for its own chapter
+      const greenDue = camera.aspect > 1 ? 1 : smooth(-0.7, -0.3, c - chapterOf("green"));
+      greenMaterial.uniforms.uOpacity.value = smooth(1, 3, greenDistance) * (1 - smooth(14, 22, greenDistance)) * greenDue;
 
       const ringDistance = camera.position.z - RING_Z;
       const covered = chapters.some((el) => el.dataset.covered);

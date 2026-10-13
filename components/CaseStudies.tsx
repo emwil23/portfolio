@@ -893,7 +893,7 @@ export const CaseStudies: React.FC = () => {
                 <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider pl-2 hidden sm:inline-block">
                   Active Metric:
                 </span>
-                <div className="flex items-center gap-1.5 bg-[var(--surface-1)] p-1 rounded-lg">
+                <div className="flex flex-wrap items-center gap-1.5 bg-[var(--surface-1)] p-1 rounded-lg">
                   <button
                     onClick={() => setBenchmarkView("queries")}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-mono text-xs transition-all ${

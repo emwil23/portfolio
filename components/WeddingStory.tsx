@@ -102,7 +102,8 @@ const Lighter: React.FC = () => (
       <Frames count={24} label="Before · CPU loop, throttled to 24 frames" tone="bg-[var(--text-subtle)]" />
       <Frames count={60} label="After · GPU shader, every frame the screen draws" tone="bg-[var(--key)]" />
     </div>
-    <ul className="mt-6 divide-y divide-[var(--border-subtle)] border-t border-[var(--border-subtle)]">
+    {/* Phones keep to the two rows of frames: the list would run under the chapter's text, which says the same */}
+    <ul className="mt-6 hidden divide-y divide-[var(--border-subtle)] border-t border-[var(--border-subtle)] md:block">
       {SWAPS.map((swap) => (
         <motion.li key={swap.what} variants={line} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} className="grid grid-cols-[4.5rem_1fr] items-baseline gap-x-3 py-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">{swap.what}</span>
