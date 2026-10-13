@@ -304,12 +304,6 @@ export function Stage() {
         end: v(0, 0, -228),
         scale: v(0, 0.5, -62),
         player: v(0, 0, -126),
-        // The Player 1 beats weave in among the gems (z -134 to -164) and stop short of the last of them
-        station: v(0, 0.3, -130),
-        night: v(1.2, 0.8, -135),
-        squad: v(-1.2, -0.2, -140),
-        site: v(1, 0.5, -145),
-        care: v(0, 0, -150),
         shake: v(0, 0, -168),
         close: v(0, 0, -190),
       };

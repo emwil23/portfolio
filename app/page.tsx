@@ -178,13 +178,6 @@ export default function Home() {
         <ScaleLog />
 
         {/* 4. Player 1: The Sanctuary (Gaming, Soft Heart & Romantic Soul) */}
-        <Interlude
-          scene="player"
-          step="Chapter 03 · Player 1"
-          title="And when the terminal closes."
-          body="The gamer and the person behind the architecture. Three worlds, and what each one taught me about systems."
-          character="game"
-        />
         <PlayerOne />
 
         {/* 5. The Handshake: Action & Contact */}
