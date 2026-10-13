@@ -37,6 +37,8 @@ Two-page portfolio: Next.js 14 App Router, React 18, Tailwind 3, Framer Motion 1
 
 **Story beats.** `components/Interlude.tsx` is a tall section with a sticky screen: a step label, title and body on one side, and optionally the character playing a clip (`character="wave"` etc.) on the other. `Story.tsx` is a list of interludes. Each interlude sets `data-chapter="<scene>"`.
 
+`PlayerOne.tsx` is a list of interludes too: in each one the character stands in a different kit, a keyed still from `public/assets/player/` (built by the last step of `scripts/key-assets.sh`).
+
 **3D stage.** `components/Stage.tsx` is a fixed three.js canvas behind everything, loaded with `next/dynamic` (`ssr: false`). Its camera has one stop per `[data-chapter]` element in DOM order, looked up by scene name in the `stops` table in `measure()`; a new scene needs an entry there or the camera returns to the hero stop. Set-pieces (the green-screen frame, the ring of frames, gates, skyline, gems) only show on a page that has their scene. It reuses the ring maths exported from `Character.tsx` and reads its colours from the theme tokens (`--foreground`, `--background`, `--key`). The content sections have no background of their own, so their glass cards float over the stage.
 
 **Scroll-driven sprites.** `components/Turnaround.tsx` steps through a sprite sheet by scroll position: he spins once while his chapter holds the screen. The home page's work chapter shows a glimpse image (`public/assets/glimpse/`, screenshots of the case studies page) in place of the character while a case study card is hovered or focused. The interlude marks itself `data-covered` meanwhile, and the stage fades its ring of frames out until the glimpse is gone.

@@ -20,10 +20,6 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        {/* Preload critical preloader & sanctuary assets for blazing fast LCP */}
-        <link rel="preload" as="image" href="/assets/player1-setup.webp" />
-        <link rel="preload" as="image" href="/assets/romantic-polaroid.webp" />
-        
         {/* Anti-FOUC Theme Initialization */}
         <script
           dangerouslySetInnerHTML={{

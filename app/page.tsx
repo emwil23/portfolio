@@ -182,7 +182,7 @@ export default function Home() {
           scene="player"
           step="Chapter 03 · Player 1"
           title="And when the terminal closes."
-          body="The gamer, the romantic, the person behind the architecture."
+          body="The gamer and the person behind the architecture. Three worlds, and what each one taught me about systems."
           character="game"
         />
         <PlayerOne />

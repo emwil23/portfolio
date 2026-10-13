@@ -73,4 +73,12 @@ ARRIVE="trim=start_frame=2,setpts=PTS-STARTPTS,drawbox=x=0:y=1080:w=175:h=200:co
 encode 15-arrive arrive "$ARRIVE" "scale=522:928"
 encode 09-handshake handshake "$FRAME_A"
 
+# The Player 1 poses are Nano Banana stills (768x1376) on a wall of their own green, keyed whole.
+mkdir -p public/assets/player
+for pose in 18-station 19-night 20-squad 21-site 22-care; do
+  ffmpeg -v error -y -i "$IN/$pose.jpg" \
+    -vf "drawbox=x=630:y=1240:w=138:h=136:color=0x0FA24B:t=fill,colorkey=0x0FA24B:0.12:0.06,despill=type=green,format=rgba" \
+    -frames:v 1 -c:v libwebp -quality 82 "public/assets/player/${pose#*-}.webp"
+done
+
 ls -lh "$OUT"
