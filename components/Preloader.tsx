@@ -15,7 +15,7 @@ interface PreloaderProps {
 // Below this many bytes a second (about 2.5 Mbit/s) the visit gets the lighter variants
 const LITE_BELOW = 320_000;
 // However slow the connection, the visitor is let in about this long after the page was requested
-const PATIENCE_MS = 12000;
+const PATIENCE_MS = 25000;
 // He gets at least this long to walk in, however fast the connection
 const LEAST_MS = 2200;
 
@@ -101,9 +101,22 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
         // The cursor-tracking sprite only exists on a screen with a mouse
         if (!first.mobile) {
           await fetchInto(lite ? "/assets/character/look-small.webp" : "/assets/character/look.webp", until, (loaded, total) =>
-            show(55 + 25 * (total ? loaded / total : 0.5)),
+            show(55 + 15 * (total ? loaded / total : 0.5)),
           );
         }
+        show(70);
+
+        // Everything else the page plays, so nothing is still loading when its section arrives
+        if (live) setStatus("Fetching the rest");
+        const rest = [
+          `${clip("admire", lite)}.${ext}`,
+          "/assets/character/idle.webp",
+          // Apple browsers and lite visits get the desk clip's still (components/ContactHandshake.tsx)
+          lite || navigator.vendor.includes("Apple") ? "/assets/character/desk.webp" : "/assets/character/desk.webm",
+          ...["night", "creed", "site"].map((pose) => `/assets/player/${pose}.webp`),
+        ];
+        let done = 0;
+        await Promise.all(rest.map((url) => fetchInto(url, until, () => {}).then(() => show(70 + 10 * (++done / rest.length)))));
         show(80);
 
         // The 3D stage behind the hero. A slow connection does not wait for it: it fades in when it arrives

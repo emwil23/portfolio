@@ -61,6 +61,8 @@ encode() {
     -c:v hevc_videotoolbox -alpha_quality 0.9 -q:v 55 -tag:v hvc1 "$OUT/$name.mp4"
 }
 encode 05-idle-nocup idle "$FRAME_A"
+# Its first frame is the idle clip's poster, for browsers that will not autoplay (iOS Low Power Mode)
+ffmpeg -v error -y -c:v libvpx-vp9 -i "$OUT/idle.webm" -frames:v 1 -c:v libwebp -quality 80 "$OUT/idle.webp"
 encode 06-wave wave "$FRAME_B"
 encode 11-present-wide present "$FRAME_WIDE" "$SIZE_WIDE"
 encode 08-thumbsup thumbsup "$FRAME_B"

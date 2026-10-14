@@ -26,13 +26,24 @@ export const CharacterClip: React.FC<{ name: "idle" | "arrive" | CharacterAction
   eager = false,
 }) => {
   const { ready, lite } = useBoot();
+  const ref = useRef<HTMLVideoElement>(null);
+  const key = eager ? "eager" : ready ? String(lite) : "held";
+  // iOS refuses autoplay in Low Power Mode but allows play() after a touch, so the first tap starts him
+  useEffect(() => {
+    const kick = () => ref.current?.paused && ref.current.play().catch(() => {});
+    window.addEventListener("pointerdown", kick, { once: true });
+    return () => window.removeEventListener("pointerdown", kick);
+  }, [key]);
   return (
     <video
-      key={eager ? "eager" : ready ? String(lite) : "held"}
+      ref={ref}
+      key={key}
       autoPlay
       loop
       muted
       playsInline
+      // His first frame, so he is there even while the clip cannot play (idle.webp, built by scripts/key-assets.sh)
+      poster={name === "idle" ? "/assets/character/idle.webp" : undefined}
       aria-hidden="true"
       className={`pointer-events-none ${className}`}
     >
