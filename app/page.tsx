@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { ArrowUpRight, Loader2 } from "lucide-react";
 import { Preloader } from "@/components/Preloader";
+import { release, useBoot } from "@/lib/boot";
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
 import { Interlude } from "@/components/Interlude";
@@ -50,6 +51,8 @@ export default function Home() {
   const [glimpse, setGlimpse] = useState<string | null>(null);
   // The card that was just clicked spins until the case studies page takes over
   const [opening, setOpening] = useState<string | null>(null);
+  // Media waits for the preloader (lib/boot.ts); the stage is the heaviest of it
+  const { ready } = useBoot();
 
   // Enforce scroll position at top on initial load and disable automatic browser scroll restoration
   useEffect(() => {
@@ -71,6 +74,8 @@ export default function Home() {
       window.scrollTo(0, 0);
     } else {
       entered = true;
+      // Arriving with the preloader skipped, or entering before it finished: release media now
+      release();
       document.body.style.overflow = "";
       // A link such as /#scale lands on its section; anything else starts at the top
       const target = window.location.hash ? document.getElementById(window.location.hash.slice(1)) : null;
@@ -103,7 +108,7 @@ export default function Home() {
         {!isReady && <Preloader onComplete={handleComplete} variant="light" />}
 
         {/* The WebGL world every section below sits in */}
-        <Stage />
+        {ready && <Stage />}
         <Nav isLoaded={isReady} />
 
         {/* 1. Hero Page */}

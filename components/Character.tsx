@@ -2,23 +2,51 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
+import { clip, useBoot } from "@/lib/boot";
 
 /** A keyed, transparent character clip from public/assets/character (built by scripts/key-assets.sh). */
 export type CharacterAction = "wave" | "present" | "thumbsup" | "handshake" | "game" | "admire" | "type";
 
-/** HEVC-with-alpha for Safari, VP9-with-alpha for everything else. */
-const sources = (name: string) => (
+/** HEVC-with-alpha for Safari, VP9-with-alpha for everything else, in the variant this visit can afford. */
+const sources = (name: string, lite: boolean, media?: string) => (
   <>
-    <source src={`/assets/character/${name}.mp4`} type='video/mp4; codecs="hvc1"' />
-    <source src={`/assets/character/${name}.webm`} type="video/webm" />
+    <source src={`${clip(name, lite)}.mp4`} type='video/mp4; codecs="hvc1"' media={media} />
+    <source src={`${clip(name, lite)}.webm`} type="video/webm" media={media} />
   </>
 );
 
-export const CharacterClip: React.FC<{ name: "idle" | "arrive" | CharacterAction; className?: string }> = ({ name, className = "" }) => (
-  <video autoPlay loop muted playsInline aria-hidden="true" className={`pointer-events-none ${className}`}>
-    {sources(name)}
-  </video>
-);
+/**
+ * A looping clip. It has no sources until lib/boot.ts says media may load, so the page underneath the
+ * preloader downloads nothing. `eager` is for the preloader's own clip, which must load first: it is in
+ * the static HTML, so it picks its variant by screen size alone.
+ */
+export const CharacterClip: React.FC<{ name: "idle" | "arrive" | CharacterAction; className?: string; eager?: boolean }> = ({
+  name,
+  className = "",
+  eager = false,
+}) => {
+  const { ready, lite } = useBoot();
+  return (
+    <video
+      key={eager ? "eager" : ready ? String(lite) : "held"}
+      autoPlay
+      loop
+      muted
+      playsInline
+      aria-hidden="true"
+      className={`pointer-events-none ${className}`}
+    >
+      {eager ? (
+        <>
+          {sources(name, true, "(max-width: 767px)")}
+          {sources(name, false)}
+        </>
+      ) : (
+        ready && sources(name, lite)
+      )}
+    </video>
+  );
+};
 
 // Clips keyed with a wider frame than the shared one (see FRAME_WIDE in scripts/key-assets.sh).
 // This box puts him back in the same place as every other clip.
@@ -58,7 +86,9 @@ export const ringAt = (dx: number, dy: number) => {
 const cellPosition = (cell: number) =>
   `${((cell % COLS) * 100) / (COLS - 1)}% ${(Math.floor(cell / COLS) * 100) / (ROWS - 1)}%`;
 
-const sprite = "absolute inset-0 bg-[length:800%_700%] bg-[position:0%_0%] bg-[url('/assets/character/look.webp')]";
+const sprite = "absolute inset-0 bg-[length:800%_700%] bg-[position:0%_0%]";
+// The same 8x7 layout at half the size, for slow connections
+const sheet = (lite: boolean) => (lite ? "bg-[url('/assets/character/look-small.webp')]" : "bg-[url('/assets/character/look.webp')]");
 
 /**
  * The character. He never cuts or blends between two different poses: every change of pose is
@@ -89,6 +119,7 @@ export const Character: React.FC<{
   const busy = useRef(false); // an action clip is playing
   const yieldToAction = useRef<() => void>();
   const [hasMouse, setHasMouse] = useState(true);
+  const { ready, lite } = useBoot();
   const [action, setAction] = useState<{ name: CharacterAction; n: number } | null>(null);
   const inView = useInView(ref, { amount: 0.6 });
 
@@ -297,21 +328,21 @@ export const Character: React.FC<{
       window.clearTimeout(restTimer);
       yieldToAction.current = undefined;
     };
-  }, [hasMouse, track]);
+  }, [hasMouse, track, ready]);
 
   return (
     <div ref={ref} role="img" aria-label="Emmanuel's 3D character" className={`relative aspect-[348/930] ${className}`}>
       <div ref={idleRef} className="absolute inset-0">
         <CharacterClip name="idle" className="h-full w-full" />
       </div>
-      {hasMouse && track && (
+      {hasMouse && track && ready && (
         <div
           ref={trackRef}
           className="absolute inset-0 opacity-0 transition-opacity ease-out"
           style={{ transitionDuration: `${FADE_MS}ms` }}
         >
-          <div ref={baseRef} className={`${sprite} opacity-0`} />
-          <div ref={topRef} className={sprite} />
+          <div ref={baseRef} className={`${sprite} ${sheet(lite)} opacity-0`} />
+          <div ref={topRef} className={`${sprite} ${sheet(lite)}`} />
         </div>
       )}
       {action && (
@@ -329,7 +360,7 @@ export const Character: React.FC<{
           className="pointer-events-none absolute inset-y-0 h-full opacity-0 transition-opacity ease-out"
           style={{ left: 0, width: "100%", transitionDuration: `${FADE_MS}ms`, ...CLIP_BOX[action.name] }}
         >
-          {sources(action.name)}
+          {sources(action.name, lite)}
         </video>
       )}
     </div>

@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowUp, ArrowUpRight, Check, Copy, FileDown, MapPin } from "lucide-react";
+import { useBoot } from "@/lib/boot";
 
 const EMAIL = "emmanuel_work@icloud.com";
 
@@ -31,7 +32,12 @@ export const ContactHandshake: React.FC = () => {
   const [moving, setMoving] = useState(false);
   const [playing, setPlaying] = useState(false);
   const still = useReducedMotion();
-  useEffect(() => setMoving(!still && !navigator.vendor.includes("Apple")), [still]);
+  const { ready, lite } = useBoot();
+  // The clip is the heaviest file on the site and sits at the very bottom, so it waits until the visitor is near
+  const desk = useRef<HTMLDivElement>(null);
+  const near = useInView(desk, { once: true, margin: "600px 0px" });
+  // Slow connections and phones keep the still too
+  useEffect(() => setMoving(near && ready && !lite && !still && !navigator.vendor.includes("Apple")), [near, ready, lite, still]);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(EMAIL);
@@ -45,7 +51,7 @@ export const ContactHandshake: React.FC = () => {
         {/* He does not perform for the visitor here: he is at his desk, building, and the clip just loops */}
         <div className="pointer-events-none relative mx-auto w-full max-w-[640px] md:col-start-2 md:row-start-1 md:self-center">
           {/* The desk's legs run off the bottom of the frame, so it fades out instead of ending in a cut */}
-          <div className="relative aspect-[800/630] [mask-image:linear-gradient(to_bottom,black_82%,transparent)]">
+          <div ref={desk} className="relative aspect-[800/630] [mask-image:linear-gradient(to_bottom,black_82%,transparent)]">
             {/* The still stands in until the clip is playing, then leaves: both at once would show as a ghost behind him */}
             {/* eslint-disable-next-line @next/next/no-img-element -- images are unoptimized in this static export */}
             <img

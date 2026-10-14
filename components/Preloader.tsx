@@ -1,61 +1,137 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Terminal, Check, Sparkles, Zap, ArrowRight, Eye, RotateCcw } from "lucide-react";
+import { ArrowRight, Monitor } from "lucide-react";
 import { StudioBackground } from "@/components/StudioBackground";
 import { CharacterClip } from "@/components/Character";
+import { boot, clip, guess } from "@/lib/boot";
 
 interface PreloaderProps {
   onComplete: () => void;
   variant?: "light" | "dark";
 }
 
-const STATUS_MESSAGES = [
-  "INITIALIZING RUNTIME ENVIRONMENT...",
-  "PRE-RENDERING STATIC ASSETS...",
-  "CALIBRATING 60 FPS MOTION MATRIX...",
-  "COMPILING INTERACTIVE SHADERS...",
-  "PORTFOLIO READY // WELCOME"
-];
+// Below this many bytes a second (about 2.5 Mbit/s) the visit gets the lighter variants
+const LITE_BELOW = 320_000;
+// However slow the connection, the visitor is let in about this long after the page was requested
+const PATIENCE_MS = 12000;
+// He gets at least this long to walk in, however fast the connection
+const LEAST_MS = 2200;
+
+const wait = (ms: number) => new Promise((done) => setTimeout(done, ms));
+
+/**
+ * Bytes a second this connection managed for the page's own scripts and styles, which loaded before this
+ * code could run. They load side by side, so it is their total over the span they took. Null when they
+ * came from the cache or were too small to tell.
+ */
+function measured() {
+  const files = (performance.getEntriesByType("resource") as PerformanceResourceTiming[]).filter((e) => e.transferSize > 0 && e.responseStart > 0);
+  const bytes = files.reduce((sum, e) => sum + e.transferSize, 0);
+  if (bytes < 150_000) return null;
+  const span = Math.max(...files.map((e) => e.responseEnd)) - Math.min(...files.map((e) => e.responseStart));
+  return span > 0 ? bytes / (span / 1000) : null;
+}
+
+/** Download a file into the browser's cache, reporting each chunk. Resolves with its size; gives up at `until`. */
+async function fetchInto(url: string, until: number, onBytes: (loaded: number, total: number) => void) {
+  const abort = new AbortController();
+  const timer = setTimeout(() => abort.abort(), Math.max(0, until - performance.now()));
+  try {
+    const response = await fetch(url, { signal: abort.signal });
+    const total = Number(response.headers.get("content-length")) || 0;
+    const reader = response.body?.getReader();
+    let loaded = 0;
+    while (reader) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      loaded += value.length;
+      onBytes(loaded, total);
+    }
+    return loaded;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "light" }) => {
   const [progress, setProgress] = useState(0);
-  const [statusIndex, setStatusIndex] = useState(0);
+  const [status, setStatus] = useState("Loading the studio");
+  const [mobile, setMobile] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+  const clipBox = useRef<HTMLDivElement>(null);
 
-  // Smooth progress progression
+  // The real work behind the percentage. First his own walk-in clip, alone, so it is what loads first. Then the
+  // hero's assets in the order they are needed, timed to see what this connection can afford. Then the page's
+  // media is released (lib/boot.ts) with the variant chosen, and the hero has what it needs when the curtain lifts.
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        const remaining = 100 - prev;
-        const step = Math.max(1, Math.min(Math.ceil(remaining * 0.12), 4));
-        return prev + step;
-      });
-    }, 45);
+    let live = true;
+    const begun = performance.now();
+    // Never less than four seconds to fetch the hero's assets, however long the scripts took to arrive
+    const until = Math.max(PATIENCE_MS, begun + 4000);
+    const first = guess();
+    const rate = measured();
+    setMobile(first.mobile);
+    const show = (value: number) => live && setProgress((was) => Math.max(was, Math.round(value)));
 
-    return () => clearInterval(timer);
+    (async () => {
+      const video = clipBox.current?.querySelector("video");
+      if (video && video.readyState < 4) {
+        await Promise.race([new Promise((done) => video.addEventListener("canplaythrough", done, { once: true })), wait(3000)]);
+      }
+      show(20);
+
+      let lite = first.lite || (rate !== null && rate < LITE_BELOW);
+      try {
+        if (live) setStatus("Checking your connection");
+        // The clip format the browser will pick from <source>: HEVC with alpha in Safari, VP9 elsewhere
+        const ext = document.createElement("video").canPlayType('video/mp4; codecs="hvc1"') ? "mp4" : "webm";
+        const t0 = performance.now();
+        const size = await fetchInto(`${clip("idle", lite)}.${ext}`, until, (loaded, total) => show(20 + 35 * (total ? loaded / total : 0.5)));
+        // The scripts may have come from the cache, so the clip is timed too
+        if (!lite && size / ((performance.now() - t0) / 1000) < LITE_BELOW) {
+          lite = true;
+          if (live) setStatus("Tuning for your connection");
+          await fetchInto(`${clip("idle", true)}.${ext}`, until, () => {});
+        }
+        show(55);
+
+        if (live) setStatus("Fetching the character");
+        // The cursor-tracking sprite only exists on a screen with a mouse
+        if (!first.mobile) {
+          await fetchInto(lite ? "/assets/character/look-small.webp" : "/assets/character/look.webp", until, (loaded, total) =>
+            show(55 + 25 * (total ? loaded / total : 0.5)),
+          );
+        }
+        show(80);
+
+        // The 3D stage behind the hero. A slow connection does not wait for it: it fades in when it arrives
+        if (live) setStatus("Building the stage");
+        const stage = import("@/components/Stage");
+        if (!lite) await Promise.race([stage, wait(Math.max(0, until - performance.now()))]);
+      } catch {
+        // Out of patience or offline: let them in with the lighter variants
+        lite = true;
+      }
+      // A visitor who entered early has already been let in with the first guess; do not swap variants under them
+      if (!boot.get().ready) boot.set({ ready: true, lite, mobile: first.mobile });
+      if (!live) return;
+      setStatus(lite ? "Tuned for your connection" : "Ready");
+      await wait(Math.max(0, LEAST_MS - (performance.now() - begun)));
+      show(100);
+    })();
+
+    return () => {
+      live = false;
+    };
   }, []);
 
-  // Sync status messages
+  // Enter by itself 1.2s after everything is ready, if the visitor has not already
   useEffect(() => {
-    const nextIdx = Math.min(
-      Math.floor((progress / 100) * STATUS_MESSAGES.length),
-      STATUS_MESSAGES.length - 1
-    );
-    setStatusIndex(nextIdx);
-
-    // Auto-proceed smoothly 1.2s after reaching 100% if user hasn't clicked
-    if (progress === 100) {
-      const autoTimer = setTimeout(() => {
-        handleProceed();
-      }, 1200);
-      return () => clearTimeout(autoTimer);
-    }
+    if (progress !== 100) return;
+    const autoTimer = setTimeout(() => handleProceed(), 1200);
+    return () => clearTimeout(autoTimer);
   }, [progress]);
 
   // Space / Enter keyboard trigger
@@ -84,9 +160,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
     }, 500);
   };
 
-  const handleRestartProgress = () => {
-    setProgress(0);
-  };
+
 
   return (
     <AnimatePresence>
@@ -131,7 +205,9 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
                 <div className={`absolute bottom-[3%] left-1/2 -translate-x-1/2 w-[70%] h-8 ${variant === "light" ? "bg-slate-900/15" : "bg-black/30"} blur-2xl rounded-full pointer-events-none`} />
 
                 {/* He walks in while the page loads */}
-                <CharacterClip name="arrive" className="relative h-full" />
+                <div ref={clipBox} className="relative h-full">
+                  <CharacterClip name="arrive" eager className="relative h-full" />
+                </div>
               </motion.div>
 
 
@@ -228,9 +304,17 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
 
               {/* Status & Skip hint */}
               <div className={`mt-2.5 font-mono text-[10px] tracking-wider uppercase ${variant === "light" ? "text-slate-500" : "text-[var(--text-muted)]"} flex items-center gap-1.5 opacity-75 group-hover:opacity-100 transition-opacity`}>
-                <span>{progress === 100 ? "CLICK OR PRESS SPACE TO ENTER" : STATUS_MESSAGES[statusIndex]}</span>
+                <span>{progress === 100 ? (mobile ? "Tap to enter" : "Click or press Space to enter") : `${status}…`}</span>
                 <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
               </div>
+
+              {/* Phones get the whole story, but it was made for a big screen and a mouse */}
+              {mobile && (
+                <div className={`mt-3 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider ${variant === "light" ? "text-slate-600" : "text-[var(--text-secondary)]"}`}>
+                  <Monitor className="h-3 w-3" />
+                  <span>Best experienced on a desktop</span>
+                </div>
+              )}
             </motion.div>
           </StudioBackground>
         </motion.div>

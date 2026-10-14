@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { RING, SPOKE, around, ringAt } from "@/components/Character";
+import { boot } from "@/lib/boot";
 
 // The fixed WebGL backdrop. The camera flies down -z as the page scrolls, with one stop per
 // [data-chapter="<scene>"] element, in DOM order. Scenes and what stands at them:
@@ -123,14 +124,16 @@ export function Stage() {
     if (!canvas) return;
     // Colours pass straight through: the textures and CSS colours are already sRGB
     THREE.ColorManagement.enabled = false;
+    // Phones and slow connections (lib/boot.ts) get a lighter stage: no antialiasing, one pixel per CSS pixel, less dust
+    const { lite } = boot.get();
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !lite });
     } catch {
       return; // no WebGL: the page reads fine without the backdrop
     }
     renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, lite ? 1 : 2));
 
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const scene = new THREE.Scene();
@@ -141,7 +144,7 @@ export function Stage() {
     const loader = new THREE.TextureLoader();
 
     // Dust and a studio floor, the whole length of the flight
-    const specks = new Float32Array(2800 * 3);
+    const specks = new Float32Array((lite ? 1200 : 2800) * 3);
     for (let i = 0; i < specks.length; i += 3) {
       specks[i] = (Math.random() - 0.5) * 30;
       specks[i + 1] = Math.random() * 10 - 3;
@@ -419,5 +422,5 @@ export function Stage() {
     };
   }, []);
 
-  return <canvas ref={ref} aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 h-full w-full" />;
+  return <canvas ref={ref} aria-hidden="true" className="stage-in pointer-events-none fixed inset-0 z-0 h-full w-full" />;
 }

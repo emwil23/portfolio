@@ -265,6 +265,23 @@ html.dark .glass-panel {
   }
 }
 
+/* The 3D stage can arrive after the page on a slow connection, so it fades in rather than popping. */
+.stage-in {
+  animation: stage-in 0.8s ease-out both;
+}
+
+@keyframes stage-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-in {
+    animation: none;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { Gamepad2, Sun } from "lucide-react";
+import { useBoot } from "@/lib/boot";
 
 interface GameRealm {
   /** Names his pose (.webp) and the world's backdrop clip (.mp4) in public/assets/player/ */
@@ -159,15 +160,17 @@ export const PlayerOne: React.FC = () => {
   const clips = useRef<(HTMLVideoElement | null)[]>([]);
   const inView = useInView(screen, { amount: 0.3 });
   const still = useReducedMotion();
+  const { lite } = useBoot();
 
   // Only the picked world's clip plays, and only while the screen is in view; none is fetched before that
   useEffect(() => {
     clips.current.forEach((clip, index) => {
       if (!clip) return;
-      if (index === world && inView && !still) clip.play().catch(() => {});
+      // Slow connections and phones keep the colour and the kit change, without the backdrop clip
+      if (index === world && inView && !still && !lite) clip.play().catch(() => {});
       else clip.pause();
     });
-  }, [world, inView, still]);
+  }, [world, inView, still, lite]);
 
   return (
     <section
