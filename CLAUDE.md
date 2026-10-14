@@ -17,7 +17,7 @@ npx tsc --noEmit  # Type-check only
 
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci` + `next build` on Node 20 and publishes `./out` to GitHub Pages. Every push to `main` is a production deploy. The site is served at `https://emmanuelwilson.tech` (`public/CNAME`), from the root.
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci` + `next build` on Node 20 and publishes `./out` to GitHub Pages. Every push to `main` is a production deploy. The site is served at `https://emmanuelwilson.tech` (`public/CNAME`), from the root, over enforced HTTPS. Sharing and search metadata (canonical, Open Graph, Twitter, JSON-LD) is in the two `layout.tsx` files; `public/robots.txt` and `public/sitemap.xml` list both pages.
 
 Constraints that follow from static export:
 
@@ -39,7 +39,7 @@ Two-page portfolio: Next.js 14 App Router, React 18, Tailwind 3, Framer Motion 1
 
 `PlayerOne.tsx` is not an interlude: it is two ordinary screens with its own violet wash, and `data-chapter="player"` on the first of them. Hovering, focusing or tapping a world card changes the character into that world's kit (a keyed still), fades in that world's backdrop clip and recolours the screen through the `--world` custom property; the clips are `preload="none"` and only the picked one plays, while the screen is in view. Stills and clips live in `public/assets/player/`, built by the last steps of `scripts/key-assets.sh`. The second screen is a photograph that leans towards the pointer and steps aside for its text when hovered.
 
-`ContactHandshake.tsx` is one screen on both pages: the four ways to reach him as rows, and beside them a looping clip of him at his desk (`public/assets/character/desk.webm`, VP9 with alpha). There is no HEVC encode of that clip, so Apple browsers and reduced-motion users get its first frame, `desk.webp`.
+`ContactHandshake.tsx` is one screen on both pages: the four ways to reach him as rows, and beside them a looping clip of him at his desk (`public/assets/character/desk.webm`, VP9 with alpha). There is no HEVC encode of that clip, so Apple browsers, reduced-motion users and lite visits get its first frame, `desk.webp`; the clip itself only loads once the section is near.
 
 **Loading and quality.** `lib/boot.ts` holds what the visit can afford: `ready` (media may load), `lite` (phones and slow connections) and `mobile`. The static HTML renders every character clip without sources and the cursor sprite and stage not at all, so the preloader's own clip (`CharacterClip eager`, which picks its variant by screen size with `<source media>`) is the only media the browser fetches first. The preloader then estimates speed from the page's script downloads, fetches the hero's clip and sprite into the cache with real progress, times them, and sets `ready` with the variant; it lets the visitor in after about 12 s however slow the connection, and says "Best experienced on a desktop" on phones. `lite` means the `-lite` clips (560px tall, built from the full ones by `scripts/lite-assets.sh`), `look-small.webp` for the cursor sprite, a lighter stage, and no Player 1 backdrop or desk clip. The case studies page and visits that skip the preloader call `release()` on mount. The desk clip also waits until the contact section is near.
 
@@ -49,11 +49,13 @@ Two-page portfolio: Next.js 14 App Router, React 18, Tailwind 3, Framer Motion 1
 
 **Scroll-driven sprites.** `components/Turnaround.tsx` steps through a sprite sheet by scroll position: he spins once while his chapter holds the screen. The home page's work chapter shows a glimpse image (`public/assets/glimpse/`, screenshots of the case studies page) in place of the character while a case study card is hovered or focused. The interlude marks itself `data-covered` meanwhile, and the stage fades its ring of frames out until the glimpse is gone.
 
-**Character.** `components/Character.tsx` plays the keyed clips in `public/assets/character/` (built from `raw-assets/` by `scripts/key-assets.sh`, which needs macOS for its HEVC step; on Windows run the individual ffmpeg lines): an idle loop, one-shot actions, and with `track` a sprite of head poses that follows the cursor.
+**Character.** `components/Character.tsx` plays the keyed clips in `public/assets/character/` (built from `raw-assets/` by `scripts/key-assets.sh`, which needs macOS for its HEVC step; on Windows run the individual ffmpeg lines): an idle loop, one-shot actions, and with `track` a sprite of head poses that follows the cursor. Each clip has a `-lite` twin (`scripts/lite-assets.sh`) for phones and slow connections. Safari's HEVC clips have their keyed-out pixels painted black (`CLEAR` in the scripts), or a blue halo shows round him.
 
 **Content lives inside the components.** Each section defines its own typed interfaces and constant arrays at the top of its file (`WORKFLOW_GATES` in `CaseStudies.tsx`, `SDE2_INVARIANTS` in `ScaleLog.tsx`, `GAME_REALMS` in `PlayerOne.tsx`), then renders them. To change copy, edit the section file. `lib/data.ts` exports `portfolioData` but nothing imports it — contact details such as the email are hard-coded in `ContactHandshake.tsx` and can drift from it.
 
 **Everything is a client component.** All of `components/` and both pages are `"use client"`; only the two `layout.tsx` files are server components. `CaseStudies.tsx` (~1,500 lines) contains several interactive simulations in one file.
+
+**Safari.** The hero name inverts with `mix-blend-mode: difference`, which Safari does not apply against the WebGL stage; `.hero-name` in `globals.css` gives Safari the theme colour instead. Test visual changes in WebKit as well as Chrome.
 
 **Theming.** Dark/light is class-based on `<html>` (`darkMode: "class"`), defaulting to `dark`:
 
