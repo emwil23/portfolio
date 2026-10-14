@@ -12,26 +12,34 @@ interface PreloaderProps {
   variant?: "light" | "dark";
 }
 
-// Below this many bytes a second (about 2.5 Mbit/s) the visit gets the lighter variants
-const LITE_BELOW = 320_000;
-// However slow the connection, the visitor is let in about this long after the page was requested
-const PATIENCE_MS = 25000;
+// The visitor waits for everything, but a stalled request must not keep them out: they are let in this long
+// after the page was requested whatever is still missing (and can tap in at any time)
+const PATIENCE_MS = 60000;
 // He gets at least this long to walk in, however fast the connection
 const LEAST_MS = 2200;
 
 const wait = (ms: number) => new Promise((done) => setTimeout(done, ms));
 
-/**
- * Bytes a second this connection managed for the page's own scripts and styles, which loaded before this
- * code could run. They load side by side, so it is their total over the span they took. Null when they
- * came from the cache or were too small to tell.
- */
-function measured() {
-  const files = (performance.getEntriesByType("resource") as PerformanceResourceTiming[]).filter((e) => e.transferSize > 0 && e.responseStart > 0);
-  const bytes = files.reduce((sum, e) => sum + e.transferSize, 0);
-  if (bytes < 150_000) return null;
-  const span = Math.max(...files.map((e) => e.responseEnd)) - Math.min(...files.map((e) => e.responseStart));
-  return span > 0 ? bytes / (span / 1000) : null;
+/** Every file the home page shows or plays, in the variant this visit gets, so nothing loads after the curtain lifts. */
+function homeAssets(lite: boolean, mobile: boolean) {
+  // The clip format the browser will pick from <source>: HEVC with alpha in Safari, VP9 elsewhere
+  const ext = document.createElement("video").canPlayType('video/mp4; codecs="hvc1"') ? "mp4" : "webm";
+  const apple = navigator.vendor.includes("Apple");
+  return [
+    `${clip("idle", lite)}.${ext}`,
+    `${clip("admire", lite)}.${ext}`,
+    "/assets/character/idle.webp",
+    "/assets/character/green.webp",
+    "/assets/character/look-small.webp",
+    // The cursor-tracking sprite only exists on a screen with a mouse
+    ...(mobile || lite ? [] : ["/assets/character/look.webp"]),
+    ...["making", "wedding", "proof"].map((name) => `/assets/glimpse/${name}.webp`),
+    ...["night", "creed", "site"].flatMap((pose) => [`/assets/player/${pose}.webp`, `/assets/player/${pose}.mp4`]),
+    "/assets/romantic-polaroid.webp",
+    "/assets/character/desk.webp",
+    // Apple browsers and lite visits keep the desk clip's still (components/ContactHandshake.tsx)
+    ...(lite || apple ? [] : ["/assets/character/desk.webm"]),
+  ];
 }
 
 /** Download a file into the browser's cache, reporting each chunk. Resolves with its size; gives up at `until`. */
@@ -62,17 +70,16 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
   const [isFinished, setIsFinished] = useState(false);
   const clipBox = useRef<HTMLDivElement>(null);
 
-  // The real work behind the percentage. First his own walk-in clip, alone, so it is what loads first. Then the
-  // hero's assets in the order they are needed, timed to see what this connection can afford. Then the page's
-  // media is released (lib/boot.ts) with the variant chosen, and the hero has what it needs when the curtain lifts.
+  // The real work behind the percentage. First his own walk-in clip, alone, so it is what loads first. Then every
+  // file the home page uses, all at once (the browser runs them side by side over one HTTP/2 connection), with the
+  // percentage counting real bytes. Then the page's media is released (lib/boot.ts) from the browser cache.
   useEffect(() => {
     let live = true;
     const begun = performance.now();
-    // Never less than four seconds to fetch the hero's assets, however long the scripts took to arrive
-    const until = Math.max(PATIENCE_MS, begun + 4000);
-    const first = guess();
-    const rate = measured();
-    setMobile(first.mobile);
+    const until = Math.max(PATIENCE_MS, begun + 10000);
+    // Phones and connections that ask to save data get the lighter variants; everyone else the full ones
+    const { lite, mobile } = guess();
+    setMobile(mobile);
     const show = (value: number) => live && setProgress((was) => Math.max(was, Math.round(value)));
 
     (async () => {
@@ -80,57 +87,35 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, variant = "lig
       if (video && video.readyState < 4) {
         await Promise.race([new Promise((done) => video.addEventListener("canplaythrough", done, { once: true })), wait(3000)]);
       }
-      show(20);
+      show(10);
 
-      let lite = first.lite || (rate !== null && rate < LITE_BELOW);
-      try {
-        if (live) setStatus("Checking your connection");
-        // The clip format the browser will pick from <source>: HEVC with alpha in Safari, VP9 elsewhere
-        const ext = document.createElement("video").canPlayType('video/mp4; codecs="hvc1"') ? "mp4" : "webm";
-        const t0 = performance.now();
-        const size = await fetchInto(`${clip("idle", lite)}.${ext}`, until, (loaded, total) => show(20 + 35 * (total ? loaded / total : 0.5)));
-        // The scripts may have come from the cache, so the clip is timed too
-        if (!lite && size / ((performance.now() - t0) / 1000) < LITE_BELOW) {
-          lite = true;
-          if (live) setStatus("Tuning for your connection");
-          await fetchInto(`${clip("idle", true)}.${ext}`, until, () => {});
-        }
-        show(55);
+      if (live) setStatus("Fetching the studio");
+      const files = homeAssets(lite, mobile);
+      const loaded = files.map(() => 0);
+      const totals = files.map(() => 0);
+      const count = () => {
+        const sum = (list: number[]) => list.reduce((a, b) => a + b, 0);
+        // Until every file has said how big it is, count the unknown ones as unstarted
+        const known = totals.filter(Boolean).length / files.length;
+        show(10 + 85 * known * (sum(loaded) / Math.max(1, sum(totals))));
+      };
+      await Promise.all([
+        ...files.map((url, i) =>
+          fetchInto(url, until, (bytes, total) => {
+            loaded[i] = bytes;
+            totals[i] = total || bytes;
+            count();
+          }).catch(() => {}), // a missing file must not hold up the rest
+        ),
+        // The 3D stage's code
+        import("@/components/Stage").catch(() => {}),
+      ]);
+      show(95);
 
-        if (live) setStatus("Fetching the character");
-        // The cursor-tracking sprite only exists on a screen with a mouse
-        if (!first.mobile) {
-          await fetchInto(lite ? "/assets/character/look-small.webp" : "/assets/character/look.webp", until, (loaded, total) =>
-            show(55 + 15 * (total ? loaded / total : 0.5)),
-          );
-        }
-        show(70);
-
-        // Everything else the page plays, so nothing is still loading when its section arrives
-        if (live) setStatus("Fetching the rest");
-        const rest = [
-          `${clip("admire", lite)}.${ext}`,
-          "/assets/character/idle.webp",
-          // Apple browsers and lite visits get the desk clip's still (components/ContactHandshake.tsx)
-          lite || navigator.vendor.includes("Apple") ? "/assets/character/desk.webp" : "/assets/character/desk.webm",
-          ...["night", "creed", "site"].map((pose) => `/assets/player/${pose}.webp`),
-        ];
-        let done = 0;
-        await Promise.all(rest.map((url) => fetchInto(url, until, () => {}).then(() => show(70 + 10 * (++done / rest.length)))));
-        show(80);
-
-        // The 3D stage behind the hero. A slow connection does not wait for it: it fades in when it arrives
-        if (live) setStatus("Building the stage");
-        const stage = import("@/components/Stage");
-        if (!lite) await Promise.race([stage, wait(Math.max(0, until - performance.now()))]);
-      } catch {
-        // Out of patience or offline: let them in with the lighter variants
-        lite = true;
-      }
-      // A visitor who entered early has already been let in with the first guess; do not swap variants under them
-      if (!boot.get().ready) boot.set({ ready: true, lite, mobile: first.mobile });
+      // A visitor who tapped in early has already been let in with the same guess
+      if (!boot.get().ready) boot.set({ ready: true, lite, mobile });
       if (!live) return;
-      setStatus(lite ? "Tuned for your connection" : "Ready");
+      setStatus("Ready");
       await wait(Math.max(0, LEAST_MS - (performance.now() - begun)));
       show(100);
     })();
