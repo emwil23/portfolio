@@ -19,7 +19,7 @@ export const studies = [
     "architecture": "Browsers send capped data through region, IP, JWT and input guards, then an atomic Supabase quota and a server-owned template. Gemini streams back to the browser. Supabase supplies identity and quota; source-CDN media travels directly to the browser. Queues and caches are single-process memory.",
     "next": "The IP limiter is in memory. Move it to Postgres before scaling beyond one dyno.",
     "metric": "$7 / month",
-    "metricNote": "Heroku Basic only. Cloudflare Workers, Supabase and Gemini use free tiers. Seven apps share the API; five are featured here.",
+    "metricNote": "Heroku Basic only. Cloudflare Workers, Supabase and Gemini use free tiers. Five apps share the API.",
     "decisions": [
       {
         "title": "Keep the trust boundary on the server",
@@ -43,7 +43,7 @@ export const studies = [
     "revision": "aafe065a91f8846f02fb11a3355be1889544b6bf",
     "live": null,
     "stack": "Hono · TypeScript · Heroku · Supabase · Gemini",
-    "original": "Seven apps, one $7 Heroku dyno. Each app gets AI features without ever holding an API key or sending a raw prompt: the browser sends plain data (a goal, a list of tasks), and the server turns it into a prompt from a template it owns."
+    "original": "Five apps, one $7 Heroku dyno. Each app gets AI features without ever holding an API key or sending a raw prompt: the browser sends plain data (a goal, a list of tasks), and the server turns it into a prompt from a template it owns."
   },
   {
     "slug": "taskpilot",
