@@ -1,0 +1,198 @@
+[
+  {
+    "slug": "taskpilot",
+    "date": "2026-10-26T05:10:48.314Z",
+    "url": "https://taskpilot.ewstudios.workers.dev/app",
+    "actions": [
+      "Local quick add twice; open Board. Demo task text entered through UI.",
+      "Excerpt switches Calendar to Board."
+    ],
+    "limitations": [
+      "No signed-in AI calendar planning recorded."
+    ],
+    "sourceLinks": [],
+    "recording": true
+  },
+  {
+    "slug": "pixe",
+    "date": "2026-10-26T05:11:06.012Z",
+    "url": "https://pixe.ewstudios.workers.dev/app",
+    "actions": [
+      "Open built-in example board; real source search/build state.",
+      "Excerpt selects a real print and moves it with the keyboard, then restores it."
+    ],
+    "limitations": [
+      "No authenticated AI brief; source availability is whatever the live service returned."
+    ],
+    "sourceLinks": [],
+    "recording": true
+  },
+  {
+    "slug": "translateplus",
+    "date": "2026-10-26T05:11:33.172Z",
+    "url": "https://translateplus.ewstudios.workers.dev/app",
+    "actions": [
+      "Enable rule-based Hinglish and type kya haal hai.",
+      "Excerpt types two real rule-based Hinglish examples."
+    ],
+    "limitations": [
+      "Headless Chromium has no downloaded Translator model; no on-device translation result or AI tone result claimed."
+    ],
+    "sourceLinks": [],
+    "recording": true
+  },
+  {
+    "slug": "willify",
+    "date": "2026-10-26T05:13:38.431Z",
+    "url": "https://willify.ewstudios.workers.dev/app",
+    "actions": [
+      "Search live catalogue for Tycho; user-triggered preview if available. Final encode strips every audio stream.",
+      "Excerpt pauses and resumes the preview; badge/credit remain visible."
+    ],
+    "limitations": [
+      "No signed-in AI DJ flow."
+    ],
+    "credits": {
+      "itunes": 1,
+      "badge": 1
+    },
+    "sourceLinks": [
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/a-walk/679251532?i=679251628"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/awake/793928184?i=793928278"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/dive/679251532?i=679251720"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/melanine/679251532?i=679251726"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/cypress/1494184995?i=1494185002"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/into-the-woods/1494184995?i=1494184999"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/adrift/779994937?i=779995257"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/outer-sunset/1494184995?i=1494184998"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/a-walk/1490459058?i=1490459060"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/awake/1063455370?i=1063455505"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/jetty/1444517515?i=1444517516"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/see-feat-beacon/1242507602?i=1242508618"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/japan-feat-saint-sinner/1461365068?i=1461365080"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/skate-feat-saint-sinner/1461365068?i=1461365085"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/tycho/1634410491?i=1634410492"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/dive-keep-shelly-in-athens-remix/679482880?i=679482926"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/pink-blue-feat-saint-sinner/1461365068?i=1461365075"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/weather/1494184995?i=1494184996"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/hours/679251532?i=679251630"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/daydream/679251532?i=679251642"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/easy/1494184995?i=1494185000"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/apogee/793928184?i=793928284"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/spectre-bibio-remix/1063455483?i=1063455943"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/epoch/1154577700?i=1154578329"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/gb/album/montana/793928184?i=793928279"
+      },
+      {
+        "label": null,
+        "url": "https://music.apple.com/gb/album/a-walk/679251532?i=679251628"
+      },
+      {
+        "label": null,
+        "url": "https://music.apple.com/gb/album/a-walk/679251532?i=679251628"
+      }
+    ],
+    "recording": 1
+  },
+  {
+    "slug": "natour",
+    "date": "2026-10-26T05:13:58.081Z",
+    "url": "https://natour.ewstudios.workers.dev/app",
+    "actions": [
+      "Create an empty Lisbon trip through live place lookup.",
+      "Excerpt zooms the live map with its real attribution visible."
+    ],
+    "limitations": [
+      "No authenticated AI plan streaming; no fabricated checked stops."
+    ],
+    "sourceLinks": [
+      {
+        "label": "OpenFreeMap",
+        "url": "https://openfreemap.org/"
+      },
+      {
+        "label": "© OpenMapTiles",
+        "url": "https://www.openmaptiles.org/"
+      },
+      {
+        "label": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/copyright"
+      }
+    ],
+    "recording": true
+  }
+]

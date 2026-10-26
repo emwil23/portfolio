@@ -1,0 +1,805 @@
+{
+  "date": "2026-10-26T05:38:30.026Z",
+  "scope": "Exported portfolio, separate from app README reports",
+  "commands": [
+    "npx tsc --noEmit",
+    "npm run build",
+    "node scripts/ewstudios-serve.cjs",
+    "node scripts/ewstudios-checks.cjs",
+    "node scripts/ewstudios-interactions.cjs",
+    "node scripts/ewstudios-lighthouse.cjs",
+    "node scripts/ewstudios-report.cjs"
+  ],
+  "lighthouse": [
+    {
+      "slug": "ewstudios",
+      "date": "2026-10-26T05:36:16.534Z",
+      "url": "http://127.0.0.1:4173/work/ewstudios/",
+      "profile": "Lighthouse mobile, simulated throttling, default theme, cold cache; gzip static export server",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1532.072,
+        "largest-contentful-paint": 2083.365,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1532.072
+      }
+    },
+    {
+      "slug": "taskpilot",
+      "date": "2026-10-26T05:36:23.757Z",
+      "url": "http://127.0.0.1:4173/work/taskpilot/",
+      "profile": "Lighthouse mobile, simulated throttling, default theme, cold cache; gzip static export server",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1534.2415,
+        "largest-contentful-paint": 2170.781,
+        "total-blocking-time": 9,
+        "cumulative-layout-shift": 0.0006389030630838691,
+        "speed-index": 1534.2415
+      }
+    },
+    {
+      "slug": "pixe",
+      "date": "2026-10-26T05:36:31.113Z",
+      "url": "http://127.0.0.1:4173/work/pixe/",
+      "profile": "Lighthouse mobile, simulated throttling, default theme, cold cache; gzip static export server",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1518.1785,
+        "largest-contentful-paint": 2553.1910000000003,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0.03810560135582603,
+        "speed-index": 1518.1785
+      }
+    },
+    {
+      "slug": "translateplus",
+      "date": "2026-10-26T05:36:38.400Z",
+      "url": "http://127.0.0.1:4173/work/translateplus/",
+      "profile": "Lighthouse mobile, simulated throttling, default theme, cold cache; gzip static export server",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1954.359,
+        "largest-contentful-paint": 2704.359,
+        "total-blocking-time": 2,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1954.359
+      }
+    },
+    {
+      "slug": "willify",
+      "date": "2026-10-26T05:36:45.775Z",
+      "url": "http://127.0.0.1:4173/work/willify/",
+      "profile": "Lighthouse mobile, simulated throttling, default theme, cold cache; gzip static export server",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1534.669,
+        "largest-contentful-paint": 2231.544,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0.0004628044477446083,
+        "speed-index": 1534.669
+      }
+    },
+    {
+      "slug": "natour",
+      "date": "2026-10-26T05:36:53.023Z",
+      "url": "http://127.0.0.1:4173/work/natour/",
+      "profile": "Lighthouse mobile, simulated throttling, default theme, cold cache; gzip static export server",
+      "version": "13.5.0",
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1653.0435,
+        "largest-contentful-paint": 2628.0435,
+        "total-blocking-time": 1,
+        "cumulative-layout-shift": 0.02964159015265086,
+        "speed-index": 1653.0435
+      }
+    }
+  ],
+  "browsers": {
+    "date": "2026-10-26T05:31:55.637Z",
+    "cases": 48,
+    "passed": 48,
+    "engines": [
+      "chromium",
+      "webkit"
+    ],
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "reducedMotion": "reduce",
+    "failures": []
+  },
+  "axe": [
+    {
+      "slug": "ewstudios",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "taskpilot",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "pixe",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "translateplus",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "willify",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "natour",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "ewstudios",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "taskpilot",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "pixe",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "translateplus",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "willify",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "natour",
+      "theme": "dark",
+      "violations": []
+    }
+  ],
+  "interactions": [
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "slug": "taskpilot",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "slug": "pixe",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "slug": "translateplus",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "slug": "willify",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "slug": "natour",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "slug": "taskpilot",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "slug": "pixe",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "slug": "translateplus",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "slug": "willify",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "slug": "natour",
+      "passed": true,
+      "mediaDecoding": "passed",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "scope": "studio index",
+      "passed": true,
+      "checks": [
+        "only active tile plays"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "slug": "ewstudios",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "slug": "taskpilot",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "slug": "pixe",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "slug": "translateplus",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "slug": "willify",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "slug": "natour",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "slug": "taskpilot",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "slug": "pixe",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "slug": "translateplus",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "slug": "willify",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "slug": "natour",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "slug": "taskpilot",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "slug": "pixe",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "slug": "translateplus",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "slug": "willify",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "slug": "natour",
+      "passed": true,
+      "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+      "checks": [
+        "both formats attached on intent",
+        "muted attribute",
+        "pause",
+        "keyboard range endpoints",
+        "stacked alternative",
+        "offscreen pause"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "scope": "studio index",
+      "passed": true,
+      "checks": [
+        "only active tile plays"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "slug": "ewstudios",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "slug": "taskpilot",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "slug": "pixe",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "slug": "translateplus",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "slug": "willify",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "slug": "natour",
+      "scope": "motion enabled",
+      "passed": true,
+      "checks": [
+        "Stage loads after scroll",
+        "diagram readable",
+        "no page errors"
+      ]
+    }
+  ],
+  "home": {
+    "requests": 49,
+    "appMediaRequests": [],
+    "studyPrefetchRequests": [],
+    "glimpseBytes": 14934
+  },
+  "liveApps": [
+    {
+      "slug": "taskpilot",
+      "status": 200,
+      "title": "TaskPilot: the AI co-pilot for your day"
+    },
+    {
+      "slug": "pixe",
+      "status": 200,
+      "title": "Pixe: AI moodboards for creative direction"
+    },
+    {
+      "slug": "translateplus",
+      "status": 200,
+      "title": "Translate+: the translator that gets your tone"
+    },
+    {
+      "slug": "willify",
+      "status": 200,
+      "title": "Willify: describe the moment, hear it"
+    },
+    {
+      "slug": "natour",
+      "status": 200,
+      "title": "Natour: describe the trip, walk it"
+    }
+  ],
+  "media": [
+    {
+      "slug": "taskpilot",
+      "format": "mp4",
+      "codec": "h264",
+      "durationSeconds": 5.958333,
+      "bytes": 42485,
+      "audioStreams": 0
+    },
+    {
+      "slug": "taskpilot",
+      "format": "webm",
+      "codec": "vp9",
+      "durationSeconds": 6,
+      "bytes": 48528,
+      "audioStreams": 0
+    },
+    {
+      "slug": "pixe",
+      "format": "mp4",
+      "codec": "h264",
+      "durationSeconds": 6,
+      "bytes": 97882,
+      "audioStreams": 0
+    },
+    {
+      "slug": "pixe",
+      "format": "webm",
+      "codec": "vp9",
+      "durationSeconds": 6,
+      "bytes": 186466,
+      "audioStreams": 0
+    },
+    {
+      "slug": "translateplus",
+      "format": "mp4",
+      "codec": "h264",
+      "durationSeconds": 6,
+      "bytes": 28902,
+      "audioStreams": 0
+    },
+    {
+      "slug": "translateplus",
+      "format": "webm",
+      "codec": "vp9",
+      "durationSeconds": 6,
+      "bytes": 43725,
+      "audioStreams": 0
+    },
+    {
+      "slug": "willify",
+      "format": "mp4",
+      "codec": "h264",
+      "durationSeconds": 5.958333,
+      "bytes": 39693,
+      "audioStreams": 0
+    },
+    {
+      "slug": "willify",
+      "format": "webm",
+      "codec": "vp9",
+      "durationSeconds": 5.959,
+      "bytes": 72552,
+      "audioStreams": 0
+    },
+    {
+      "slug": "natour",
+      "format": "mp4",
+      "codec": "h264",
+      "durationSeconds": 6,
+      "bytes": 226366,
+      "audioStreams": 0
+    },
+    {
+      "slug": "natour",
+      "format": "webm",
+      "codec": "vp9",
+      "durationSeconds": 6,
+      "bytes": 203080,
+      "audioStreams": 0
+    }
+  ],
+  "limitations": [
+    "Real Safari/iPhone hardware not available.",
+    ".git writes denied: commits and branch push unavailable.",
+    "Firefox blocked: browserType.launch: Timeout 15000ms exceeded.",
+    "Windows WebKit playback blocked: standalone baseline H.264 probe returned NotSupportedError; page, source attachment, controls and Stage checks ran.",
+    "Authenticated AI capture workflows were unavailable; see capture manifest.",
+    "Historical views are labelled compatibility reconstructions of 2021 source; original CRA/node-sass toolchain builds were not reproduced.",
+    "App README quality results were not rerun; media permissions were not independently audited."
+  ],
+  "coldHome": {
+    "date": "2026-10-26T05:28:49.204Z",
+    "profile": "Cold desktop Chromium, full home preloader, no skip query, local compressed static export",
+    "readyMilliseconds": 4349,
+    "glimpseRequested": true,
+    "appMediaRequests": [],
+    "studyPrefetchRequests": [],
+    "requestCount": 48
+  }
+}
