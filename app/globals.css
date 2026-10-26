@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 :root {
+  --ew-platform: #08783F;
+  --nav-player: #7E22CE;
+  --ew-taskpilot: #C2410C;
+  --ew-pixe: #4A6400;
+  --ew-translateplus: #9A5A00;
+  --ew-willify: #5B3FE0;
+  --ew-natour: #B8402A;
   /* CORE LIGHT THEME (DAY MODE) */
   --background: #F8F9FA;
   --foreground: #09090B;
@@ -61,6 +68,13 @@
 }
 
 html.dark {
+  --ew-platform: #2BD98B;
+  --nav-player: #C084FC;
+  --ew-taskpilot: #FF6B3D;
+  --ew-pixe: #D4FF3A;
+  --ew-translateplus: #FFB43A;
+  --ew-willify: #B19AFF;
+  --ew-natour: #FF8A5C;
   /* CORE DARK THEME (NIGHT MODE) */
   --background: #141416;
   --foreground: #F5F5F4;

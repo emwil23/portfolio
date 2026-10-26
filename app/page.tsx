@@ -22,6 +22,7 @@ const CASE_STUDIES = [
   { href: "/case-studies/#making", kicker: "01 · This website", title: "He isn't a 3D model.", glimpse: "/assets/glimpse/making.webp" },
   { href: "/case-studies/#wedding", kicker: "02 · A wedding invitation", title: "Two rivers, one journey.", glimpse: "/assets/glimpse/wedding.webp" },
   { href: "/case-studies/#proof", kicker: "03–05 · Production systems", title: "Built with intention.", glimpse: "/assets/glimpse/proof.webp" },
+  { href: "/case-studies/#ewstudios", kicker: "04 · EWSTUDIOS: five AI apps, one backend", title: "Five products. One foundation.", glimpse: "/assets/glimpse/ewstudios.webp" },
 ];
 
 // The preloader plays once per page load, not again on the way back from another page
@@ -120,7 +121,7 @@ export default function Home() {
           id="work"
           step="Chapter 01 · The work"
           title="First, the proof."
-          body="This website taken apart frame by frame, a wedding invitation that flows like a river, and three production systems built for 200,000 daily users. Pick a thread."
+          body="This website taken apart frame by frame, a wedding invitation that flows like a river, three production systems built for 200,000 daily users, and five AI products on one shared platform. Pick a thread."
           character="idle"
           track
           covered={glimpse !== null}
@@ -150,6 +151,7 @@ export default function Home() {
               <li key={study.href}>
                 <Link
                   href={study.href}
+                  prefetch={false}
                   onClick={() => setOpening(study.href)}
                   onMouseEnter={() => setGlimpse(study.glimpse)}
                   onMouseLeave={() => setGlimpse(null)}

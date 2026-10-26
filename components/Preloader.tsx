@@ -34,6 +34,7 @@ function homeAssets(lite: boolean, mobile: boolean) {
     // The cursor-tracking sprite only exists on a screen with a mouse
     ...(mobile || lite ? [] : ["/assets/character/look.webp"]),
     ...["making", "wedding", "proof"].map((name) => `/assets/glimpse/${name}.webp`),
+    "/assets/glimpse/ewstudios.webp",
     ...["night", "creed", "site"].flatMap((pose) => [`/assets/player/${pose}.webp`, `/assets/player/${pose}.mp4`]),
     "/assets/romantic-polaroid.webp",
     "/assets/character/desk.webp",

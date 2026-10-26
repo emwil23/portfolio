@@ -9,6 +9,7 @@ import { Story } from "@/components/Story";
 import { WeddingStory } from "@/components/WeddingStory";
 import { Interlude } from "@/components/Interlude";
 import { CaseStudies } from "@/components/CaseStudies";
+import { StudioChapter } from "@/components/ewstudios/StudioChapter";
 import { ContactHandshake } from "@/components/ContactHandshake";
 
 // three.js only loads in the browser, after the first paint
@@ -30,6 +31,8 @@ export default function CaseStudiesPage() {
 
         {/* 2. The wedding invitation */}
         <WeddingStory />
+
+        <StudioChapter />
 
         {/* 3. The Proof: Architecture Case Studies */}
         <Interlude

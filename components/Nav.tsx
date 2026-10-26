@@ -100,7 +100,7 @@ export const Nav: React.FC<{ isLoaded?: boolean }> = ({ isLoaded = true }) => {
                   active === link.id
                     ? "text-[var(--button-primary-text)]"
                     : link.id === "sanctuary"
-                      ? "text-purple-400 hover:text-purple-300"
+                      ? "text-[var(--nav-player)] hover:opacity-80"
                       : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                 }`}
               >

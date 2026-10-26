@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 const title = "Case Studies | Emmanuel Wilson";
 const description =
-  "How this portfolio's cursor-following character was built from green-screen video, a wedding invitation painted as two rivers, and three production systems engineered for 200,000 daily users.";
+  "The making of this portfolio, a wedding invitation, EWSTUDIOS: five AI products on one shared platform, and three production engineering studies.";
 
 // A page's openGraph replaces the root one whole, so the image is repeated here
 export const metadata: Metadata = {
