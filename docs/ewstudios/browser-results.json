@@ -1,0 +1,593 @@
+{
+  "date": "2026-10-26T05:31:55.637Z",
+  "origin": "http://127.0.0.1:4173",
+  "scope": "Exported portfolio pages, not app README scores",
+  "browsers": [
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "ewstudios",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "taskpilot",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "pixe",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "translateplus",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "willify",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "natour",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "ewstudios",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "taskpilot",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "pixe",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "translateplus",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "willify",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "natour",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "ewstudios",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "taskpilot",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "pixe",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "translateplus",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "willify",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "natour",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "ewstudios",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "taskpilot",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "pixe",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "translateplus",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "willify",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "natour",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "ewstudios",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "taskpilot",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "pixe",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "translateplus",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "willify",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "slug": "natour",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "ewstudios",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "taskpilot",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "pixe",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "translateplus",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "willify",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "slug": "natour",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "ewstudios",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "taskpilot",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "pixe",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "translateplus",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "willify",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "slug": "natour",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "ewstudios",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "taskpilot",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "pixe",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "translateplus",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "willify",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "slug": "natour",
+      "passed": true
+    }
+  ],
+  "axe": [
+    {
+      "slug": "ewstudios",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "taskpilot",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "pixe",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "translateplus",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "willify",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "natour",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "slug": "ewstudios",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "taskpilot",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "pixe",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "translateplus",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "willify",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "slug": "natour",
+      "theme": "dark",
+      "violations": []
+    }
+  ],
+  "failures": [],
+  "liveApps": [
+    {
+      "slug": "taskpilot",
+      "status": 200,
+      "title": "TaskPilot: the AI co-pilot for your day"
+    },
+    {
+      "slug": "pixe",
+      "status": 200,
+      "title": "Pixe: AI moodboards for creative direction"
+    },
+    {
+      "slug": "translateplus",
+      "status": 200,
+      "title": "Translate+: the translator that gets your tone"
+    },
+    {
+      "slug": "willify",
+      "status": 200,
+      "title": "Willify: describe the moment, hear it"
+    },
+    {
+      "slug": "natour",
+      "status": 200,
+      "title": "Natour: describe the trip, walk it"
+    }
+  ],
+  "home": {
+    "requests": 49,
+    "appMediaRequests": [],
+    "studyPrefetchRequests": [],
+    "glimpseBytes": 14934
+  },
+  "limitations": [
+    "Real Safari/iPhone hardware not available.",
+    ".git writes denied: commits and branch push unavailable.",
+    "Firefox blocked: browserType.launch: Timeout 15000ms exceeded."
+  ],
+  "byteRanges": "16-byte video request returned HTTP 206",
+  "studioIndex": {
+    "tiles": 5,
+    "anchor": 90
+  }
+}

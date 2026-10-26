@@ -1,0 +1,450 @@
+[
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "slug": "taskpilot",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "slug": "pixe",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "slug": "translateplus",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "slug": "willify",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "slug": "natour",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "slug": "taskpilot",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "slug": "pixe",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "slug": "translateplus",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "slug": "willify",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "slug": "natour",
+    "passed": true,
+    "mediaDecoding": "passed",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "scope": "studio index",
+    "passed": true,
+    "checks": [
+      "only active tile plays"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "slug": "ewstudios",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "slug": "taskpilot",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "slug": "pixe",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "slug": "translateplus",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "slug": "willify",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "slug": "natour",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "slug": "taskpilot",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "slug": "pixe",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "slug": "translateplus",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "slug": "willify",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "slug": "natour",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "slug": "taskpilot",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "slug": "pixe",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "slug": "translateplus",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "slug": "willify",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "slug": "natour",
+    "passed": true,
+    "mediaDecoding": "blocked: Windows WebKit cannot decode even standalone H.264 baseline MP4 (NotSupportedError)",
+    "checks": [
+      "both formats attached on intent",
+      "muted attribute",
+      "pause",
+      "keyboard range endpoints",
+      "stacked alternative",
+      "offscreen pause"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "scope": "studio index",
+    "passed": true,
+    "checks": [
+      "only active tile plays"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "slug": "ewstudios",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "slug": "taskpilot",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "slug": "pixe",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "slug": "translateplus",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "slug": "willify",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "slug": "natour",
+    "scope": "motion enabled",
+    "passed": true,
+    "checks": [
+      "Stage loads after scroll",
+      "diagram readable",
+      "no page errors"
+    ]
+  }
+]

@@ -12,12 +12,12 @@ npx tsc --noEmit  # Type-check only
 
 - Append `?skip=true` to the URL to bypass the preloader during development.
 - `npm run lint` is not usable yet: ESLint is not installed and there is no ESLint config, so `next lint` drops into an interactive setup prompt.
-- There is no test framework or test suite. `npm run build` plus `npx tsc --noEmit` are the only automated checks.
+- Typecheck with `npx tsc --noEmit` and build with `npm run build`. Focused EWSTUDIOS export checks use Playwright, axe and Lighthouse: see `docs/ewstudios/validation.md`. `npm run lint` remains interactive and must not be run unattended.
 - `npm run start` does not apply — the site is a static export (`output: "export"`), so serve `./out` instead if you need to check the production build.
 
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci` + `next build` on Node 20 and publishes `./out` to GitHub Pages. Every push to `main` is a production deploy. The site is served at `https://emmanuelwilson.tech` (`public/CNAME`), from the root, over enforced HTTPS. Sharing and search metadata (canonical, Open Graph, Twitter, JSON-LD) is in the two `layout.tsx` files; `public/robots.txt` and `public/sitemap.xml` list both pages.
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci` + `next build` on Node 20 and publishes `./out` to GitHub Pages. Every push to `main` is a production deploy. The site is served at `https://emmanuelwilson.tech` (`public/CNAME`), from the root, over enforced HTTPS. Sharing and search metadata (canonical, Open Graph, Twitter, JSON-LD) is in the two `layout.tsx` files; `public/robots.txt` and `public/sitemap.xml` list all eight page routes.
 
 Constraints that follow from static export:
 
@@ -28,12 +28,14 @@ Constraints that follow from static export:
 
 ## Architecture
 
-Two-page portfolio: Next.js 14 App Router, React 18, Tailwind 3, Framer Motion 11, three.js, lucide-react. Routes: `/` (`app/page.tsx`) and `/case-studies/` (`app/case-studies/page.tsx`). No API, no CMS.
+Static portfolio: Next.js 14 App Router, React 18, Tailwind 3, Framer Motion 11, three.js, lucide-react. Routes: `/`, `/case-studies/`, and six `/work/[study]/` exports (`ewstudios`, `taskpilot`, `pixe`, `translateplus`, `willify`, `natour`). No API, no CMS.
 
 **Page composition.** Both pages are client components that read as one scrolling story over a shared 3D backdrop.
 
 - `app/page.tsx` owns one piece of state, `isReady`. While false it renders `Preloader` as an overlay and locks body scroll; the preloader calls `onComplete` to flip it. A module-level flag skips the preloader when you come back from the other page. Underneath, in order: `Stage`, `Nav`, `Hero` → `Interlude` (work, with the glimpse cards into the case studies) → `Interlude` + `ScaleLog` → `PlayerOne` → `ContactHandshake`. The last two carry their own `data-chapter` (`player`, `shake`) instead of sitting behind an interlude. `Hero` receives `isLoaded` and holds its entrance animations until the preloader finishes. The page starts at the top unless the URL has a hash (`/#scale`), and sets `history.scrollRestoration = "manual"`.
-- `app/case-studies/page.tsx`: `Stage`, `Nav`, `Story` (how this site's character was made) → `WeddingStory` (the tinaandemmanuel.me invitation; its images are copied from the separate Wedding repo into `public/assets/wedding/`) → `Interlude` + `CaseStudies` (the production case studies) → `ContactHandshake`. Its `<title>` comes from `app/case-studies/layout.tsx`.
+- `app/case-studies/page.tsx`: `Stage`, `Nav`, `Story` (how this site's character was made) → `WeddingStory` (the tinaandemmanuel.me invitation; its images are copied from the separate Wedding repo into `public/assets/wedding/`) → `StudioChapter` (studio introduction and five-app index) → `Interlude` + `CaseStudies` (the production case studies) → `ContactHandshake`. Its `<title>` comes from `app/case-studies/layout.tsx`.
+
+**EWSTUDIOS.** `lib/ewstudios.ts` holds pinned README claims and the six-study sequence. `components/ewstudios/` contains `StudioChapter`, `StudioIndex`, `StudyMedia`, `Comparison`, `Architecture`, `StudyChrome`, and the original app SVG marks. `StudyMedia` attaches WebM/H.264 sources only on intent, coordinates one active tile, pauses offscreen/on blur, and leaves a poster for reduced motion or data saving. `Comparison` labels archived-source reconstructions, supports native keyboard range input and a stacked view. Natour uses the recovered 2021 revision 2be11cc from the active repo history. `StudyChrome` releases boot media and loads Stage only after desktop scrolling, without reduced motion. New Stage stops: `ewstudio`, `ewindex`, `ewplatform`, `ewtaskpilot`, `ewpixe`, `ewtranslateplus`, `ewwillify`, `ewnatour`. Brand fonts are local and selected through scoped `--ew-display`; platform compact links and next links use portfolio typography. Both theme blocks contain accessible EW accents. Only `/assets/glimpse/ewstudios.webp` joins the home preloader. Masters, recordings and raw reports stay on `E:/media/ewstudios-case-studies/`; optimized WebP/video exports are in `public/assets/ewstudios/`. Public evidence/manifests are in `public/evidence/`.
 
 **Story beats.** `components/Interlude.tsx` is a tall section with a sticky screen: a step label, title and body on one side, and optionally the character playing a clip (`character="wave"` etc.) on the other. `Story.tsx` is a list of interludes. Each interlude sets `data-chapter="<scene>"`.
 
@@ -53,7 +55,7 @@ Two-page portfolio: Next.js 14 App Router, React 18, Tailwind 3, Framer Motion 1
 
 **Content lives inside the components.** Each section defines its own typed interfaces and constant arrays at the top of its file (`WORKFLOW_GATES` in `CaseStudies.tsx`, `SDE2_INVARIANTS` in `ScaleLog.tsx`, `GAME_REALMS` in `PlayerOne.tsx`), then renders them. To change copy, edit the section file. `lib/data.ts` exports `portfolioData` but nothing imports it — contact details such as the email are hard-coded in `ContactHandshake.tsx` and can drift from it.
 
-**Everything is a client component.** All of `components/` and both pages are `"use client"`; only the two `layout.tsx` files are server components. `CaseStudies.tsx` (~1,500 lines) contains several interactive simulations in one file.
+**Client boundaries.** The original home and case-studies pages remain client components. The new `/work/[study]/page.tsx` is a server component with `generateStaticParams`, route metadata and Article/Breadcrumb JSON-LD; media, comparison, diagram and shared navigation/Stage are client leaves. `CaseStudies.tsx` (~1,500 lines) contains several interactive simulations in one file.
 
 **Safari.** The hero name inverts with `mix-blend-mode: difference`, which Safari does not apply against the WebGL stage; `.hero-name` in `globals.css` gives Safari the theme colour instead. Test visual changes in WebKit as well as Chrome.
 

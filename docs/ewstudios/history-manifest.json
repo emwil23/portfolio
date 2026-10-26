@@ -1,0 +1,96 @@
+[
+  {
+    "slug": "taskpilot",
+    "repo": "D:/Code/_review/taskmanager",
+    "revision": "a6a46b23607762777381d08e47661bf69cb64d2f",
+    "renderDirectory": "E:/media/ewstudios-case-studies/history/taskpilot",
+    "commitDate": "2021-11-28T22:29:08+05:30",
+    "method": "git archive selected revision; esbuild JSX bundle; Sass compile",
+    "changes": [
+      "React 18 compatibility runtime and esbuild/Dart Sass replace unsupported CRA 4/node-sass 6 tooling; source layout and styles retained. No production backend."
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "limitation": "Compatibility render, not an original-toolchain build.",
+    "captureDate": "2026-10-26T05:34:45.478Z",
+    "file": "taskpilot-before.webp"
+  },
+  {
+    "slug": "pixe",
+    "repo": "D:/Code/_review/pixe",
+    "revision": "62f91f1687e1d86e67c69ca489e5e04e68a4947b",
+    "renderDirectory": "E:/media/ewstudios-case-studies/history/pixe",
+    "commitDate": "2021-12-04T12:11:02+05:30",
+    "method": "git archive selected revision; esbuild JSX bundle; Sass compile",
+    "changes": [
+      "React 18 compatibility runtime and esbuild/Dart Sass replace unsupported CRA 4/node-sass 6 tooling; source layout and styles retained. No production backend.",
+      "Unsplash client replaced with an empty offline response; no exposed key, invented search results or developer portrait in capture.",
+      "Developer portrait hidden to keep owner imagery exclusive to platform study."
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "limitation": "Compatibility render, not an original-toolchain build.",
+    "captureDate": "2026-10-26T05:34:46.198Z",
+    "file": "pixe-before.webp"
+  },
+  {
+    "slug": "translateplus",
+    "repo": "D:/Code/_review/TranslateApp",
+    "revision": "0bebdd620ddb340901842ea3572c4e40f97cadb6",
+    "renderDirectory": "E:/media/ewstudios-case-studies/history/translateplus",
+    "commitDate": "2021-09-11T22:47:51+05:30",
+    "method": "git archive selected revision; esbuild JSX bundle; Sass compile",
+    "changes": [
+      "React 18 compatibility runtime and esbuild/Dart Sass replace unsupported CRA 4/node-sass 6 tooling; source layout and styles retained. No production backend."
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "limitation": "Compatibility render, not an original-toolchain build.",
+    "captureDate": "2026-10-26T05:34:47.262Z",
+    "file": "translateplus-before.webp"
+  },
+  {
+    "slug": "willify",
+    "repo": "D:/Code/_review/Willify",
+    "revision": "ec6a9f25056f5c636e846eb9b9fc015332460dd0",
+    "renderDirectory": "E:/media/ewstudios-case-studies/history/willify",
+    "commitDate": "2021-11-26T19:36:35+05:30",
+    "method": "git archive selected revision; esbuild JSX bundle; Sass compile",
+    "changes": [
+      "React 18 compatibility runtime and esbuild/Dart Sass replace unsupported CRA 4/node-sass 6 tooling; source layout and styles retained. No production backend.",
+      "Login component only; dead Spotify server not connected."
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "limitation": "Compatibility render, not an original-toolchain build.",
+    "captureDate": "2026-10-26T05:34:47.921Z",
+    "file": "willify-before.webp"
+  },
+  {
+    "slug": "natour",
+    "repo": "D:/Code/AIPro/AIPro/ew-apps/natour",
+    "revision": "2be11cce40eda5940241a55dc26c5ff64c4dfa08",
+    "renderDirectory": "E:/media/ewstudios-case-studies/history/natour-2021",
+    "commitDate": "2021-11-05T19:33:41+05:30",
+    "method": "git archive selected revision; esbuild JSX bundle; Sass compile",
+    "changes": [
+      "React 18 compatibility runtime and esbuild/Dart Sass replace unsupported CRA 4/node-sass 6 tooling; source layout and styles retained. No production backend.",
+      "Original 2021 Header component only. Sass image paths repaired to the archived src/img directory."
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "limitation": "Compatibility render, not an original-toolchain build.",
+    "captureDate": "2026-10-26T05:34:48.894Z",
+    "file": "natour-before.webp"
+  }
+]
