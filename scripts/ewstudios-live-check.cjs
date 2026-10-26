@@ -1,0 +1,2 @@
+﻿const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch({headless:true});const page=await b.newPage();for(const slug of ['taskpilot','pixe','translateplus','willify','natour']){try{const r=await page.goto(`https://${slug}.ewstudios.workers.dev`,{waitUntil:'domcontentloaded',timeout:45000});console.log(JSON.stringify({slug,status:r.status(),title:await page.title(),url:page.url()}));}catch(e){console.log(slug,e.message)}}await b.close()})();

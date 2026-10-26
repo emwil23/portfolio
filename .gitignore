@@ -38,3 +38,6 @@ next-env.d.ts
 
 # Unprocessed green-screen sources; only the keyed exports in public/assets ship
 raw-assets/
+.npm-cache/
+.pw-browsers/
+.ew-evidence/
